@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 1000" width="800" height="1000" role="img" aria-hidden="true">
+  <defs><linearGradient id="g20" x1="93%" y1="25%" x2="7%" y2="75%">
+      <stop offset="0%" stop-color="#26123f"/>
+      <stop offset="100%" stop-color="#40226d"/>
+    </linearGradient></defs>
+  <rect width="800" height="1000" fill="url(#g20)"/><circle cx="724" cy="27" r="175" fill="none" stroke="#ffffff" stroke-width="1.4" opacity="0.09"/>
+<circle cx="100" cy="474" r="222" fill="none" stroke="#ffffff" stroke-width="1.4" opacity="0.14"/>
+<circle cx="160" cy="625" r="249" fill="none" stroke="#ffffff" stroke-width="1.4" opacity="0.13"/>
+<circle cx="74" cy="518" r="293" fill="none" stroke="#ffffff" stroke-width="1.4" opacity="0.14"/>
+<circle cx="165" cy="243" r="119" fill="none" stroke="#ffffff" stroke-width="1.4" opacity="0.09"/><circle cx="555" cy="283" r="400" fill="#d4af37" opacity="0.06"/><text x="400" y="500" font-family="Georgia, 'Playfair Display', serif" font-size="496"
+    font-weight="700" fill="#ffffff" opacity="0.1" text-anchor="middle" dominant-baseline="central">R</text><rect width="800" height="1000" fill="none" stroke="#ffffff" stroke-opacity="0.08" stroke-width="10"/>
+</svg>

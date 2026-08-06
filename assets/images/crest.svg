@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" role="img" aria-labelledby="crestTitle">
+  <title id="crestTitle">Royal Family Academy crest</title>
+  <defs>
+    <linearGradient id="crestGold" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#edd68c"/>
+      <stop offset="100%" stop-color="#b8871f"/>
+    </linearGradient>
+    <linearGradient id="crestPurple" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#502c86"/>
+      <stop offset="100%" stop-color="#26123f"/>
+    </linearGradient>
+  </defs>
+  <path d="M60 6 L108 22 V56 C108 86 88 106 60 116 C32 106 12 86 12 56 V22 Z" fill="url(#crestPurple)"/>
+  <path d="M60 6 L108 22 V56 C108 86 88 106 60 116 C32 106 12 86 12 56 V22 Z" fill="none" stroke="url(#crestGold)" stroke-width="2.5"/>
+  <path d="M60 14 L100 27 V56 C100 81 83 98 60 107 C37 98 20 81 20 56 V27 Z" fill="none" stroke="#ffffff" stroke-opacity="0.18" stroke-width="1"/>
+  <path d="M60 32 L60 88 M60 32 L44 44 M60 32 L76 44 M46 96 L74 96" stroke="url(#crestGold)" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+  <circle cx="60" cy="26" r="5.5" fill="url(#crestGold)"/>
+  <path d="M38 60 Q60 48 82 60" stroke="#ffffff" stroke-opacity="0.5" stroke-width="1.6" fill="none"/>
+  <path d="M38 68 Q60 56 82 68" stroke="#ffffff" stroke-opacity="0.3" stroke-width="1.4" fill="none"/>
+</svg>

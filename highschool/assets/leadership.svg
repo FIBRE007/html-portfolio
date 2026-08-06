@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 700" width="900" height="700" role="img" aria-hidden="true">
+  <defs><linearGradient id="hg35" x1="93%" y1="25%" x2="7%" y2="75%">
+      <stop offset="0%" stop-color="#26123f"/>
+      <stop offset="100%" stop-color="#331a56"/>
+    </linearGradient></defs>
+  <rect width="900" height="700" fill="url(#hg35)"/><line x1="779" y1="0" x2="257" y2="700" stroke="#ffffff" stroke-opacity="0.10" stroke-width="1.5"/><line x1="510" y1="0" x2="673" y2="700" stroke="#ffffff" stroke-opacity="0.09" stroke-width="1.5"/><line x1="836" y1="0" x2="247" y2="700" stroke="#ffffff" stroke-opacity="0.06" stroke-width="1.5"/><line x1="646" y1="0" x2="527" y2="700" stroke="#ffffff" stroke-opacity="0.09" stroke-width="1.5"/><rect x="558" y="56" width="270" height="210" fill="none" stroke="#b8871f" stroke-opacity="0.35" stroke-width="1.5"/><text x="450" y="350" font-family="Georgia, serif" font-size="385" font-weight="700" fill="#ffffff" opacity="0.1" text-anchor="middle" dominant-baseline="central">H</text><rect width="900" height="700" fill="none" stroke="#ffffff" stroke-opacity="0.08" stroke-width="10"/>
+</svg>

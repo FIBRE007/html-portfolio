@@ -1,0 +1,98 @@
+/* ==========================================================================
+   Royal Family Academy — Design Tokens
+   ========================================================================== */
+:root {
+  /* Royal purple scale */
+  --rfa-purple-950: #1c0f33;
+  --rfa-purple-900: #26123f;
+  --rfa-purple-800: #331a56;
+  --rfa-purple-700: #40226d;
+  --rfa-purple-600: #502c86;
+  --rfa-purple-500: #6438a3;
+  --rfa-purple-400: #8258bd;
+  --rfa-purple-300: #a688d1;
+  --rfa-purple-200: #cbb9e6;
+  --rfa-purple-100: #e6dcf4;
+  --rfa-purple-50:  #f5f0fb;
+
+  /* Gold accent scale */
+  --rfa-gold-700: #9a6c14;
+  --rfa-gold-600: #b8871f;
+  --rfa-gold-500: #d4af37;
+  --rfa-gold-400: #e3c465;
+  --rfa-gold-300: #edd68c;
+  --rfa-gold-100: #faf1d8;
+
+  /* Neutrals */
+  --rfa-white: #ffffff;
+  --rfa-ink-900: #17131f;
+  --rfa-ink-700: #362f47;
+  --rfa-grey-600: #665f77;
+  --rfa-grey-400: #9a92ab;
+  --rfa-grey-200: #e2ddec;
+  --rfa-grey-100: #f1eef7;
+  --rfa-grey-50:  #f9f7fc;
+
+  /* Semantic */
+  --c-bg: var(--rfa-white);
+  --c-bg-alt: var(--rfa-grey-50);
+  --c-surface: var(--rfa-white);
+  --c-text: var(--rfa-ink-900);
+  --c-text-muted: var(--rfa-grey-600);
+  --c-primary: var(--rfa-purple-700);
+  --c-primary-dark: var(--rfa-purple-900);
+  --c-accent: var(--rfa-gold-500);
+  --c-accent-dark: var(--rfa-gold-700);
+  --c-border: var(--rfa-grey-200);
+
+  /* Gradients */
+  --grad-royal: linear-gradient(135deg, var(--rfa-purple-900) 0%, var(--rfa-purple-600) 55%, var(--rfa-purple-500) 100%);
+  --grad-royal-deep: linear-gradient(160deg, var(--rfa-purple-950) 0%, var(--rfa-purple-800) 100%);
+  --grad-gold: linear-gradient(135deg, var(--rfa-gold-400) 0%, var(--rfa-gold-600) 100%);
+  --grad-glass: linear-gradient(135deg, rgba(255,255,255,0.14) 0%, rgba(255,255,255,0.03) 100%);
+
+  /* Typography */
+  --font-display: "Playfair Display", "Georgia", serif;
+  --font-body: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --font-script: "Cormorant Garamond", "Georgia", serif;
+
+  /* Fluid type scale */
+  --fs-xs: clamp(0.78rem, 0.74rem + 0.2vw, 0.88rem);
+  --fs-sm: clamp(0.9rem, 0.86rem + 0.2vw, 1rem);
+  --fs-base: clamp(1rem, 0.96rem + 0.2vw, 1.125rem);
+  --fs-md: clamp(1.15rem, 1.08rem + 0.35vw, 1.4rem);
+  --fs-lg: clamp(1.4rem, 1.25rem + 0.75vw, 1.9rem);
+  --fs-xl: clamp(1.9rem, 1.6rem + 1.5vw, 2.75rem);
+  --fs-2xl: clamp(2.4rem, 1.9rem + 2.5vw, 3.75rem);
+  --fs-3xl: clamp(3rem, 2.2rem + 4vw, 5.5rem);
+
+  /* Spacing */
+  --space-2xs: 0.4rem;
+  --space-xs: 0.75rem;
+  --space-sm: 1.25rem;
+  --space-md: 2rem;
+  --space-lg: 3.5rem;
+  --space-xl: 6rem;
+  --space-2xl: 9rem;
+
+  /* Layout */
+  --container-max: 1320px;
+  --container-pad: clamp(1.25rem, 4vw, 3rem);
+  --radius-sm: 10px;
+  --radius-md: 20px;
+  --radius-lg: 32px;
+  --radius-pill: 999px;
+
+  /* Motion */
+  --ease-royal: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-soft: cubic-bezier(0.4, 0, 0.2, 1);
+  --dur-fast: 0.25s;
+  --dur-med: 0.55s;
+  --dur-slow: 0.9s;
+
+  /* Shadows */
+  --shadow-sm: 0 2px 10px rgba(38, 18, 63, 0.06);
+  --shadow-md: 0 12px 32px rgba(38, 18, 63, 0.12);
+  --shadow-lg: 0 24px 60px rgba(38, 18, 63, 0.18);
+  --shadow-gold: 0 8px 24px rgba(212, 175, 55, 0.35);
+}

@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1100" width="1000" height="1100" role="img" aria-hidden="true">
+  <defs><linearGradient id="jg5" x1="93%" y1="25%" x2="7%" y2="75%">
+      <stop offset="0%" stop-color="#502c86"/>
+      <stop offset="100%" stop-color="#8258bd"/>
+    </linearGradient></defs>
+  <rect width="1000" height="1100" fill="url(#jg5)"/><path d="M936,793 L893,913 L772,977 L619,947 L587,793 L655,675 L772,617 L920,646 L936,793 Z" fill="#ff9f7a" opacity="0.16"/><path d="M557,916 L530,1123 L324,1148 L129,1111 L93,916 L169,761 L324,618 L492,748 L557,916 Z" fill="#8ecae6" opacity="0.16"/><circle cx="215" cy="1081" r="94" fill="#ffffff" opacity="0.5"/><circle cx="289" cy="1058" r="77" fill="#ffffff" opacity="0.5"/><circle cx="678" cy="225" r="97" fill="#ffffff" opacity="0.5"/><text x="500" y="550" font-family="Georgia, serif" font-size="550" font-weight="700" fill="#ffffff" opacity="0.12" text-anchor="middle" dominant-baseline="central">J</text><rect width="1000" height="1100" fill="none" stroke="#ffffff" stroke-opacity="0.1" stroke-width="10"/>
+</svg>
