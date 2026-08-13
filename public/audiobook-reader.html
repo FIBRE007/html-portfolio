@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Audiobook Reader</title>
+    <meta name="description" content="A minimalist audiobook reader that works on iOS and Android — play local audio files with chapters, playback speed, and a sleep timer.">
+
+    <!-- Installable on iOS + Android home screens -->
+    <link rel="manifest" href="../assets/manifest.webmanifest">
+    <meta name="theme-color" content="#1a1a1a">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="Reader">
+    <link rel="apple-touch-icon" href="../assets/icons/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="../assets/icons/favicon-32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="../assets/icons/favicon-16.png">
+
+    <link rel="stylesheet" href="../assets/css/audiobook-reader.css">
+</head>
+<body>
+
+    <a class="back-link" href="../index.html">&larr; Back to portfolio</a>
+
+    <main class="app" id="app">
+
+        <!-- Library screen: list of books added on this device -->
+        <section class="screen library" id="library-screen" aria-labelledby="library-heading">
+            <header class="library-header">
+                <h1 id="library-heading">Your Books</h1>
+                <p class="subtitle">A quiet place to listen.</p>
+            </header>
+
+            <ul class="book-list" id="book-list"></ul>
+
+            <p class="empty-state" id="empty-state">
+                No books yet. Add an audio file to begin.
+            </p>
+
+            <label class="add-book-btn">
+                <input type="file" id="file-input" accept="audio/*" multiple hidden>
+                <span>+ Add Audiobook</span>
+            </label>
+            <p class="hint">
+                Files stay on your device. Reopen the same file later to pick up where you left off.
+            </p>
+        </section>
+
+        <!-- Player screen -->
+        <section class="screen player hidden" id="player-screen" aria-labelledby="player-heading">
+            <header class="player-header">
+                <button class="icon-btn" id="back-to-library" aria-label="Back to your books">&larr;</button>
+                <button class="icon-btn" id="chapters-toggle" aria-label="Show chapters">&#9776;</button>
+            </header>
+
+            <div class="cover" id="cover" aria-hidden="true">
+                <span id="cover-letter">A</span>
+            </div>
+
+            <h2 class="track-title" id="player-title">Title</h2>
+            <p class="track-chapter" id="player-chapter">Chapter 1 of 1</p>
+
+            <div class="progress-wrap">
+                <input type="range" id="seek" class="seek" min="0" max="100" value="0" step="0.1" aria-label="Seek">
+                <div class="time-row">
+                    <span id="time-elapsed">0:00</span>
+                    <span id="time-remaining">-0:00</span>
+                </div>
+            </div>
+
+            <div class="transport">
+                <button class="transport-btn" id="skip-back" aria-label="Back 15 seconds">
+                    <span class="btn-arrow">&#8630;</span>
+                    <span class="btn-label">15s</span>
+                </button>
+                <button class="play-btn" id="play-pause" aria-label="Play">
+                    <span id="play-icon">&#9658;</span>
+                </button>
+                <button class="transport-btn" id="skip-fwd" aria-label="Forward 30 seconds">
+                    <span class="btn-arrow">&#8631;</span>
+                    <span class="btn-label">30s</span>
+                </button>
+            </div>
+
+            <div class="secondary-controls">
+                <button class="pill-btn" id="speed-btn" aria-label="Playback speed">1.0&times;</button>
+                <button class="pill-btn" id="sleep-btn" aria-label="Sleep timer">Sleep</button>
+            </div>
+
+            <audio id="audio-el" preload="metadata"></audio>
+        </section>
+
+        <!-- Chapters / playlist drawer -->
+        <aside class="drawer hidden" id="chapters-drawer" aria-labelledby="chapters-heading">
+            <div class="drawer-content">
+                <header class="drawer-header">
+                    <h3 id="chapters-heading">Chapters</h3>
+                    <button class="icon-btn" id="chapters-close" aria-label="Close chapters">&times;</button>
+                </header>
+                <ul class="chapter-list" id="chapter-list"></ul>
+            </div>
+        </aside>
+
+    </main>
+
+    <script src="../assets/js/audiobook-reader.js"></script>
+</body>
+</html>

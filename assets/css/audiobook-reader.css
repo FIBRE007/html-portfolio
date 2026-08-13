@@ -1,0 +1,413 @@
+/* Minimalist audiobook reader — tuned for one-handed use on iOS & Android */
+
+:root {
+    --bg: #1a1a1a;
+    --surface: #232323;
+    --surface-raised: #2b2b2b;
+    --text: #f4f2ee;
+    --text-dim: #a8a49c;
+    --accent: #f5c518;
+    --accent-text: #1a1a1a;
+    --border: #363636;
+    --danger: #e2574c;
+
+    --safe-top: env(safe-area-inset-top, 0px);
+    --safe-bottom: env(safe-area-inset-bottom, 0px);
+    --safe-left: env(safe-area-inset-left, 0px);
+    --safe-right: env(safe-area-inset-right, 0px);
+}
+
+@media (prefers-color-scheme: light) {
+    :root {
+        --bg: #faf9f6;
+        --surface: #ffffff;
+        --surface-raised: #f1efe9;
+        --text: #1a1a1a;
+        --text-dim: #6b6862;
+        --border: #e4e1d8;
+    }
+}
+
+* {
+    box-sizing: border-box;
+}
+
+html, body {
+    margin: 0;
+    padding: 0;
+    background: var(--bg);
+    color: var(--text);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    -webkit-tap-highlight-color: transparent;
+    overscroll-behavior-y: none;
+}
+
+body {
+    min-height: 100vh;
+    min-height: 100dvh;
+}
+
+.back-link {
+    position: fixed;
+    top: calc(var(--safe-top) + 0.75rem);
+    left: calc(var(--safe-left) + 0.75rem);
+    color: var(--text-dim);
+    font-size: 0.85rem;
+    text-decoration: none;
+    z-index: 20;
+    padding: 0.4rem 0.6rem;
+    border-radius: 999px;
+    background: color-mix(in srgb, var(--bg) 70%, transparent);
+    backdrop-filter: blur(6px);
+}
+
+.app {
+    max-width: 480px;
+    margin: 0 auto;
+    min-height: 100vh;
+    min-height: 100dvh;
+    display: flex;
+    flex-direction: column;
+    padding: calc(var(--safe-top) + 3rem) calc(var(--safe-left) + 1.25rem) calc(var(--safe-bottom) + 1.5rem) calc(var(--safe-right) + 1.25rem);
+    position: relative;
+}
+
+.hidden {
+    display: none !important;
+}
+
+button {
+    font: inherit;
+    color: inherit;
+    background: none;
+    border: none;
+    cursor: pointer;
+}
+
+/* ---------- Library ---------- */
+
+.library-header h1 {
+    font-size: 1.6rem;
+    font-weight: 700;
+    margin: 0 0 0.15rem;
+    letter-spacing: -0.02em;
+}
+
+.subtitle {
+    color: var(--text-dim);
+    margin: 0 0 1.5rem;
+    font-size: 0.95rem;
+}
+
+.book-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+}
+
+.book-item {
+    display: flex;
+    align-items: center;
+    gap: 0.9rem;
+    width: 100%;
+    text-align: left;
+    padding: 0.75rem;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+}
+
+.book-item .thumb {
+    flex-shrink: 0;
+    width: 46px;
+    height: 46px;
+    border-radius: 10px;
+    background: var(--accent);
+    color: var(--accent-text);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 1.1rem;
+}
+
+.book-item .meta {
+    flex: 1;
+    min-width: 0;
+}
+
+.book-item .name {
+    font-weight: 600;
+    font-size: 0.98rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.book-item .progress-line {
+    color: var(--text-dim);
+    font-size: 0.8rem;
+    margin-top: 0.15rem;
+}
+
+.book-item .remove-btn {
+    flex-shrink: 0;
+    color: var(--text-dim);
+    font-size: 1.1rem;
+    padding: 0.4rem;
+    line-height: 1;
+}
+
+.empty-state {
+    color: var(--text-dim);
+    text-align: center;
+    padding: 3rem 1rem;
+    font-size: 0.95rem;
+}
+
+.add-book-btn {
+    display: block;
+    text-align: center;
+    background: var(--accent);
+    color: var(--accent-text);
+    font-weight: 700;
+    padding: 0.95rem;
+    border-radius: 14px;
+    margin-top: 1.25rem;
+    cursor: pointer;
+}
+
+.add-book-btn:active {
+    opacity: 0.85;
+}
+
+.hint {
+    color: var(--text-dim);
+    font-size: 0.78rem;
+    text-align: center;
+    margin: 0.75rem 0 0;
+    line-height: 1.4;
+}
+
+/* ---------- Player ---------- */
+
+.player {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.player-header {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 1.5rem;
+}
+
+.icon-btn {
+    width: 44px;
+    height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.3rem;
+    border-radius: 999px;
+}
+
+.icon-btn:active {
+    background: var(--surface);
+}
+
+.cover {
+    width: min(58vw, 260px);
+    height: min(58vw, 260px);
+    border-radius: 18px;
+    background: linear-gradient(155deg, var(--surface-raised), var(--surface));
+    border: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 1rem 0 1.75rem;
+}
+
+.cover #cover-letter {
+    font-size: 4rem;
+    font-weight: 700;
+    color: var(--accent);
+}
+
+.track-title {
+    font-size: 1.3rem;
+    font-weight: 700;
+    text-align: center;
+    margin: 0 0 0.25rem;
+    max-width: 100%;
+    padding: 0 0.5rem;
+}
+
+.track-chapter {
+    color: var(--text-dim);
+    font-size: 0.9rem;
+    margin: 0 0 1.75rem;
+}
+
+.progress-wrap {
+    width: 100%;
+    margin-bottom: 1.5rem;
+}
+
+.seek {
+    width: 100%;
+    accent-color: var(--accent);
+    height: 4px;
+}
+
+.time-row {
+    display: flex;
+    justify-content: space-between;
+    color: var(--text-dim);
+    font-size: 0.78rem;
+    margin-top: 0.4rem;
+    font-variant-numeric: tabular-nums;
+}
+
+.transport {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 2.25rem;
+    margin-bottom: 1.75rem;
+}
+
+.transport-btn {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.1rem;
+    width: 56px;
+    height: 56px;
+    color: var(--text);
+}
+
+.transport-btn .btn-arrow {
+    font-size: 1.5rem;
+    line-height: 1;
+}
+
+.transport-btn .btn-label {
+    font-size: 0.68rem;
+    font-weight: 700;
+    font-variant-numeric: tabular-nums;
+    color: var(--text-dim);
+}
+
+.play-btn {
+    width: 76px;
+    height: 76px;
+    border-radius: 999px;
+    background: var(--accent);
+    color: var(--accent-text);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.7rem;
+}
+
+.play-btn:active {
+    transform: scale(0.96);
+}
+
+.secondary-controls {
+    display: flex;
+    gap: 0.75rem;
+}
+
+.pill-btn {
+    padding: 0.55rem 1.1rem;
+    border-radius: 999px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    font-size: 0.85rem;
+    font-weight: 600;
+}
+
+.pill-btn.active {
+    background: var(--accent);
+    color: var(--accent-text);
+    border-color: var(--accent);
+}
+
+/* ---------- Chapters drawer ---------- */
+
+.drawer {
+    position: fixed;
+    inset: 0;
+    z-index: 30;
+    background: rgba(0, 0, 0, 0.45);
+    display: flex;
+    align-items: flex-end;
+}
+
+.drawer-content {
+    width: 100%;
+    max-width: 480px;
+    margin: 0 auto;
+    max-height: 70vh;
+    background: var(--surface);
+    border-radius: 20px 20px 0 0;
+    padding: 1rem 1.25rem calc(var(--safe-bottom) + 1rem);
+    display: flex;
+    flex-direction: column;
+}
+
+.drawer-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.5rem;
+}
+
+.drawer-header h3 {
+    margin: 0;
+    font-size: 1.05rem;
+}
+
+.chapter-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    overflow-y: auto;
+}
+
+.chapter-item {
+    width: 100%;
+    text-align: left;
+    padding: 0.85rem 0.5rem;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.92rem;
+}
+
+.chapter-item.current {
+    color: var(--accent);
+    font-weight: 700;
+}
+
+.chapter-item .chapter-time {
+    color: var(--text-dim);
+    font-variant-numeric: tabular-nums;
+    font-size: 0.82rem;
+}
+
+@media (min-width: 560px) {
+    .app {
+        padding-top: calc(var(--safe-top) + 4rem);
+    }
+}
