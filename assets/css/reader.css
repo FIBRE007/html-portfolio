@@ -160,6 +160,40 @@
   border-left: 2px solid var(--color-gold);
   padding-left: 1em;
 }
+.reader-body-text h3 {
+  font-family: var(--font-sans);
+  font-size: 0.78rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--color-gold-dim);
+  margin: 2.2em 0 0.9em;
+}
+.reader-body-text h3:first-child { margin-top: 0; }
+.reader-body-text blockquote.scripture {
+  margin: 1.6em 0;
+  padding: 0.2em 0 0.2em 1.2em;
+  border-left: 2px solid var(--color-gold);
+}
+.reader-body-text blockquote.scripture p {
+  font-style: italic;
+  color: var(--color-ivory);
+  margin-bottom: 0.4em;
+}
+.reader-body-text blockquote.scripture cite {
+  display: block;
+  font-family: var(--font-sans);
+  font-style: normal;
+  font-size: 0.72rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--color-gold-dim);
+}
+.reader-body-text ol,
+.reader-body-text ul {
+  margin: 0 0 1.3em;
+  padding-left: 1.4em;
+}
+.reader-body-text li { margin-bottom: 0.6em; }
 
 .reader-chapter-nav {
   display: flex;

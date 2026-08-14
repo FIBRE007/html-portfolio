@@ -37,13 +37,15 @@
   {
     "@context": "https://schema.org",
     "@type": "Book",
-    "name": "The Assembly of Sons",
-    "author": { "@type": "Organization", "name": "The Assembly of Sons" },
+    "name": "The Life of Grace: Living from the Fourth Dimension",
+    "alternateName": "The Assembly of Sons",
+    "author": { "@type": "Person", "name": "Fadoju Tosin" },
     "url": "https://theassemblyofsons.com/",
     "bookFormat": "https://schema.org/EBook",
     "inLanguage": "en",
-    "description": "A call to spiritual maturity, identity and the revelation of Christ in us.",
-    "publisher": { "@type": "Organization", "name": "The Assembly of Sons" }
+    "description": "A biblical guide to seeing, thinking, speaking and living from God's perspective.",
+    "publisher": { "@type": "Organization", "name": "The Assembly of Sons" },
+    "image": "https://theassemblyofsons.com/assets/images/book/cover@2x.jpg"
   }
   </script>
   <script type="application/ld+json">
@@ -155,16 +157,22 @@
         <div class="book-grid">
           <div class="book-mockup reveal">
             <div class="book-cover">
-              <span class="book-mark" aria-hidden="true">&#10022;</span>
-              <h3 class="book-title">The Assembly<br>of Sons</h3>
-              <p class="book-sub">A Call to Sonship</p>
+              <img
+                src="/assets/images/book/cover.jpg"
+                srcset="/assets/images/book/cover.jpg 480w, /assets/images/book/cover@2x.jpg 960w"
+                sizes="(max-width: 640px) 78vw, 320px"
+                width="1600" height="2560"
+                alt="Book cover: The Life of Grace — Living from the Fourth Dimension, by Fadoju Tosin"
+                loading="lazy"
+              >
             </div>
           </div>
           <div class="book-meta reveal">
             <p class="eyebrow">The Book</p>
-            <h2 class="section-heading">A journey into identity and spiritual maturity</h2>
-            <p class="section-lede">Written as both a theological unveiling and a practical companion, The Assembly of Sons walks the reader from information to revelation &mdash; from believing facts about Christ to living from His life within. Across Front Matter and eleven chapters, it explores adoption, new creation, the renewing of the mind, grace, faith and what it means to walk daily as a mature son of God.</p>
-            <p class="book-author">Published by The Assembly of Sons</p>
+            <h2 class="section-heading">The Life of Grace</h2>
+            <p class="section-lede" style="font-style:italic; color:var(--color-gold-soft); margin-top:-0.5em;">Living from the Fourth Dimension</p>
+            <p class="section-lede">A biblical guide to seeing, thinking, speaking and living from God's perspective. Across a Preface and eleven chapters, it traces a single argument &mdash; from the reality of the unseen realm, through the finished work of Christ and the believer's new identity, to a renewed mind, a living faith, and a life of thanksgiving, peace and rest that shines as a son sent into the world.</p>
+            <p class="book-author">By Fadoju Tosin &middot; Published by The Assembly of Sons</p>
             <div class="book-actions">
               <a class="btn btn-primary" href="/reader.html">Read the Book</a>
               <a class="btn btn-outline" href="#listen">Listen to the Book</a>
@@ -418,16 +426,16 @@
       if (acctName) acctName.textContent = CONFIG.donationName;
 
       var DISCOVER = [
-        ["01", "Identity", "Who you are because of who He is."],
-        ["02", "Sonship", "Belonging that was never earned."],
-        ["03", "New Creation", "A nature made entirely new."],
-        ["04", "Spiritual Reality", "Living from what is unseen, yet true."],
-        ["05", "Christ Within", "The indwelling life at the centre of it all."],
-        ["06", "Transformation", "The renewing of a mind set free."],
-        ["07", "Faith", "The substance of things hoped for."],
-        ["08", "Grace", "The teacher, not merely the pardon."],
-        ["09", "Spiritual Maturity", "Growing from servant into son."],
-        ["10", "Kingdom Living", "Sonship worked out in ordinary days."],
+        ["01", "The Unseen Realm", "A world every bit as real as the one you can see."],
+        ["02", "God's Kingdom", "Perfectly governed, never successfully opposed."],
+        ["03", "The Rebellion", "Power belongs to God — there is no rival throne."],
+        ["04", "The Finished Work", "“It is finished” and nothing remains to be added."],
+        ["05", "The New Creation", "An identity you did not earn and cannot lose."],
+        ["06", "The Renewed Mind", "Learning to think as Christ thinks."],
+        ["07", "Living Faith", "Confidence that begins where God speaks."],
+        ["08", "God's Timing", "Confidence in the season between promise and manifestation."],
+        ["09", "Thanksgiving & Rest", "The atmosphere of a son who is not striving."],
+        ["10", "Shining as Sons", "Sent ones, carrying the Father's presence outward."],
       ];
       var grid = document.getElementById("discover-grid");
       if (grid) {
