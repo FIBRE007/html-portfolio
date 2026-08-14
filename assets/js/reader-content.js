@@ -4501,4 +4501,341 @@ const BOOK = [
       <p class="reader-note">Soli Deo Gloria. To God alone be the glory.</p>
     `,
   },
+  {
+    slug: "appendix-a",
+    number: "13",
+    title: "Appendix A",
+    kicker: "100 Fourth Dimension Scriptures",
+    body: `
+      <p>Living from the Fourth Dimension is not sustained by emotion, circumstances, or willpower. It is sustained by continually renewing your mind with the Word of God (Romans 12:2).</p>
+      <p>These one hundred Scriptures have been carefully selected to help you develop a biblical worldview rooted in Christ. Read them prayerfully. Meditate on them. Memorize them. Personalize them. Allow the Holy Spirit to use them to transform your thinking until God's perspective becomes your natural perspective.</p>
+      <p>As Joshua was instructed:</p>
+      <blockquote class="scripture"><p>This Book of the Law shall not depart from your mouth, but you shall meditate in it day and night&hellip; For then you will make your way prosperous, and then you will have good success.</p><cite>Joshua 1:8</cite></blockquote>
+      <h3>A. God's Nature and Character</h3>
+      <ul><li>Exodus 34:6&ndash;7</li><li>Deuteronomy 31:8</li><li>Psalm 23</li><li>Psalm 27:1</li><li>Psalm 46:1</li><li>Psalm 91</li><li>Psalm 103</li><li>Isaiah 40:28&ndash;31</li><li>Malachi 3:6</li><li>Hebrews 13:8</li></ul>
+      <h3>B. Faith and Trust</h3>
+      <ul><li>Proverbs 3:5&ndash;6</li><li>Isaiah 26:3</li><li>Isaiah 41:10</li><li>Jeremiah 17:7&ndash;8</li><li>Habakkuk 2:4</li><li>Mark 9:23</li><li>Mark 11:22&ndash;24</li><li>Romans 10:17</li><li>Hebrews 11:1</li><li>Hebrews 11:6</li></ul>
+      <h3>C. Identity in Christ</h3>
+      <ul><li>John 1:12</li><li>John 15:5</li><li>Romans 8:1</li><li>Romans 8:15&ndash;17</li><li>2 Corinthians 5:17</li><li>Galatians 2:20</li><li>Ephesians 1:3&ndash;14</li><li>Ephesians 2:4&ndash;10</li><li>Colossians 2:9&ndash;10</li><li>1 Peter 2:9&ndash;10</li></ul>
+      <h3>D. The Finished Work of Christ</h3>
+      <ul><li>Isaiah 53:4&ndash;6</li><li>Matthew 27:51</li><li>John 19:30</li><li>Romans 5:1</li><li>Romans 8:31&ndash;39</li><li>2 Corinthians 5:21</li><li>Galatians 3:13&ndash;14</li><li>Ephesians 2:13&ndash;18</li><li>Colossians 1:13&ndash;22</li><li>Hebrews 10:19&ndash;22</li></ul>
+      <h3>E. Renewing the Mind</h3>
+      <ul><li>Psalm 119:105</li><li>Joshua 1:8</li><li>Romans 12:1&ndash;2</li><li>2 Corinthians 10:3&ndash;5</li><li>Philippians 4:8</li><li>Colossians 3:1&ndash;3</li><li>Colossians 3:16</li><li>James 1:22&ndash;25</li><li>1 Peter 1:13</li><li>Philippians 2:5</li></ul>
+      <h3>F. Walking by Faith</h3>
+      <ul><li>2 Corinthians 4:16&ndash;18</li><li>2 Corinthians 5:7</li><li>Hebrews 10:35&ndash;39</li><li>Hebrews 12:1&ndash;2</li><li>James 1:2&ndash;4</li><li>James 1:5</li><li>1 Peter 5:7</li><li>Jude 20&ndash;21</li><li>Romans 4:17&ndash;21</li><li>Psalm 37:3&ndash;7</li></ul>
+      <h3>G. Prayer and Fellowship with God</h3>
+      <ul><li>Matthew 6:6&ndash;13</li><li>John 15:7</li><li>Romans 8:26&ndash;28</li><li>Ephesians 6:18</li><li>Philippians 4:6&ndash;7</li><li>Colossians 4:2</li><li>1 Thessalonians 5:16&ndash;18</li><li>Hebrews 4:14&ndash;16</li><li>James 5:16</li><li>1 John 5:14&ndash;15</li></ul>
+      <h3>H. Peace, Joy, and Thanksgiving</h3>
+      <ul><li>Nehemiah 8:10</li><li>Psalm 16:11</li><li>John 14:27</li><li>John 16:33</li><li>Romans 15:13</li><li>Philippians 4:4&ndash;9</li><li>Colossians 3:15</li><li>1 Thessalonians 5:18</li><li>1 Peter 5:6&ndash;7</li><li>Isaiah 26:3</li></ul>
+      <h3>I. Victory and Spiritual Growth</h3>
+      <ul><li>Romans 8:37</li><li>1 Corinthians 10:13</li><li>1 Corinthians 15:57&ndash;58</li><li>2 Corinthians 2:14</li><li>Ephesians 6:10&ndash;18</li><li>Philippians 1:6</li><li>2 Timothy 1:7</li><li>James 4:7&ndash;8</li><li>1 John 4:4</li><li>Revelation 12:11</li></ul>
+      <h3>J. Kingdom Living and Eternal Perspective</h3>
+      <ul><li>Matthew 5:14&ndash;16</li><li>Matthew 6:33</li><li>Luke 12:31&ndash;34</li><li>Romans 14:17</li><li>Philippians 3:20&ndash;21</li><li>Colossians 3:23&ndash;24</li><li>2 Timothy 4:7&ndash;8</li><li>Titus 2:11&ndash;14</li><li>Hebrews 13:20&ndash;21</li><li>Jude 24&ndash;25</li></ul>
+    `,
+  },
+  {
+    slug: "appendix-b",
+    number: "14",
+    title: "Appendix B",
+    kicker: "50 Daily Fourth Dimension Confessions",
+    body: `
+      <p class="eyebrow" style="margin:0 0 0.5em;">Biblical Declarations for Living from God's Perspective</p>
+      <p>These confessions are not magical formulas or attempts to manipulate God into acting. They are biblical declarations that agree with what God has already revealed in His Word. They help renew the mind, strengthen faith, and align our thinking with the truth of Scripture. Read them aloud slowly and thoughtfully. Let them become expressions of faith rooted in God's promises and the finished work of Jesus Christ.</p>
+      <h3>Identity in Christ</h3>
+      <ul><li>I am a new creation in Christ; the old has passed away, and all things have become new. (2 Corinthians 5:17)</li><li>I am a child of God through faith in Jesus Christ. (John 1:12)</li><li>I have been accepted in the Beloved. (Ephesians 1:6)</li><li>I have been forgiven and redeemed through the blood of Jesus Christ. (Ephesians 1:7)</li><li>I have peace with God through my Lord Jesus Christ. (Romans 5:1)</li><li>I am no longer condemned because I am in Christ Jesus. (Romans 8:1)</li><li>I have been reconciled to God through the finished work of Christ. (2 Corinthians 5:18&ndash;19)</li><li>Christ lives in me, and my life is hidden with Him in God. (Galatians 2:20; Colossians 3:3)</li><li>I belong to God's Kingdom and live under His rule. (Colossians 1:13)</li><li>My identity is defined by Christ, not by my past, my failures, or the opinions of others.</li></ul>
+      <h3>Faith and Trust</h3>
+      <ul><li>I choose to walk by faith and not by sight. (2 Corinthians 5:7)</li><li>God's promises are greater than my circumstances.</li><li>I trust the Lord with all my heart and lean not on my own understanding. (Proverbs 3:5&ndash;6)</li><li>My confidence is in God's faithfulness, not in my own strength.</li><li>The God who began a good work in me will complete it. (Philippians 1:6)</li><li>I believe God's timing is perfect.</li><li>My hope is anchored in Christ and cannot be shaken.</li><li>God is working all things together for my good because I love Him and belong to His purpose. (Romans 8:28)</li><li>Nothing is impossible with God. (Luke 1:37)</li><li>I choose faith over fear every day.</li></ul>
+      <h3>Renewing the Mind</h3>
+      <ul><li>My mind is being renewed by the Word of God. (Romans 12:2)</li><li>I have the mind of Christ. (1 Corinthians 2:16)</li><li>I set my mind on things above rather than temporary earthly concerns. (Colossians 3:2)</li><li>God's truth shapes my thinking.</li><li>I reject lies and embrace the truth of Scripture.</li><li>My thoughts are becoming more like the thoughts of Christ.</li><li>I meditate on God's Word day and night. (Joshua 1:8)</li><li>The peace of God guards my heart and mind in Christ Jesus. (Philippians 4:7)</li><li>I choose to think about whatever is true, noble, just, pure, lovely, and praiseworthy. (Philippians 4:8)</li><li>Every thought in my life is being brought into obedience to Christ. (2 Corinthians 10:5)</li></ul>
+      <h3>Walking in the Spirit</h3>
+      <ul><li>The Holy Spirit lives in me and leads me each day.</li><li>I depend upon God's grace rather than my own ability.</li><li>The fruit of the Spirit is growing in my life daily. (Galatians 5:22&ndash;23)</li><li>I walk in love because Christ first loved me.</li><li>I choose forgiveness because I have been forgiven.</li><li>God's joy is my strength. (Nehemiah 8:10)</li><li>The peace of Christ rules in my heart. (Colossians 3:15)</li><li>I will not be ruled by fear because God has given me power, love, and a sound mind. (2 Timothy 1:7)</li><li>My life reflects the character of Jesus Christ.</li><li>I am becoming more like Christ every day.</li></ul>
+      <h3>Kingdom Living</h3>
+      <ul><li>I am an ambassador for Christ wherever I go. (2 Corinthians 5:20)</li><li>My words bring life because they agree with God's truth.</li><li>My life is a testimony of God's grace.</li><li>I will shine as a light in this world. (Matthew 5:14&ndash;16)</li><li>I seek first the Kingdom of God and His righteousness. (Matthew 6:33)</li><li>I will faithfully serve God in every area of my life.</li><li>Every challenge is an opportunity to trust God more deeply.</li><li>I live from Christ's victory, not in pursuit of it.</li><li>My greatest desire is that Christ would be glorified through my life.</li><li>Today I choose to see, think, speak, and live from God's perspective because I belong to Jesus Christ.</li></ul>
+    `,
+  },
+  {
+    slug: "appendix-c",
+    number: "15",
+    title: "Appendix C",
+    kicker: "Reflection Questions for Personal Study",
+    body: `
+      <p class="eyebrow" style="margin:0 0 0.5em;">A Guided Companion for Living from the Fourth Dimension</p>
+      <h3>How to Use This Study Guide</h3>
+      <p>This appendix is designed to help you move beyond simply reading this book to personally applying its truths.</p>
+      <p>Set aside uninterrupted time with your Bible, a journal, and a prayerful heart. Read each question slowly. Resist the urge to answer quickly. Allow the Holy Spirit to search your thinking, and write down what He shows you.</p>
+      <blockquote class="scripture"><p>But be doers of the word, and not hearers only, deceiving yourselves.</p><cite>James 1:22</cite></blockquote>
+      <h3>Chapter 1 &mdash; The World You Cannot See</h3>
+      <ol><li>What circumstances currently occupy most of my attention?</li><li>Am I allowing what I see to become more real than what God has said?</li><li>What does this chapter teach me about the difference between faith and denial?</li><li>Which biblical example most strengthens my confidence in God's unseen Kingdom?</li><li>How can I intentionally develop a greater awareness of God's eternal perspective this week?</li></ol>
+      <h3>Chapter 2 &mdash; The Fourth Dimension: God's Kingdom</h3>
+      <ol><li>How would I explain "living from the Fourth Dimension" to another believer?</li><li>What does the throne of God teach me about His sovereignty over my present circumstances?</li><li>Why does it matter that Jesus Christ is the Creator and Lord of both the visible and invisible realms?</li><li>How does knowing that every spiritual being is a creature&mdash;and none is God's equal&mdash;affect my fears?</li><li>In what ways can I reflect the values of God's Kingdom in my daily life?</li></ol>
+      <h3>Chapter 3 &mdash; The Rebellion and the Throne</h3>
+      <ol><li>Have I ever assumed that when angels fell, God stripped them of their power?</li><li>Where have I been more impressed by displays of power than by the question of who receives the worship?</li><li>Does anything in my life &mdash; a practice, an object, a source of guidance &mdash; send honour anywhere other than to God?</li><li>How does knowing that Satan must ask permission change the way I face opposition?</li><li>If all power belongs to God and the enemy uses borrowed strength, what should my posture be: fear, fascination, or worship?</li></ol>
+      <h3>Chapter 4 &mdash; The Finished Work of Christ</h3>
+      <ol><li>Why was sin humanity's greatest problem?</li><li>What did Jesus accomplish on the Cross that I could never accomplish for myself?</li><li>Do I sometimes live as though I must earn God's acceptance?</li><li>How does my restored relationship with the Father change the way I pray?</li><li>What area of my life needs to rest more fully in Christ's finished work?</li></ol>
+      <h3>Chapter 5 &mdash; The New Creation</h3>
+      <ol><li>How do I usually describe myself? Does my self-image agree with what Scripture says about me? Which truth about my identity in Christ has impacted me the most? What false labels have I believed that God wants me to reject?</li><li>How would my daily decisions change if I truly believed who I am in Christ?</li></ol>
+      <h3>Chapter 6 &mdash; The Renewed Mind</h3>
+      <ol><li>Where has my thinking still been shaped more by my past than by God's Word?</li><li>Why did God give me a new nature instantly but renew my mind gradually?</li><li>Which lie have I believed so long that it now feels like simple realism?</li><li>What practically helps my mind agree with what God has said?</li><li>What evidence of a renewed mind can I already see in myself?</li></ol>
+      <h3>Chapter 7 &mdash; Living by Faith</h3>
+      <ol><li>Where am I waiting for evidence before I will believe God? What has God actually said about the situation I am facing? Do my words agree with His Word, or merely with my circumstances?</li><li>What has faith prompted me to do that I have not yet done?</li><li>Which of the common misunderstandings about faith have I unknowingly held?</li></ol>
+      <h3>Chapter 8 &mdash; Living Confidently in God's Timing</h3>
+      <ol><li>Am I trying to rush God's plan?</li><li>Do I approach prayer expecting my Father to hear me, or with quiet uncertainty?</li><li>What lessons might God be teaching me during this season of waiting?</li><li>How has God used waiting to strengthen my faith in the past?</li><li>How can I remain faithful and confident while His promise is not yet visible?</li></ol>
+      <h3>Chapter 9 &mdash; Thanksgiving, Peace, and Rest</h3>
+      <p>What am I most grateful for today? What worries am I carrying that I need to surrender to God? Do I truly believe God's peace is available to me? How can thanksgiving become a daily lifestyle instead of an occasional response? What practical step will help me rest more completely in God's care?</p>
+      <h3>Chapter 10 &mdash; Living to Please the Father</h3>
+      <ol><li>Whose approval am I most often working for?</li><li>What does it mean that the Father is already pleased with me in Christ, and how does that change my motive for obedience?</li><li>Where in my ordinary day&mdash;my work, my words, my choices&mdash;could I begin asking, "Father, how can I please You today?"</li><li>What do I do when no one is watching, and what does that reveal?</li><li>How have I responded to the Father in my most difficult season?</li></ol>
+      <h3>Chapter 11 &mdash; Shining as Sons</h3>
+      <ol><li>Do I think of myself as one who has been sent, or as one who simply attends?</li><li>What does it mean to be an ambassador for Christ in my particular circumstances?</li><li>Who has God placed near me whose heart He may be preparing? What holds me back from speaking about Jesus&mdash;fear, excuse, or hesitation? What legacy am I building, and will it outlast this life?</li></ol>
+    `,
+  },
+  {
+    slug: "appendix-d",
+    number: "16",
+    title: "Appendix D",
+    kicker: "30-Day Fourth Dimension Renewal Plan",
+    body: `
+      <p>Transformation rarely happens overnight.</p>
+      <p>The Apostle Paul teaches that believers are transformed through the renewing of the mind (Romans 12:2). This renewal is not a one-time event but a daily process of allowing God's Word to reshape our thinking until our lives increasingly reflect the mind of Christ. This 30-day plan is designed to help you establish biblical habits that will continue long after you finish this book.</p>
+      <p>Each day includes a Scripture reading, a reflection, a practical action, and a prayer focus. Spend at least 20&ndash;30 minutes each day with God. Read the Scripture slowly, meditate on it, pray through it, and apply what you learn.</p>
+      <h3>Week One &mdash; Building the Foundation</h3>
+      <p><strong>Day 1 &mdash; There Is a Greater Reality</strong></p>
+      <p><em>Scripture:</em> 2 Corinthians 4:16&ndash;18</p>
+      <p><em>Reflection:</em> The visible world is temporary, but God's Kingdom is eternal. Begin choosing God's perspective above your circumstances.</p>
+      <p><em>Action:</em> Write down three current challenges and beside each one write a promise from God's Word.</p>
+      <p><em>Prayer Focus:</em> Ask God to help you see beyond temporary circumstances.</p>
+      <p><strong>Day 2 &mdash; Walking by Faith</strong></p>
+      <p><em>Scripture:</em> Hebrews 11:1&ndash;6</p>
+      <p><em>Reflection:</em> Faith trusts God's character before visible evidence appears.</p>
+      <p><em>Action:</em> Identify one area where fear has replaced faith.</p>
+      <p><em>Prayer Focus:</em> Pray for unwavering confidence in God's promises.</p>
+      <p><strong>Day 3 &mdash; Trusting God's Perspective</strong></p>
+      <p><em>Scripture:</em> Proverbs 3:5&ndash;6</p>
+      <p><em>Reflection:</em> God sees what you cannot see.</p>
+      <p><em>Action:</em> Surrender one decision you've been trying to control.</p>
+      <p><em>Prayer Focus:</em> Trust God's wisdom above your own understanding.</p>
+      <p><strong>Day 4 &mdash; The Finished Work of Christ</strong></p>
+      <p><em>Scripture:</em> John 19:30</p>
+      <p><em>Reflection:</em> Your relationship with God rests on Christ's completed work.</p>
+      <p><em>Action:</em> Thank Jesus specifically for five blessings secured by His Cross.</p>
+      <p><em>Prayer Focus:</em> Rest in God's grace rather than striving.</p>
+      <p><strong>Day 5 &mdash; Your New Identity</strong></p>
+      <p><em>Scripture:</em> 2 Corinthians 5:17</p>
+      <p><em>Reflection:</em> God defines who you are&mdash;not your past.</p>
+      <p><em>Action:</em> Write ten biblical truths about your identity in Christ.</p>
+      <p><em>Prayer Focus:</em> Reject every false identity.</p>
+      <p><strong>Day 6 &mdash; Renewing the Mind</strong></p>
+      <p><em>Scripture:</em> Romans 12:1&ndash;2</p>
+      <p><em>Reflection:</em> Transformation begins with renewed thinking.</p>
+      <p><em>Action:</em> Replace one negative thought with a biblical truth.</p>
+      <p><em>Prayer Focus:</em> Invite the Holy Spirit to renew your mind.</p>
+      <p><strong>Day 7 &mdash; Worship and Thanksgiving</strong></p>
+      <p><em>Scripture:</em> Psalm 103</p>
+      <p><em>Reflection:</em> Gratitude shifts your focus from problems to God's faithfulness.</p>
+      <p><em>Action:</em> List twenty blessings God has given you.</p>
+      <p><em>Prayer Focus:</em> Offer praise instead of complaints.</p>
+      <h3>Week Two &mdash; Living by Faith</h3>
+      <p><strong>Day 8 &mdash; God's Promises</strong></p>
+      <p><em>Scripture:</em> Romans 4:17&ndash;21</p>
+      <p><em>Reflection:</em> Abraham believed God's promise even when every natural circumstance suggested it was impossible. His confidence rested not in his own ability but in the faithfulness of the One who had spoken. God's promises remain trustworthy regardless of what we presently see.</p>
+      <p><em>Action:</em> Identify one promise from Scripture that you have struggled to believe. Write it down, meditate on it throughout the day, and thank God for His faithfulness.</p>
+      <p><em>Prayer Focus:</em> Ask God to strengthen your faith so that you trust His promises above your circumstances.</p>
+      <p><strong>Day 9 &mdash; Peace Instead of Anxiety</strong></p>
+      <p><em>Scripture:</em> Philippians 4:4&ndash;9</p>
+      <p><em>Reflection:</em> God never intended anxiety to govern His children. As we bring every concern to Him in prayer and fix our minds on what is true and honorable, His peace guards our hearts and minds through Christ.</p>
+      <p><em>Action:</em> Write every current worry on a sheet of paper. Pray over each one and consciously place it into God's hands.</p>
+      <p><em>Prayer Focus:</em> Pray for God's peace to replace every anxious thought.</p>
+      <p><strong>Day 10 &mdash; Seeing Possibility</strong></p>
+      <p><em>Scripture:</em> Numbers 13&ndash;14</p>
+      <p><em>Reflection:</em> The ten spies focused on obstacles, while Joshua and Caleb focused on God's promise. The difference was not what they saw but how they interpreted what they saw. Faith always views problems through God's greatness.</p>
+      <p><em>Action:</em> Identify one challenge you are facing and write down how God's promises change your perspective.</p>
+      <p><em>Prayer Focus:</em> Ask God to give you courage to see every challenge through His eyes.</p>
+      <p><strong>Day 11 &mdash; God's Timing</strong></p>
+      <p><em>Scripture:</em> Ecclesiastes 3:1&ndash;11</p>
+      <p><em>Reflection:</em> God's timing is always perfect, even when it differs from our expectations. Waiting seasons are never wasted; they are often seasons of preparation, growth, and deeper trust.</p>
+      <p><em>Action:</em> Identify one area where God is teaching you patience. Commit that situation to Him again today.</p>
+      <p><em>Prayer Focus:</em> Pray for patience and confidence in God's perfect timing.</p>
+      <p><strong>Day 12 &mdash; The Mind of Christ</strong></p>
+      <p><em>Scripture:</em> Philippians 2:1&ndash;11</p>
+      <p><em>Reflection:</em> Jesus demonstrated perfect humility by willingly serving others and obeying the Father's will. As believers, we are called to adopt His mindset and allow His character to shape our attitudes.</p>
+      <p><em>Action:</em> Look for one opportunity today to serve someone quietly and without seeking recognition.</p>
+      <p><em>Prayer Focus:</em> Ask God to develop the mind and humility of Christ within you.</p>
+      <p><strong>Day 13 &mdash; Speaking Life</strong></p>
+      <p><em>Scripture:</em> Proverbs 18:21</p>
+      <p><em>Reflection:</em> Our words reveal what fills our hearts. God calls us to use our speech to encourage, build up, and speak truth with grace rather than spreading fear or discouragement.</p>
+      <p><em>Action:</em> Intentionally encourage at least three people with sincere, life-giving words today.</p>
+      <p><em>Prayer Focus:</em> Pray that your speech will consistently reflect God's truth and love.</p>
+      <p><strong>Day 14 &mdash; Rest</strong></p>
+      <p><em>Scripture:</em> Matthew 11:28&ndash;30</p>
+      <p><em>Reflection:</em> Jesus invites every weary believer to find rest in Him. True rest is not merely physical relaxation but trusting Christ instead of carrying burdens He has already invited us to surrender.</p>
+      <p><em>Action:</em> Set aside thirty uninterrupted minutes to read Scripture, pray, and quietly enjoy God's presence.</p>
+      <p><em>Prayer Focus:</em> Ask God to teach you to rest in Christ rather than striving through your own strength.</p>
+      <h3>Week Three &mdash; Walking in the Spirit</h3>
+      <p><strong>Day 15 &mdash; Abiding in Christ</strong></p>
+      <p><em>Scripture:</em> John 15:1&ndash;11</p>
+      <p><em>Reflection:</em> Spiritual fruit grows naturally as we remain connected to Christ. Our greatest need is not greater effort but deeper fellowship with Him.</p>
+      <p><em>Action:</em> Spend extra time reading and meditating on God's Word today without rushing.</p>
+      <p><em>Prayer Focus:</em> Ask God to deepen your daily communion with Christ.</p>
+      <p><strong>Day 16 &mdash; Fruit of the Spirit</strong></p>
+      <p><em>Scripture:</em> Galatians 5:22&ndash;26</p>
+      <p><em>Reflection:</em> The fruit of the Spirit is Christ's character reproduced in believers by the Holy Spirit. Growth occurs as we continually surrender ourselves to His transforming work.</p>
+      <p><em>Action:</em> Choose one fruit of the Spirit to intentionally practice throughout the day.</p>
+      <p><em>Prayer Focus:</em> Pray that the Holy Spirit will increasingly produce Christlike character within you.</p>
+      <p><strong>Day 17 &mdash; Walking in Love</strong></p>
+      <p><em>Scripture:</em> 1 Corinthians 13</p>
+      <p><em>Reflection:</em> Love is the defining characteristic of God's Kingdom. Genuine love seeks the good of others, forgives freely, serves willingly, and reflects the heart of Christ.</p>
+      <p><em>Action:</em> Perform one anonymous act of kindness for someone today.</p>
+      <p><em>Prayer Focus:</em> Ask God to fill your heart with His selfless love.</p>
+      <p><strong>Day 18 &mdash; Forgiveness</strong></p>
+      <p><em>Scripture:</em> Ephesians 4:31&ndash;32</p>
+      <p><em>Reflection:</em> Because Christ has forgiven us completely, we are empowered to forgive others. Forgiveness releases us from bitterness and allows God's grace to shape our hearts.</p>
+      <p><em>Action:</em> Prayerfully forgive someone who has hurt you and release that offense to God.</p>
+      <p><em>Prayer Focus:</em> Ask God to help you forgive as Christ has forgiven you.</p>
+      <p><strong>Day 19 &mdash; Joy</strong></p>
+      <p><em>Scripture:</em> Nehemiah 8:10</p>
+      <p><em>Reflection:</em> Christian joy is rooted in God's unchanging character rather than changing circumstances. The joy of the Lord strengthens believers in every season.</p>
+      <p><em>Action:</em> Take time today to celebrate God's goodness by thanking Him for specific blessings.</p>
+      <p><em>Prayer Focus:</em> Pray that God's joy will become your strength.</p>
+      <p><strong>Day 20 &mdash; Victory Over Fear</strong></p>
+      <p><em>Scripture:</em> Isaiah 41:10</p>
+      <p><em>Reflection:</em> Fear loses its power when we remember God's constant presence. His promises remind us that we never face life's challenges alone.</p>
+      <p><em>Action:</em> Write down every fear currently affecting you and pray over each one individually.</p>
+      <p><em>Prayer Focus:</em> Ask God to replace fear with courage and confidence.</p>
+      <p><strong>Day 21 &mdash; Hearing God's Voice</strong></p>
+      <p><em>Scripture:</em> John 10:27</p>
+      <p><em>Reflection:</em> God speaks most clearly through His Word, and His Spirit helps believers recognize His leading. A listening heart grows through consistent fellowship with Him.</p>
+      <p><em>Action:</em> Spend ten quiet minutes after prayer simply listening and reflecting on God's Word.</p>
+      <p><em>Prayer Focus:</em> Pray for greater sensitivity to the Holy Spirit's guidance.</p>
+      <h3>Week Four &mdash; Living as a Kingdom Ambassador</h3>
+      <p><strong>Day 22 &mdash; Kingdom Values</strong></p>
+      <p><em>Scripture:</em> Matthew 5:1&ndash;16</p>
+      <p><em>Reflection:</em> Jesus calls His followers to display the values of His Kingdom in everyday life. Our character should reveal the reality of God's reign wherever we live and serve.</p>
+      <p><em>Action:</em> Intentionally reflect Christ's character in every conversation today.</p>
+      <p><em>Prayer Focus:</em> Ask God to help your life display Kingdom values.</p>
+      <p><strong>Day 23 &mdash; Faithfulness</strong></p>
+      <p><em>Scripture:</em> Luke 16:10</p>
+      <p><em>Reflection:</em> God values faithfulness in small responsibilities because they prepare us for greater opportunities. Consistent obedience honors Him.</p>
+      <p><em>Action:</em> Choose one small responsibility today and complete it with excellence.</p>
+      <p><em>Prayer Focus:</em> Pray for faithfulness in every area of your life.</p>
+      <p><strong>Day 24 &mdash; Serving Others</strong></p>
+      <p><em>Scripture:</em> Mark 10:42&ndash;45</p>
+      <p><em>Reflection:</em> Jesus demonstrated true greatness through humble service. Every opportunity to serve becomes an opportunity to reflect His heart.</p>
+      <p><em>Action:</em> Serve someone today without expecting appreciation or recognition.</p>
+      <p><em>Prayer Focus:</em> Ask God to cultivate genuine humility.</p>
+      <p><strong>Day 25 &mdash; Living as Light</strong></p>
+      <p><em>Scripture:</em> Matthew 5:14&ndash;16</p>
+      <p><em>Reflection:</em> Believers are called to shine Christ's light in a dark world. Our words, actions, and attitudes should point others toward Him.</p>
+      <p><em>Action:</em> Look for one opportunity today to demonstrate Christ's love through both words and actions.</p>
+      <p><em>Prayer Focus:</em> Pray that your life will clearly reflect Jesus.</p>
+      <p><strong>Day 26 &mdash; Prayer</strong></p>
+      <p><em>Scripture:</em> James 5:16</p>
+      <p><em>Reflection:</em> Prayer is a privilege that allows us to partner with God in His work. Through prayer we grow in dependence upon Him and become channels of His grace.</p>
+      <p><em>Action:</em> Spend intentional time praying for five specific people today.</p>
+      <p><em>Prayer Focus:</em> Ask God to make you faithful in prayer and intercession.</p>
+      <p><strong>Day 27 &mdash; Eternal Perspective</strong></p>
+      <p><em>Scripture:</em> Colossians 3:1&ndash;4</p>
+      <p><em>Reflection:</em> When we focus on eternal realities, temporary concerns lose their power to control us. Heaven's perspective brings wisdom, hope, and stability.</p>
+      <p><em>Action:</em> Review your priorities and ask whether they reflect eternal values.</p>
+      <p><em>Prayer Focus:</em> Pray for a heart that remains focused on God's Kingdom.</p>
+      <p><strong>Day 28 &mdash; Becoming a Living Testimony</strong></p>
+      <p><em>Scripture:</em> 2 Corinthians 5:20</p>
+      <p><em>Reflection:</em> Every believer is Christ's ambassador. God desires to make His grace visible through our words, attitudes, and daily conduct.</p>
+      <p><em>Action:</em> Look for one natural opportunity today to share something about Christ or your faith journey.</p>
+      <p><em>Prayer Focus:</em> Ask God for boldness and wisdom to represent Him well.</p>
+      <p><strong>Day 29 &mdash; Finishing Well</strong></p>
+      <p><em>Scripture:</em> 2 Timothy 4:6&ndash;8</p>
+      <p><em>Reflection:</em> A faithful life is measured by perseverance rather than perfection. God calls us to remain steadfast until the race He has given us is complete.</p>
+      <p><em>Action:</em> Reflect on the legacy you hope to leave. Write down three qualities you want others to remember about your walk with Christ.</p>
+      <p><em>Prayer Focus:</em> Pray for endurance, faithfulness, and a life that glorifies God to the very end.</p>
+      <p><strong>Day 30 &mdash; Living from the Fourth Dimension</strong></p>
+      <p><em>Scripture:</em> Hebrews 12:1&ndash;2</p>
+      <p><em>Reflection:</em> This journey does not end today. It becomes your way of life. Continue seeing through God's eyes. Continue trusting His promises. Continue walking by faith. Continue becoming more like Christ.</p>
+      <p><em>Action:</em> Review your journal from the past thirty days. Write down the greatest lessons God has taught you. Identify three spiritual habits you will continue practicing. Write a personal commitment to keep living from God's perspective.</p>
+      <p><em>Prayer Focus:</em> Dedicate yourself afresh to following Jesus every day.</p>
+      <h3>After the Thirty Days</h3>
+      <p>Congratulations! Completing this renewal plan is not the finish line&mdash;it is the beginning of a lifelong journey. Keep reading God's Word. Keep renewing your mind. Keep walking by faith. Keep depending on the Holy Spirit. Keep growing in Christ.</p>
+      <p>The goal is not simply to think differently. It is to become more like Jesus. As His perspective increasingly becomes your perspective, you will naturally begin to see what He sees, love what He loves, value what He values, speak what He speaks and live as He lived. That is the lifelong invitation of every believer. That is what it means to live from the Fourth Dimension.</p>
+    `,
+  },
+  {
+    slug: "appendix-e",
+    number: "17",
+    title: "Appendix E",
+    kicker: "Small Group Discussion Guide",
+    body: `
+      <p class="eyebrow" style="margin:0 0 0.5em;">Living from the Fourth Dimension Together</p>
+      <h3>Introduction for Group Leaders</h3>
+      <p>Christian growth is strengthened in community. While personal Bible study is essential, God also uses fellowship, accountability, encouragement, and shared wisdom to help believers mature in Christ.</p>
+      <p>This discussion guide is designed for church small groups, Bible study groups, discipleship classes, leadership development groups, youth and young adult fellowships, Christian families, and personal mentoring relationships. Each session includes an opening prayer, key Scriptures, discussion questions, practical application, and a closing prayer.</p>
+      <p>Leaders should encourage participation from everyone. The goal is not simply to complete the lesson but to help every participant grow in Christ.</p>
+      <h3>Session 1 &mdash; The World You Cannot See</h3>
+      <p><strong>Key Scriptures</strong></p>
+      <ul><li>2 Corinthians 4:16&ndash;18</li><li>Hebrews 11:1</li><li>Colossians 1:16</li></ul>
+      <p><strong>Discussion Questions</strong></p>
+      <ol><li>What does it mean to walk by faith instead of by sight?</li><li>Why is God's unseen Kingdom more permanent than the visible world?</li><li>Which biblical example of faith encourages you most?</li><li>What circumstances currently challenge your faith?</li><li>How can we encourage one another to keep God's perspective?</li></ol>
+      <h3>Session 2 &mdash; The Fourth Dimension: God's Kingdom</h3>
+      <p><strong>Key Scriptures</strong></p>
+      <ul><li>Isaiah 55:8&ndash;9</li><li>Romans 12:2</li><li>Colossians 3:2</li></ul>
+      <p><strong>Discussion Questions</strong></p>
+      <ol><li>What does it practically mean to live from God's perspective?</li><li>What worldly thought patterns are hardest to overcome?</li><li>How does renewing the mind change daily living?</li><li>Which habit helps you keep your mind focused on Christ?</li><li>How can our group help one another grow?</li></ol>
+      <h3>Session 3 &mdash; The Rebellion and the Throne</h3>
+      <p><strong>Key Scriptures</strong></p>
+      <ul><li>Job 1:12</li><li>Revelation 19:10</li><li>Matthew 4:9</li><li>1 Corinthians 10:20</li><li>Psalm 62:11</li></ul>
+      <p><strong>Discussion Questions</strong></p>
+      <ol><li>Why do many believers assume the fallen angels lost their power?</li><li>What does it mean that Satan had to ask permission before touching Job?</li><li>How do holy angels respond when offered worship, and why does that matter?</li><li>Why does Scripture describe idolatry as sacrificing to demons rather than to nothing?</li><li>If occult power is real, how should a believer test what is genuinely of God?</li><li>What does it mean that power belongs to God and there is no alternative source?</li></ol>
+      <h3>Session 4 &mdash; The Finished Work of Christ</h3>
+      <p><strong>Key Scriptures</strong></p>
+      <ul><li>John 19:30</li><li>Romans 5:1</li><li>2 Corinthians 5:21</li></ul>
+      <p><strong>Discussion Questions</strong></p>
+      <ol><li>What did Jesus fully accomplish on the Cross?</li><li>What does "It is finished" mean personally?</li><li>How does grace differ from striving?</li><li>Why do believers still struggle to earn God's acceptance?</li><li>How should Christ's finished work change everyday living?</li></ol>
+      <h3>Session 5 &mdash; The New Creation</h3>
+      <p><strong>Key Scriptures</strong></p>
+      <ul><li>2 Corinthians 5:17</li><li>Ephesians 1:3&ndash;14</li><li>Colossians 3:3</li></ul>
+      <p><strong>Discussion Questions</strong></p>
+      <ol><li>Who does God say you are?</li><li>Which truth about your identity has impacted you most?</li><li>What false identities must be rejected?</li><li>How does identity affect behavior?</li><li>How can believers remind one another of these truths?</li></ol>
+      <h3>Session 6 &mdash; The Renewed Mind</h3>
+      <p><strong>Key Scriptures</strong></p>
+      <ul><li>Romans 12:2</li><li>Ephesians 4:22&ndash;24</li><li>2 Corinthians 10:4&ndash;5</li><li>Colossians 3:2</li><li>Philippians 4:8</li></ul>
+      <p><strong>Discussion Questions</strong></p>
+      <ol><li>Why did God give us a new nature instantly but renew the mind gradually?</li><li>What does it actually mean to renew the mind?</li><li>Which lies have we believed so long that they now feel normal?</li><li>What practical means does God use to renew our thinking?</li><li>Why is renewing the mind often difficult?</li><li>What evidence of a renewed mind have you seen in your own life?</li></ol>
+      <h3>Session 7 &mdash; Living by Faith</h3>
+      <p><strong>Key Scriptures</strong></p>
+      <ul><li>Hebrews 11:1</li><li>Romans 10:17</li><li>Romans 4:3</li><li>2 Corinthians 5:7</li><li>Hebrews 11:6</li></ul>
+      <p><strong>Discussion Questions</strong></p>
+      <ol><li>What is biblical faith, and how does it differ from optimism?</li><li>Why does faith always begin with God speaking?</li><li>How does faith interpret reality differently from sight?</li><li>Why does genuine faith reach the mouth and the hands?</li><li>Which misunderstandings about faith are most common today?</li><li>Where is God calling you to act on what He has said?</li></ol>
+      <h3>Session 8 &mdash; Living Confidently in God's Timing</h3>
+      <p><strong>Key Scriptures</strong></p>
+      <ul><li>Ecclesiastes 3:1&ndash;11</li><li>Habakkuk 2:3</li><li>Romans 8:28</li><li>Numbers 13&ndash;14</li><li>Jeremiah 32:17</li></ul>
+      <p><strong>Discussion Questions</strong></p>
+      <ol><li>Why is waiting difficult?</li><li>What does God accomplish during waiting seasons?</li><li>How can we trust God's timing?</li><li>Which biblical example encourages you?</li><li>What are you waiting for God to do?</li><li>What made Joshua and Caleb different?</li></ol>
+      <h3>Session 9 &mdash; Thanksgiving, Peace, and Rest</h3>
+      <p><strong>Key Scriptures</strong></p>
+      <ul><li>Philippians 4:4&ndash;9</li><li>Colossians 3:15</li><li>1 Thessalonians 5:16&ndash;18</li></ul>
+      <p><strong>Discussion Questions</strong></p>
+      <ol><li>Why is thanksgiving powerful?</li><li>What usually steals your peace?</li><li>How does prayer replace anxiety?</li><li>What does resting in Christ look like?</li><li>What are you most grateful for?</li></ol>
+      <h3>Session 10 &mdash; Living to Please the Father</h3>
+      <p><strong>Key Scriptures</strong></p>
+      <ul><li>Hebrews 11:6</li><li>Colossians 1:10</li><li>2 Corinthians 5:9</li><li>Ephesians 5:10</li><li>Galatians 1:10</li></ul>
+      <p><strong>Discussion Questions</strong></p>
+      <ol><li>Whose approval do we most often live for, and why?</li><li>What is the difference between working for the Father's approval and living from it?</li><li>What does it look like to please God in ordinary, unnoticed moments?</li><li>How do our words and choices either honour or grieve the Father?</li><li>How has God met you in a difficult season?</li><li>What one habit would help you live more consciously for Him this week?</li></ol>
+      <h3>Session 11 &mdash; Shining as Sons</h3>
+      <p><strong>Key Scriptures</strong></p>
+      <ul><li>2 Corinthians 5:18&ndash;20</li><li>Matthew 5:14&ndash;16</li><li>Acts 1:8</li><li>John 20:21</li><li>Daniel 12:3</li></ul>
+      <p><strong>Discussion Questions</strong></p>
+      <ol><li>What does it mean to be sent, rather than simply to attend?</li><li>How does being an ambassador change the way we see our workplace and neighbourhood?</li><li>What is the ministry of reconciliation, and how do we carry it?</li><li>What hinders us from speaking about Jesus, and how might we overcome it?</li><li>Who has God placed near you whose heart He may be preparing?</li><li>What legacy do you want your life to leave?</li></ol>
+      <h3>Group Covenant</h3>
+      <p>As we continue walking together, we commit to seeking Christ above everything else, building our lives upon God's Word, walking by faith instead of by sight, speaking truth in love, and praying for one another faithfully.</p>
+      <p>Encouraging one another consistently. Living as ambassadors of God's Kingdom. Glorifying Jesus Christ in every area of life.</p>
+      <h3>Final Group Prayer</h3>
+      <p><strong>Heavenly Father,</strong></p>
+      <p>Thank You for bringing us together around Your Word. Thank You for revealing the greatness of Your Kingdom and the beauty of the finished work of Jesus Christ. Help us to encourage one another toward love, faith, holiness, and obedience. May our homes, churches, workplaces, and communities see Christ through the way we live.</p>
+      <p>Keep our eyes fixed on Jesus. Renew our minds continually. Strengthen our faith daily. Empower us by Your Holy Spirit to live from Heaven's perspective until the day we stand before You. May every member of this group become a faithful witness whose life reflects the grace, truth, and love of Jesus Christ.</p>
+      <p>We ask all these things in His precious name.</p>
+      <p><strong>Amen.</strong></p>
+      <h3>Final Encouragement</h3>
+      <p>The conversations may end. The meetings may conclude. This study guide may eventually be closed. But the journey continues. Every sunrise is another opportunity to walk by faith. Every decision is another opportunity to trust God's wisdom. Every conversation is another opportunity to speak His truth.</p>
+      <p>Every challenge is another opportunity to demonstrate His peace. Every act of obedience is another opportunity to glorify Christ. May your life continually reflect the reality that, through Jesus Christ, you have been invited to see, think, speak, and live from God's eternal perspective. Keep walking with Him.</p>
+      <p class="reader-note">Keep trusting Him. Keep becoming like Him. Keep living from the Fourth Dimension.</p>
+      <blockquote class="scripture"><p>Now to Him who is able to do exceedingly abundantly above all that we ask or think, according to the power that works in us, to Him be glory in the church by Christ Jesus to all generations, forever and ever. Amen.</p><cite>Ephesians 3:20&ndash;21</cite></blockquote>
+    `,
+  },
 ];

@@ -138,6 +138,41 @@
     chapterIsSeeking = false;
   });
 
+  // Keep the sticky offset in sync with the toolbar's real (possibly
+  // wrapped) height, then collapse the player into a compact single-line
+  // bar the moment it reaches that offset and sticks.
+  const chapterAudioEl = document.getElementById("chapter-audio");
+  const toolbarEl = document.querySelector(".reader-toolbar");
+  const chapterAudioSentinel = document.createElement("div");
+  chapterAudioSentinel.setAttribute("aria-hidden", "true");
+  chapterAudioSentinel.style.cssText = "position:relative; height:0;";
+  chapterAudioEl.parentNode.insertBefore(chapterAudioSentinel, chapterAudioEl);
+
+  let stuckObserver = null;
+  function syncChapterAudioStickyOffset() {
+    const nav = document.getElementById("site-nav");
+    const navHeight = nav ? nav.getBoundingClientRect().height : 76;
+    const toolbarHeight = toolbarEl ? toolbarEl.getBoundingClientRect().height : 60;
+    const offset = navHeight + 3 + toolbarHeight;
+    document.documentElement.style.setProperty("--chapter-audio-stuck-top", offset + "px");
+
+    if (stuckObserver) stuckObserver.disconnect();
+    stuckObserver = new IntersectionObserver(
+      ([entry]) => {
+        chapterAudioEl.classList.toggle("is-stuck", !entry.isIntersecting);
+      },
+      { rootMargin: "-" + Math.ceil(offset) + "px 0px 0px 0px", threshold: 0 }
+    );
+    stuckObserver.observe(chapterAudioSentinel);
+  }
+  if (typeof IntersectionObserver !== "undefined") {
+    syncChapterAudioStickyOffset();
+    window.addEventListener("resize", syncChapterAudioStickyOffset);
+    if (typeof ResizeObserver !== "undefined" && toolbarEl) {
+      new ResizeObserver(syncChapterAudioStickyOffset).observe(toolbarEl);
+    }
+  }
+
   function applyFontSize() {
     document.documentElement.style.setProperty("--reader-font-size", FONT_SIZES[fontIndex] + "rem");
     fontDecrease.disabled = fontIndex === 0;
