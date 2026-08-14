@@ -4,12 +4,9 @@
  * codebase should hard-code these values.
  */
 const CONFIG = {
-  // Base URL the audio files are served from. Every chapter URL is built
-  // from this single value. This site serves audio directly from
-  // theassemblyofsons.com — a Cloudflare route/Worker maps requests for the
-  // .mp3 files below to the private "tlog/" folder in the R2 bucket, so no
-  // separate audio subdomain is needed and no MP3s live in this repo.
-  audioBaseUrl: "https://theassemblyofsons.com/",
+  // Public base URL of the Cloudflare R2 bucket's "tlog/" folder. Every
+  // chapter URL is built from this single value — no MP3s live in this repo.
+  audioBaseUrl: "https://pub-62419141416c46ffa27f7d6399c14d04.r2.dev/tlog/",
 
   telegramUrl: "https://t.me/+_tnZiaSEX9liOGY8",
   whatsappUrl: "https://chat.whatsapp.com/JfFxXPzcyvfCGr85Uw5oc0?s=cl&p=a&ilr=4",
