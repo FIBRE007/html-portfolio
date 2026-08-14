@@ -42,6 +42,10 @@
     return AUDIO_BASE_URL + chapter.file;
   }
 
+  function chapterLabel(chapter) {
+    return chapter.subtitle ? chapter.title + " — " + chapter.subtitle : chapter.title;
+  }
+
   function formatTime(seconds) {
     if (!isFinite(seconds) || seconds < 0) return "0:00";
     const m = Math.floor(seconds / 60);
@@ -60,7 +64,7 @@
       btn.dataset.index = String(index);
       btn.innerHTML =
         '<span class="p-num">' + chapter.number + "</span>" +
-        '<span class="p-title">' + chapter.title + "</span>" +
+        '<span class="p-title">' + chapterLabel(chapter) + "</span>" +
         '<svg class="p-icon" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M8 5v14l11-7L8 5z" fill="currentColor"/></svg>';
       btn.addEventListener("click", () => loadChapter(index, { autoplay: true }));
       playlistEl.appendChild(btn);
@@ -119,7 +123,7 @@
       audio.addEventListener("loadedmetadata", onLoaded);
     }
 
-    nowTitleEl.textContent = chapter.number + " — " + chapter.title;
+    nowTitleEl.textContent = chapter.number + " — " + chapterLabel(chapter);
     nowSubEl.textContent = "Chapter " + (index + 1) + " of " + CHAPTERS.length;
     seek.value = "0";
     seekFill.style.width = "0%";
@@ -282,7 +286,7 @@
   const startIndex = 0;
   currentIndex = startIndex;
   const first = CHAPTERS[startIndex];
-  nowTitleEl.textContent = first.number + " — " + first.title;
+  nowTitleEl.textContent = first.number + " — " + chapterLabel(first);
   nowSubEl.textContent = "Chapter " + (startIndex + 1) + " of " + CHAPTERS.length;
   setActivePlaylistItem(startIndex);
   initResumeBanner();

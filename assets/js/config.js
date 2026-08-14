@@ -4,9 +4,12 @@
  * codebase should hard-code these values.
  */
 const CONFIG = {
-  // Public base URL of the Cloudflare R2 bucket folder that holds the audio
-  // files. Every chapter URL is built from this single value.
-  audioBaseUrl: "https://pub-REPLACE-WITH-YOUR-R2-ID.r2.dev/tlog/",
+  // Base URL the audio files are served from. Every chapter URL is built
+  // from this single value. This site serves audio directly from
+  // theassemblyofsons.com — a Cloudflare route/Worker maps requests for the
+  // .mp3 files below to the private "tlog/" folder in the R2 bucket, so no
+  // separate audio subdomain is needed and no MP3s live in this repo.
+  audioBaseUrl: "https://theassemblyofsons.com/",
 
   telegramUrl: "https://t.me/+_tnZiaSEX9liOGY8",
   whatsappUrl: "https://chat.whatsapp.com/JfFxXPzcyvfCGr85Uw5oc0?s=cl&p=a&ilr=4",
@@ -24,19 +27,19 @@ const CONFIG = {
  * assets/js/audio-player.js.
  */
 const CHAPTERS = [
-  { number: "00", slug: "front-matter", title: "Front Matter", file: "00_front_matter.mp3" },
-  { number: "01", slug: "chapter-one", title: "Chapter One", file: "01_chapter_one.mp3" },
-  { number: "02", slug: "chapter-two", title: "Chapter Two", file: "02_chapter_two.mp3" },
-  { number: "03", slug: "chapter-three", title: "Chapter Three", file: "03_chapter_three.mp3" },
-  { number: "04", slug: "chapter-four", title: "Chapter Four", file: "04_chapter_four.mp3" },
-  { number: "05", slug: "chapter-five", title: "Chapter Five", file: "05_chapter_five.mp3" },
-  { number: "06", slug: "chapter-six", title: "Chapter Six", file: "06_chapter_six.mp3" },
-  { number: "07", slug: "chapter-seven", title: "Chapter Seven", file: "07_chapter_seven.mp3" },
-  { number: "08", slug: "chapter-eight", title: "Chapter Eight", file: "08_chapter_eight.mp3" },
-  { number: "09", slug: "chapter-nine", title: "Chapter Nine", file: "09_chapter_nine.mp3" },
-  { number: "10", slug: "chapter-ten", title: "Chapter Ten", file: "10_chapter_ten.mp3" },
-  { number: "11", slug: "chapter-eleven", title: "Chapter Eleven", file: "11_chapter_eleven.mp3" },
-  { number: "12", slug: "conclusion", title: "Conclusion", file: "12_conclusion.mp3" },
+  { number: "00", slug: "front-matter", title: "Front Matter", subtitle: "", file: "00_00_Front_Matter.mp3" },
+  { number: "01", slug: "chapter-one", title: "Chapter One", subtitle: "The World You Cannot See", file: "01_Chapter_One_The_World_You_Cannot_See.mp3" },
+  { number: "02", slug: "chapter-two", title: "Chapter Two", subtitle: "The Fourth Dimension: God's Kingdom", file: "02_Chapter_Two_The_Fourth_Dimension_God_s_Kingdom.mp3" },
+  { number: "03", slug: "chapter-three", title: "Chapter Three", subtitle: "The Rebellion and the Throne", file: "03_Chapter_Three_The_Rebellion_and_the_Throne.mp3" },
+  { number: "04", slug: "chapter-four", title: "Chapter Four", subtitle: "The Finished Work of Christ", file: "04_Chapter_Four_The_Finished_Work_of_Christ.mp3" },
+  { number: "05", slug: "chapter-five", title: "Chapter Five", subtitle: "The New Creation", file: "05_Chapter_Five_The_New_Creation.mp3" },
+  { number: "06", slug: "chapter-six", title: "Chapter Six", subtitle: "The Renewed Mind", file: "06_Chapter_Six_The_Renewed_Mind.mp3" },
+  { number: "07", slug: "chapter-seven", title: "Chapter Seven", subtitle: "Living by Faith", file: "07_Chapter_Seven_Living_by_Faith.mp3" },
+  { number: "08", slug: "chapter-eight", title: "Chapter Eight", subtitle: "Living Confidently in God's Timing", file: "08_Chapter_Eight_Living_Confidently_in_God_s_Timing.mp3" },
+  { number: "09", slug: "chapter-nine", title: "Chapter Nine", subtitle: "Thanksgiving, Peace and Rest", file: "09_Chapter_Nine_Thanksgiving_Peace_and_Rest.mp3" },
+  { number: "10", slug: "chapter-ten", title: "Chapter Ten", subtitle: "Living to Please the Father", file: "10_Chapter_Ten_Living_to_Please_the_Father.mp3" },
+  { number: "11", slug: "chapter-eleven", title: "Chapter Eleven", subtitle: "Shining as Sons", file: "11_Chapter_Eleven_Shining_as_Sons.mp3" },
+  { number: "12", slug: "conclusion", title: "Conclusion", subtitle: "Living Every Day from God's Perspective", file: "12_Conclusion_Living_Every_Day_from_God_s_Perspective.mp3" },
 ];
 
 // Example of the dynamic URL construction referenced throughout the app:
