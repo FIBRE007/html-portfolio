@@ -468,21 +468,41 @@ section { position: relative; }
   margin: var(--space-3) auto 0;
 }
 
+.hero-message-block {
+  margin-top: var(--space-6);
+  padding-top: var(--space-4);
+  border-top: 1px solid var(--color-border-strong);
+}
+
+.hero-title-sub {
+  font-family: var(--font-serif);
+  font-weight: 600;
+  font-size: clamp(1.8rem, 5.5vw, 3.25rem);
+  letter-spacing: 0.01em;
+  color: var(--color-ivory);
+  margin-top: var(--space-1);
+  text-wrap: balance;
+}
+
+.hero-subtitle--small {
+  font-size: clamp(1rem, 1.6vw, 1.2rem);
+  margin-top: var(--space-1);
+}
+
 .hero-actions {
   justify-content: center;
   margin-top: var(--space-5);
 }
 
 .scroll-indicator {
-  position: absolute;
-  bottom: var(--space-4);
-  left: 50%;
-  transform: translateX(-50%);
+  position: relative;
   z-index: 2;
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 0.6em;
+  width: fit-content;
+  margin: var(--space-6) auto 0;
   color: var(--color-ivory-faint);
   font-size: 0.7rem;
   letter-spacing: 0.24em;
