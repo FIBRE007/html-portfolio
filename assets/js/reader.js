@@ -79,6 +79,7 @@
 
     const meta = (typeof CHAPTERS !== "undefined" ? CHAPTERS : []).find((c) => c.slug === chapter.slug);
     chapterPlayBtn.disabled = !meta;
+    chapterAudioEl.style.display = meta ? "" : "none";
     if (meta) {
       chapterAudio.src = CONFIG.audioBaseUrl + meta.file;
     }
