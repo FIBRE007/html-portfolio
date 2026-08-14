@@ -16,8 +16,8 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,500;1,600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 
-  <link rel="stylesheet" href="/assets/css/style.css">
-  <link rel="stylesheet" href="/assets/css/reader.css">
+  <link rel="stylesheet" href="/assets/css/style.css?v=3">
+  <link rel="stylesheet" href="/assets/css/reader.css?v=3">
 </head>
 <body class="reader-body">
   <a class="skip-link" href="#reader-main">Skip to chapter content</a>
@@ -82,6 +82,26 @@
       <article class="reader-article">
         <p class="eyebrow" id="chapter-kicker">Front Matter</p>
         <h1 class="reader-title" id="chapter-title">Front Matter</h1>
+
+        <div class="chapter-audio" id="chapter-audio">
+          <button class="transport-btn play" id="chapter-audio-play" aria-label="Play this chapter" type="button">
+            <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M8 5v14l11-7L8 5z" fill="currentColor"/></svg>
+          </button>
+          <div class="chapter-audio-body">
+            <p class="chapter-audio-label">Listen to this chapter</p>
+            <div class="progress-row">
+              <span class="time" id="chapter-audio-current">0:00</span>
+              <div class="progress-track">
+                <div class="rail"><div class="fill" id="chapter-audio-fill"></div></div>
+                <input type="range" id="chapter-audio-seek" min="0" max="100" step="0.1" value="0" aria-label="Seek within this chapter's audio">
+              </div>
+              <span class="time time-end" id="chapter-audio-duration">0:00</span>
+            </div>
+            <div class="player-error" id="chapter-audio-error" role="alert"></div>
+          </div>
+        </div>
+        <audio id="chapter-audio-element" preload="none"></audio>
+
         <div class="reader-body-text" id="chapter-body"></div>
       </article>
 
@@ -109,9 +129,9 @@
     </div>
   </footer>
 
-  <script src="/assets/js/config.js"></script>
-  <script src="/assets/js/reader-content.js"></script>
-  <script src="/assets/js/main.js"></script>
-  <script src="/assets/js/reader.js"></script>
+  <script src="/assets/js/config.js?v=3"></script>
+  <script src="/assets/js/reader-content.js?v=3"></script>
+  <script src="/assets/js/main.js?v=3"></script>
+  <script src="/assets/js/reader.js?v=3"></script>
 </body>
 </html>

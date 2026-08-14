@@ -99,6 +99,7 @@
   max-width: 840px;
   margin: 0 auto;
   padding: var(--space-5) var(--space-4) var(--space-7);
+  scroll-margin-top: calc(var(--nav-height) + 3px);
 }
 
 .reader-toolbar {
@@ -144,6 +145,37 @@
 .reader-title {
   font-size: clamp(1.9rem, 4vw, 2.6rem);
   margin-top: var(--space-1);
+}
+
+.chapter-audio {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  margin-top: var(--space-3);
+  padding: var(--space-3);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  background: var(--color-bg-elevated);
+}
+.chapter-audio .transport-btn.play {
+  width: 48px;
+  height: 48px;
+  flex-shrink: 0;
+}
+.chapter-audio .transport-btn.play svg { width: 18px; height: 18px; }
+.chapter-audio-body { flex: 1; min-width: 0; }
+.chapter-audio-label {
+  font-family: var(--font-sans);
+  font-size: 0.72rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--color-gold-dim);
+  margin: 0 0 0.6em;
+}
+.chapter-audio .player-error { margin-top: var(--space-2); }
+
+@media (max-width: 480px) {
+  .chapter-audio { flex-direction: column; align-items: stretch; }
 }
 
 .reader-body-text {

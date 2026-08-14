@@ -52,6 +52,7 @@
 html {
   scroll-behavior: smooth;
   -webkit-text-size-adjust: 100%;
+  scroll-padding-top: var(--nav-height);
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -469,9 +470,19 @@ section { position: relative; }
 }
 
 .hero-message-block {
+  position: relative;
   margin-top: var(--space-6);
-  padding-top: var(--space-4);
-  border-top: 1px solid var(--color-border-strong);
+  padding-top: var(--space-5);
+}
+.hero-message-block::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: min(240px, 70%);
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--color-gold), transparent);
 }
 
 .hero-title-sub {

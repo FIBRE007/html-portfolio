@@ -34,6 +34,110 @@
 
   let currentIndex = 0;
 
+  // ---- Per-chapter inline audio player ----
+  const chapterAudio = document.getElementById("chapter-audio-element");
+  const chapterPlayBtn = document.getElementById("chapter-audio-play");
+  const chapterSeek = document.getElementById("chapter-audio-seek");
+  const chapterFill = document.getElementById("chapter-audio-fill");
+  const chapterCurEl = document.getElementById("chapter-audio-current");
+  const chapterDurEl = document.getElementById("chapter-audio-duration");
+  const chapterErrorEl = document.getElementById("chapter-audio-error");
+  let chapterIsSeeking = false;
+
+  function chapterIconPlay() {
+    return '<svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M8 5v14l11-7L8 5z" fill="currentColor"/></svg>';
+  }
+  function chapterIconPause() {
+    return '<svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="6" y="5" width="4" height="14" fill="currentColor"/><rect x="14" y="5" width="4" height="14" fill="currentColor"/></svg>';
+  }
+  function formatChapterTime(seconds) {
+    if (!isFinite(seconds) || seconds < 0) return "0:00";
+    const m = Math.floor(seconds / 60);
+    const s = Math.floor(seconds % 60);
+    return m + ":" + String(s).padStart(2, "0");
+  }
+  function showChapterAudioError(message) {
+    chapterErrorEl.textContent = message;
+    chapterErrorEl.classList.add("is-visible");
+  }
+  function clearChapterAudioError() {
+    chapterErrorEl.classList.remove("is-visible");
+    chapterErrorEl.textContent = "";
+  }
+
+  function loadChapterAudio(chapter) {
+    chapterAudio.pause();
+    chapterAudio.removeAttribute("src");
+    chapterAudio.load();
+    chapterPlayBtn.innerHTML = chapterIconPlay();
+    chapterPlayBtn.setAttribute("aria-label", "Play this chapter");
+    chapterSeek.value = "0";
+    chapterFill.style.width = "0%";
+    chapterCurEl.textContent = "0:00";
+    chapterDurEl.textContent = "0:00";
+    clearChapterAudioError();
+
+    const meta = (typeof CHAPTERS !== "undefined" ? CHAPTERS : []).find((c) => c.slug === chapter.slug);
+    chapterPlayBtn.disabled = !meta;
+    if (meta) {
+      chapterAudio.src = CONFIG.audioBaseUrl + meta.file;
+    }
+  }
+
+  chapterPlayBtn.addEventListener("click", () => {
+    if (chapterAudio.paused) {
+      const playPromise = chapterAudio.play();
+      if (playPromise && typeof playPromise.catch === "function") {
+        playPromise.catch(() => {
+          showChapterAudioError("This audio chapter is temporarily unavailable. Please try again shortly.");
+        });
+      }
+    } else {
+      chapterAudio.pause();
+    }
+  });
+  chapterAudio.addEventListener("play", () => {
+    chapterPlayBtn.innerHTML = chapterIconPause();
+    chapterPlayBtn.setAttribute("aria-label", "Pause");
+  });
+  chapterAudio.addEventListener("pause", () => {
+    chapterPlayBtn.innerHTML = chapterIconPlay();
+    chapterPlayBtn.setAttribute("aria-label", "Play this chapter");
+  });
+  chapterAudio.addEventListener("ended", () => {
+    chapterPlayBtn.innerHTML = chapterIconPlay();
+    chapterPlayBtn.setAttribute("aria-label", "Play this chapter");
+  });
+  chapterAudio.addEventListener("error", () => {
+    showChapterAudioError("This audio chapter is temporarily unavailable. Please try again shortly.");
+  });
+  chapterAudio.addEventListener("timeupdate", () => {
+    if (chapterIsSeeking) return;
+    const duration = chapterAudio.duration || 0;
+    const pct = duration ? (chapterAudio.currentTime / duration) * 100 : 0;
+    chapterSeek.value = String(pct);
+    chapterFill.style.width = pct + "%";
+    chapterCurEl.textContent = formatChapterTime(chapterAudio.currentTime);
+    if (duration) chapterDurEl.textContent = formatChapterTime(duration);
+  });
+  chapterAudio.addEventListener("loadedmetadata", () => {
+    chapterDurEl.textContent = formatChapterTime(chapterAudio.duration);
+  });
+  chapterSeek.addEventListener("input", () => {
+    chapterIsSeeking = true;
+    const pct = Number(chapterSeek.value);
+    chapterFill.style.width = pct + "%";
+    if (chapterAudio.duration) {
+      chapterCurEl.textContent = formatChapterTime((pct / 100) * chapterAudio.duration);
+    }
+  });
+  chapterSeek.addEventListener("change", () => {
+    if (chapterAudio.duration) {
+      chapterAudio.currentTime = (Number(chapterSeek.value) / 100) * chapterAudio.duration;
+    }
+    chapterIsSeeking = false;
+  });
+
   function applyFontSize() {
     document.documentElement.style.setProperty("--reader-font-size", FONT_SIZES[fontIndex] + "rem");
     fontDecrease.disabled = fontIndex === 0;
@@ -81,6 +185,7 @@
     kickerEl.textContent = chapter.kicker || chapter.title;
     titleEl.textContent = chapter.title;
     bodyEl.innerHTML = chapter.body;
+    loadChapterAudio(chapter);
     positionEl.textContent = (index + 1) + " / " + BOOK.length;
     prevBtn.disabled = index === 0;
     nextBtn.disabled = index === BOOK.length - 1;
