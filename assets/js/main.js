@@ -58,6 +58,19 @@
     revealEls.forEach((el) => el.classList.add("is-visible"));
   }
 
+  // ---- Back to top ----
+  const backToTop = document.getElementById("back-to-top");
+  if (backToTop) {
+    const onScrollTop = () => {
+      backToTop.classList.toggle("is-visible", window.scrollY > 600);
+    };
+    onScrollTop();
+    window.addEventListener("scroll", onScrollTop, { passive: true });
+    backToTop.addEventListener("click", () => {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    });
+  }
+
   // ---- Donation account copy button ----
   const copyBtn = document.getElementById("copy-account-btn");
   const copyFeedback = document.getElementById("copy-feedback");

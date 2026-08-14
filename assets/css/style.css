@@ -781,7 +781,7 @@ section { position: relative; }
   transform: translateY(-50%);
   height: 4px;
   border-radius: 4px;
-  background: rgba(243,237,224,0.12);
+  background: var(--color-bg-elevated-2);
   overflow: hidden;
 }
 .progress-track .fill {
@@ -1195,4 +1195,39 @@ section { position: relative; }
 ::selection {
   background: var(--color-gold);
   color: #0a0a0c;
+}
+
+/* ==========================================================================
+   BACK TO TOP
+   ========================================================================== */
+.back-to-top {
+  position: fixed;
+  right: var(--space-3);
+  bottom: var(--space-3);
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  background: linear-gradient(135deg, var(--color-gold-soft), var(--color-gold));
+  color: #17130a;
+  border: none;
+  box-shadow: 0 10px 28px rgba(0,0,0,0.45);
+  opacity: 0;
+  transform: translateY(14px);
+  pointer-events: none;
+  transition: opacity 0.25s var(--ease), transform 0.25s var(--ease), filter 0.25s var(--ease);
+  z-index: 85;
+}
+.back-to-top.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+.back-to-top:hover { filter: brightness(1.08); }
+.back-to-top:active { transform: scale(0.94); }
+.back-to-top svg { width: 20px; height: 20px; }
+
+@media (prefers-reduced-motion: reduce) {
+  .back-to-top { transition: opacity 0.01ms linear; }
 }

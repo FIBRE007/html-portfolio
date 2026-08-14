@@ -11,6 +11,7 @@
 .reader-body[data-theme="light"] {
   --color-bg: #f7f3e9;
   --color-bg-elevated: #efe9da;
+  --color-bg-elevated-2: #e3dcc8;
   --color-ivory: #241f16;
   --color-ivory-dim: #3a3325;
   --color-ivory-faint: #6b6152;
@@ -29,7 +30,7 @@
   top: var(--nav-height);
   left: 0; right: 0;
   height: 3px;
-  background: var(--color-border);
+  background: var(--color-bg-elevated);
   z-index: 90;
 }
 .reading-progress-fill {
