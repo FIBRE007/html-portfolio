@@ -4,9 +4,9 @@
  * codebase should hard-code these values.
  */
 const CONFIG = {
-  // Public base URL of the Cloudflare R2 bucket's "tlog/" folder. Every
-  // chapter URL is built from this single value — no MP3s live in this repo.
-  audioBaseUrl: "https://pub-62419141416c46ffa27f7d6399c14d04.r2.dev/tlog/",
+  // Public base URL of the Cloudflare R2 bucket. Every chapter URL is built
+  // from this single value — no MP3s live in this repo.
+  audioBaseUrl: "https://pub-62419141416c46ffa27f7d6399c14d04.r2.dev/",
 
   telegramUrl: "https://t.me/+_tnZiaSEX9liOGY8",
   whatsappUrl: "https://chat.whatsapp.com/JfFxXPzcyvfCGr85Uw5oc0?s=cl&p=a&ilr=4",
