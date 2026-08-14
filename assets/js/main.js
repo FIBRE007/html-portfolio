@@ -1,0 +1,93 @@
+/**
+ * THE ASSEMBLY OF SONS — Site-wide behaviour: nav, mobile menu,
+ * scroll reveal, and the donation account copy button.
+ */
+(function () {
+  "use strict";
+
+  // ---- Sticky nav opacity ----
+  const nav = document.getElementById("site-nav");
+  if (nav) {
+    const onScroll = () => {
+      nav.classList.toggle("is-scrolled", window.scrollY > 24);
+    };
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+  }
+
+  // ---- Mobile menu ----
+  const navToggle = document.getElementById("nav-toggle");
+  const navMobile = document.getElementById("nav-mobile");
+  if (navToggle && navMobile) {
+    const closeMenu = () => {
+      navMobile.classList.remove("is-open");
+      navToggle.setAttribute("aria-expanded", "false");
+      document.body.style.overflow = "";
+    };
+    const openMenu = () => {
+      navMobile.classList.add("is-open");
+      navToggle.setAttribute("aria-expanded", "true");
+      document.body.style.overflow = "hidden";
+    };
+    navToggle.addEventListener("click", () => {
+      const isOpen = navMobile.classList.contains("is-open");
+      isOpen ? closeMenu() : openMenu();
+    });
+    navMobile.querySelectorAll("a").forEach((a) => a.addEventListener("click", closeMenu));
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Escape") closeMenu();
+    });
+  }
+
+  // ---- Scroll reveal ----
+  const revealEls = document.querySelectorAll(".reveal");
+  if ("IntersectionObserver" in window && revealEls.length) {
+    const io = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("is-visible");
+            io.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.15, rootMargin: "0px 0px -40px 0px" }
+    );
+    revealEls.forEach((el) => io.observe(el));
+  } else {
+    revealEls.forEach((el) => el.classList.add("is-visible"));
+  }
+
+  // ---- Donation account copy button ----
+  const copyBtn = document.getElementById("copy-account-btn");
+  const copyFeedback = document.getElementById("copy-feedback");
+  if (copyBtn && typeof CONFIG !== "undefined") {
+    copyBtn.addEventListener("click", async () => {
+      const value = CONFIG.donationAccount;
+      try {
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+          await navigator.clipboard.writeText(value);
+        } else {
+          const temp = document.createElement("textarea");
+          temp.value = value;
+          temp.style.position = "fixed";
+          temp.style.opacity = "0";
+          document.body.appendChild(temp);
+          temp.select();
+          document.execCommand("copy");
+          document.body.removeChild(temp);
+        }
+        if (copyFeedback) {
+          copyFeedback.textContent = "Account number copied. Thank you for partnering with us.";
+          copyFeedback.classList.add("is-visible");
+          setTimeout(() => copyFeedback.classList.remove("is-visible"), 4000);
+        }
+      } catch (e) {
+        if (copyFeedback) {
+          copyFeedback.textContent = "Copy failed — the account number is " + value + ".";
+          copyFeedback.classList.add("is-visible");
+        }
+      }
+    });
+  }
+})();

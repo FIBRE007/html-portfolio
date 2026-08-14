@@ -1,38 +1,441 @@
-<!-- TODO 1: Create the HTML Boilerplate -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport", content="width=device-width, initial-scale=1.0">
-    <title> Fadoju Tosin's Profile</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The Assembly of Sons | Discover Sonship in Christ</title>
+  <meta name="description" content="The Assembly of Sons is a journey into identity, sonship, spiritual maturity and the revelation of Christ in us. Read and listen to the book online.">
+  <meta name="theme-color" content="#0a0a0c">
+  <link rel="canonical" href="https://theassemblyofsons.com/">
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="The Assembly of Sons">
+  <meta property="og:title" content="The Assembly of Sons | Discover Sonship in Christ">
+  <meta property="og:description" content="A call to spiritual maturity, identity and the revelation of Christ in us. Read and listen to the book online.">
+  <meta property="og:url" content="https://theassemblyofsons.com/">
+  <meta property="og:image" content="https://theassemblyofsons.com/assets/icons/aos/icon-512.png">
+
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="The Assembly of Sons | Discover Sonship in Christ">
+  <meta name="twitter:description" content="A call to spiritual maturity, identity and the revelation of Christ in us. Read and listen to the book online.">
+  <meta name="twitter:image" content="https://theassemblyofsons.com/assets/icons/aos/icon-512.png">
+
+  <link rel="icon" href="/assets/icons/aos/favicon-32.png" sizes="32x32">
+  <link rel="icon" href="/assets/icons/aos/favicon-16.png" sizes="16x16">
+  <link rel="apple-touch-icon" href="/assets/icons/aos/apple-touch-icon.png">
+  <link rel="manifest" href="/assets/manifest-site.webmanifest">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,500;1,600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="/assets/css/style.css">
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Book",
+    "name": "The Assembly of Sons",
+    "author": { "@type": "Organization", "name": "The Assembly of Sons" },
+    "url": "https://theassemblyofsons.com/",
+    "bookFormat": "https://schema.org/EBook",
+    "inLanguage": "en",
+    "description": "A call to spiritual maturity, identity and the revelation of Christ in us.",
+    "publisher": { "@type": "Organization", "name": "The Assembly of Sons" }
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "The Assembly of Sons",
+    "url": "https://theassemblyofsons.com/",
+    "sameAs": [
+      "https://t.me/+_tnZiaSEX9liOGY8",
+      "https://chat.whatsapp.com/JfFxXPzcyvfCGr85Uw5oc0?s=cl&p=a&ilr=4"
+    ]
+  }
+  </script>
 </head>
 <body>
-    <h1> Fadoju Tosin's Portfolio</h1>
-    <h2>I'm a Web Developer</h2>
-    <hr/>
-   <h3><a href=".\public\movie-ranking.html">Movie Ranking Project</a></h3>
-    <img src=".\assets\images\Screenshot (42).png" height="300"/>
-    <h3><a href=".\public\birthday-invite.html">Birthday Invite Project</a></h3>
-    <img src=".\assets\images\Screenshot (38).png" height="300"/>
-    <h3><a href=".\public\audiobook-reader.html">Audiobook Reader Project</a></h3>
-    <p>A minimalist audiobook reader that installs on iOS and Android home screens, with chapters, playback speed, and a sleep timer.</p>
-    <img src=".\assets\images\audiobook-reader.png" height="300"/>
-    <hr/>
-    <a href=".\public\contact.html">Contact Me</a>
-    <a href="./public/about.html">About me</a>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <header class="site-nav" id="site-nav">
+    <div class="container nav-inner">
+      <a class="nav-brand" href="/">
+        <span class="mark" aria-hidden="true">A</span>
+        The Assembly of Sons
+      </a>
+      <nav class="nav-links" aria-label="Primary">
+        <a href="/" class="current">Home</a>
+        <a href="#call-to-sonship">About</a>
+        <a href="/reader.html">Read</a>
+        <a href="#listen">Listen</a>
+        <a href="#community">Community</a>
+        <a href="#support">Support</a>
+      </nav>
+      <a class="btn btn-primary nav-cta" href="#listen">Listen Now</a>
+      <button class="nav-toggle" id="nav-toggle" aria-label="Open menu" aria-expanded="false" aria-controls="nav-mobile">
+        <span></span>
+      </button>
+    </div>
+  </header>
+
+  <nav id="nav-mobile" class="nav-mobile" aria-label="Mobile">
+    <a href="/">Home</a>
+    <a href="#call-to-sonship">About</a>
+    <a href="/reader.html">Read</a>
+    <a href="#listen">Listen</a>
+    <a href="#community">Community</a>
+    <a href="#support">Support</a>
+    <a class="btn btn-primary" href="#listen">Listen Now</a>
+  </nav>
+
+  <main id="main">
+    <!-- ============ HERO ============ -->
+    <section class="hero" aria-label="Introduction">
+      <div class="hero-atmosphere" aria-hidden="true"></div>
+      <div class="hero-glow" aria-hidden="true"></div>
+      <div class="hero-mountains" aria-hidden="true">
+        <svg viewBox="0 0 1440 260" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+          <polygon points="0,260 0,150 180,60 340,140 520,40 700,130 860,70 1040,160 1220,90 1440,170 1440,260" fill="#050506"/>
+          <polygon points="0,260 0,190 220,120 460,190 680,110 900,180 1140,120 1440,200 1440,260" fill="#08080a" opacity="0.8"/>
+        </svg>
+      </div>
+
+      <div class="hero-content">
+        <h1 class="hero-title">THE ASSEMBLY <span class="accent">OF</span> SONS</h1>
+        <p class="hero-subtitle">A call to spiritual maturity, identity and the revelation of Christ in us.</p>
+        <p class="hero-supporting">Discover the reality of sonship and learn to live from the life of Christ within you.</p>
+        <div class="hero-actions">
+          <a class="btn btn-primary" href="/reader.html">Read the Book</a>
+          <a class="btn btn-outline" href="#listen">Listen Now</a>
+          <a class="btn btn-outline" href="#community">Join the Community</a>
+        </div>
+      </div>
+
+      <a href="#call-to-sonship" class="scroll-indicator" aria-label="Scroll to next section">
+        <span>Scroll</span>
+        <span class="line"></span>
+      </a>
+    </section>
+
+    <!-- ============ CALL TO SONSHIP ============ -->
+    <section class="intro section-pad" id="call-to-sonship">
+      <div class="container">
+        <div class="intro-grid">
+          <div class="reveal">
+            <p class="eyebrow">Introduction</p>
+            <h2 class="section-heading">The Call to Sonship</h2>
+            <p class="section-lede">The Assembly of Sons is a call to believers to move beyond merely knowing about Christ into experiencing and expressing His life.</p>
+            <ul class="intro-points">
+              <li>Identity in Christ</li>
+              <li>Sonship</li>
+              <li>Spiritual maturity</li>
+              <li>The new creation</li>
+              <li>Christ formed in the believer</li>
+              <li>Living from spiritual reality</li>
+              <li>Transformation</li>
+              <li>Grace, faith &amp; revelation</li>
+            </ul>
+          </div>
+          <blockquote class="pull-quote reveal">
+            &ldquo;We are not called merely to know about the Son. We are called to reveal His life.&rdquo;
+            <cite>The Assembly of Sons</cite>
+          </blockquote>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ ABOUT THE BOOK ============ -->
+    <section class="book-section section-pad" id="about">
+      <div class="container">
+        <div class="book-grid">
+          <div class="book-mockup reveal">
+            <div class="book-cover">
+              <span class="book-mark" aria-hidden="true">&#10022;</span>
+              <h3 class="book-title">The Assembly<br>of Sons</h3>
+              <p class="book-sub">A Call to Sonship</p>
+            </div>
+          </div>
+          <div class="book-meta reveal">
+            <p class="eyebrow">The Book</p>
+            <h2 class="section-heading">A journey into identity and spiritual maturity</h2>
+            <p class="section-lede">Written as both a theological unveiling and a practical companion, The Assembly of Sons walks the reader from information to revelation &mdash; from believing facts about Christ to living from His life within. Across Front Matter and eleven chapters, it explores adoption, new creation, the renewing of the mind, grace, faith and what it means to walk daily as a mature son of God.</p>
+            <p class="book-author">Published by The Assembly of Sons</p>
+            <div class="book-actions">
+              <a class="btn btn-primary" href="/reader.html">Read the Book</a>
+              <a class="btn btn-outline" href="#listen">Listen to the Book</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ WHAT YOU WILL DISCOVER ============ -->
+    <section class="discover-section section-pad">
+      <div class="container">
+        <div class="section-head center reveal">
+          <p class="eyebrow">What You Will Discover</p>
+          <h2 class="section-heading mx-auto">Truths this book will unfold in you</h2>
+        </div>
+        <div class="discover-grid reveal" id="discover-grid"></div>
+      </div>
+    </section>
+
+    <!-- ============ LISTEN TO THE BOOK ============ -->
+    <section class="listen-section section-pad" id="listen">
+      <div class="container">
+        <div class="section-head center reveal">
+          <p class="eyebrow">The Audio Book</p>
+          <h2 class="section-heading mx-auto">Listen to the Book</h2>
+          <p class="section-lede mx-auto">The complete audio edition, narrated in thirteen sections. Press play, and let the message meet you wherever you are.</p>
+        </div>
+
+        <div class="player reveal" id="player">
+          <div class="resume-banner" id="resume-banner">
+            <span>Continue listening from where you stopped.</span>
+            <div style="display:flex; gap:1em;">
+              <button id="resume-btn" type="button">Resume</button>
+              <button id="resume-dismiss" type="button" aria-label="Dismiss">Dismiss</button>
+            </div>
+          </div>
+
+          <div class="player-grid">
+            <div class="now-playing-col">
+              <div class="now-playing-label">
+                <span class="dot" id="now-dot" aria-hidden="true"></span>
+                Now Playing
+              </div>
+              <h3 class="now-playing-title" id="now-title">00 — Front Matter</h3>
+              <p class="now-playing-sub" id="now-sub">Chapter 1 of 13</p>
+
+              <div class="player-controls">
+                <div class="progress-row">
+                  <span class="time" id="current-time">0:00</span>
+                  <div class="progress-track">
+                    <div class="rail"><div class="fill" id="seek-fill"></div></div>
+                    <input type="range" id="seek" min="0" max="100" step="0.1" value="0" aria-label="Seek within chapter">
+                  </div>
+                  <span class="time time-end" id="duration-time">0:00</span>
+                </div>
+
+                <div class="transport-row">
+                  <button class="transport-btn" id="prev-btn" aria-label="Previous chapter">
+                    <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M18 5v14L7 12l11-7z" fill="currentColor"/><rect x="5" y="5" width="2" height="14" fill="currentColor"/></svg>
+                  </button>
+                  <button class="transport-btn play" id="play-btn" aria-label="Play">
+                    <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M8 5v14l11-7L8 5z" fill="currentColor"/></svg>
+                  </button>
+                  <button class="transport-btn" id="next-btn" aria-label="Next chapter">
+                    <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M6 5v14l11-7L6 5z" fill="currentColor"/><rect x="17" y="5" width="2" height="14" fill="currentColor"/></svg>
+                  </button>
+                </div>
+
+                <div class="player-secondary-row">
+                  <div class="volume-control">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4 9v6h4l5 4V5L8 9H4z" fill="currentColor"/></svg>
+                    <input type="range" id="volume" min="0" max="1" step="0.01" value="1" aria-label="Volume">
+                  </div>
+                  <div class="speed-control" role="group" aria-label="Playback speed">
+                    <button class="speed-btn" data-rate="0.75" type="button">0.75&times;</button>
+                    <button class="speed-btn active" data-rate="1" type="button">1&times;</button>
+                    <button class="speed-btn" data-rate="1.25" type="button">1.25&times;</button>
+                    <button class="speed-btn" data-rate="1.5" type="button">1.5&times;</button>
+                    <button class="speed-btn" data-rate="2" type="button">2&times;</button>
+                  </div>
+                </div>
+
+                <div class="player-error" id="player-error" role="alert"></div>
+              </div>
+            </div>
+
+            <div class="playlist-wrap">
+              <p class="playlist-heading">Chapters</p>
+              <div class="playlist" id="playlist" role="listbox" aria-label="Audio book chapters"></div>
+            </div>
+          </div>
+
+          <audio id="audio-element" preload="none"></audio>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ SCRIPTURE / REVELATION ============ -->
+    <section class="scripture-section section-pad">
+      <div class="container">
+        <div class="section-head center reveal">
+          <p class="eyebrow">Scripture &amp; Reflection</p>
+          <h2 class="section-heading mx-auto">From Information to Revelation</h2>
+          <p class="section-lede mx-auto">A few references to sit with, not to rush past &mdash; each one a doorway into the reality this book explores.</p>
+        </div>
+        <div class="scripture-grid reveal">
+          <div class="scripture-card">
+            <p class="theme">Sonship</p>
+            <p class="refs">Romans 8:14&ndash;15<br>Galatians 4:6&ndash;7</p>
+          </div>
+          <div class="scripture-card">
+            <p class="theme">New Creation</p>
+            <p class="refs">2 Corinthians 5:17<br>Galatians 6:15</p>
+          </div>
+          <div class="scripture-card">
+            <p class="theme">Christ in Us</p>
+            <p class="refs">Colossians 1:27<br>Galatians 2:20</p>
+          </div>
+          <div class="scripture-card">
+            <p class="theme">Spiritual Maturity</p>
+            <p class="refs">Ephesians 4:13&ndash;15<br>Hebrews 5:13&ndash;14</p>
+          </div>
+          <div class="scripture-card">
+            <p class="theme">Transformation</p>
+            <p class="refs">Romans 12:2<br>2 Corinthians 3:18</p>
+          </div>
+          <div class="scripture-card">
+            <p class="theme">Faith &amp; Grace</p>
+            <p class="refs">Hebrews 11:1<br>Titus 2:11&ndash;12</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ COMMUNITY ============ -->
+    <section class="community-section section-pad" id="community">
+      <div class="container">
+        <div class="section-head reveal">
+          <p class="eyebrow">Community</p>
+          <h2 class="section-heading">Walk With Us</h2>
+          <p class="section-lede">The journey was never meant to be walked alone. Join the conversation, share your discoveries and grow with others who are pursuing the reality of Christ.</p>
+        </div>
+        <div class="community-actions reveal">
+          <a class="community-card" id="telegram-link" href="#" target="_blank" rel="noopener noreferrer">
+            <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M21.5 3.5 2.5 10.9c-1.2.47-1.2 1.13-.22 1.42l4.9 1.53 1.9 5.8c.23.63.4.88.8.88.32 0 .47-.15.65-.33l1.75-1.7 3.9 2.87c.7.4 1.22.19 1.4-.65l2.55-12.3c.27-1.05-.4-1.5-1.13-1.9Z" fill="currentColor"/></svg>
+            <span class="label">Join Us on Telegram</span>
+          </a>
+          <a class="community-card" id="whatsapp-link" href="#" target="_blank" rel="noopener noreferrer">
+            <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15L2 22l5.2-1.36A10 10 0 1 0 12 2Zm0 18a8 8 0 0 1-4.1-1.13l-.3-.17-3.08.8.82-3-.19-.31A8 8 0 1 1 12 20Zm4.4-5.9c-.24-.12-1.42-.7-1.64-.78-.22-.08-.38-.12-.54.12-.16.24-.62.78-.76.94-.14.16-.28.18-.52.06-.24-.12-1-.37-1.9-1.18-.7-.62-1.18-1.4-1.32-1.64-.14-.24-.02-.37.1-.49.11-.11.24-.28.36-.42.12-.14.16-.24.24-.4.08-.16.04-.3-.02-.42-.06-.12-.54-1.3-.74-1.78-.2-.47-.4-.4-.54-.4h-.46c-.16 0-.42.06-.64.3-.22.24-.84.82-.84 2s.86 2.32.98 2.48c.12.16 1.7 2.6 4.12 3.64.58.25 1.03.4 1.38.51.58.18 1.1.16 1.52.1.46-.07 1.42-.58 1.62-1.14.2-.56.2-1.04.14-1.14-.06-.1-.22-.16-.46-.28Z" fill="currentColor"/></svg>
+            <span class="label">Join the WhatsApp Community</span>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ SHARE YOUR DISCOVERY ============ -->
+    <section class="share-section section-pad">
+      <div class="container">
+        <div class="section-head center reveal">
+          <p class="eyebrow">Share Your Discovery</p>
+          <h2 class="section-heading mx-auto">What Are You Discovering?</h2>
+          <p class="section-lede mx-auto">As you read and listen, share the truths, revelations and discoveries that are transforming your understanding of Christ and His life in you.</p>
+        </div>
+        <a class="btn btn-primary reveal" id="share-link" href="#" target="_blank" rel="noopener noreferrer">Share Your Discovery</a>
+      </div>
+    </section>
+
+    <!-- ============ SUPPORT ============ -->
+    <section class="support-section section-pad" id="support">
+      <div class="container text-center">
+        <div class="section-head center reveal">
+          <p class="eyebrow">Support the Work</p>
+          <h2 class="section-heading mx-auto">Partner With the Message</h2>
+          <p class="section-lede mx-auto">Your generosity helps us make this message available to more people and continue the work of building and strengthening the sons of God.</p>
+        </div>
+
+        <div class="support-card reveal">
+          <p class="support-method" id="support-method">OPay</p>
+          <div class="support-row">
+            <span class="label">Account Number</span>
+            <span class="value" id="account-number">8151812207</span>
+          </div>
+          <div class="support-row">
+            <span class="label">Account Name</span>
+            <span class="value" id="account-name">Fadoju Tosin</span>
+          </div>
+          <div class="support-row" style="border-top: none; justify-content:center; padding-top: var(--space-4);">
+            <button class="copy-btn" id="copy-account-btn" type="button">
+              <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2" stroke="currentColor" stroke-width="1.6"/><path d="M5 15V5a2 2 0 0 1 2-2h10" stroke="currentColor" stroke-width="1.6"/></svg>
+              Copy Account Number
+            </button>
+          </div>
+          <p class="copy-feedback" id="copy-feedback" role="status" aria-live="polite"></p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-grid">
+      <div>
+        <p class="footer-brand">The Assembly of Sons</p>
+        <p class="footer-tagline">A call to spiritual maturity, identity and the revelation of Christ in us.</p>
+      </div>
+      <div>
+        <p class="footer-heading">Navigation</p>
+        <nav class="footer-links" aria-label="Footer">
+          <a href="/">Home</a>
+          <a href="#call-to-sonship">About</a>
+          <a href="/reader.html">Read</a>
+          <a href="#listen">Listen</a>
+          <a href="#community">Community</a>
+          <a href="#support">Support</a>
+          <a href="/public/contact.html">Contact</a>
+        </nav>
+      </div>
+      <div>
+        <p class="footer-heading">Community</p>
+        <nav class="footer-links" aria-label="Community links">
+          <a id="footer-telegram" href="#" target="_blank" rel="noopener noreferrer">Telegram</a>
+          <a id="footer-whatsapp" href="#" target="_blank" rel="noopener noreferrer">WhatsApp</a>
+        </nav>
+      </div>
+    </div>
+    <div class="container footer-bottom">
+      &copy; 2026 The Assembly of Sons. All rights reserved.
+    </div>
+  </footer>
+
+  <script src="/assets/js/config.js"></script>
+  <script src="/assets/js/main.js"></script>
+  <script src="/assets/js/audio-player.js"></script>
+  <script>
+    (function () {
+      // Wire community / share links + discover cards from CONFIG so
+      // the URLs only ever live in one place.
+      var telegramLinks = [document.getElementById("telegram-link"), document.getElementById("footer-telegram")];
+      var whatsappLinks = [document.getElementById("whatsapp-link"), document.getElementById("footer-whatsapp")];
+      telegramLinks.forEach(function (el) { if (el) el.href = CONFIG.telegramUrl; });
+      whatsappLinks.forEach(function (el) { if (el) el.href = CONFIG.whatsappUrl; });
+
+      var shareLink = document.getElementById("share-link");
+      if (shareLink) shareLink.href = CONFIG.whatsappUrl;
+
+      var method = document.getElementById("support-method");
+      var acctNum = document.getElementById("account-number");
+      var acctName = document.getElementById("account-name");
+      if (method) method.textContent = CONFIG.donationMethod;
+      if (acctNum) acctNum.textContent = CONFIG.donationAccount;
+      if (acctName) acctName.textContent = CONFIG.donationName;
+
+      var DISCOVER = [
+        ["01", "Identity", "Who you are because of who He is."],
+        ["02", "Sonship", "Belonging that was never earned."],
+        ["03", "New Creation", "A nature made entirely new."],
+        ["04", "Spiritual Reality", "Living from what is unseen, yet true."],
+        ["05", "Christ Within", "The indwelling life at the centre of it all."],
+        ["06", "Transformation", "The renewing of a mind set free."],
+        ["07", "Faith", "The substance of things hoped for."],
+        ["08", "Grace", "The teacher, not merely the pardon."],
+        ["09", "Spiritual Maturity", "Growing from servant into son."],
+        ["10", "Kingdom Living", "Sonship worked out in ordinary days."],
+      ];
+      var grid = document.getElementById("discover-grid");
+      if (grid) {
+        grid.innerHTML = DISCOVER.map(function (d) {
+          return '<div class="discover-card"><p class="num">' + d[0] + '</p><h3>' + d[1] + '</h3><p>' + d[2] + '</p></div>';
+        }).join("");
+      }
+    })();
+  </script>
 </body>
 </html>
-
-<!-- TODO 2: Add Your previous projects' HTML into the public folder -->
-
-<!-- TODO 3: Take screenshots of your project previews and add the images to the images folder -->
-
-<!-- TODO 4: Add titles/subtitles etc. -->
-
-<!-- TODO 5: Add a link to the project pages -->
-
-<!-- TODO 6: Add images to show the project previews
-HINT for TODO 6: You can use the height attribute set to 200 to make the image smaller:
-https://developer.mozilla.org/en-US/docs/Web/HTML/Element/img#attr-height -->
-
-<!-- TODO 7: Add the Contact Me and About Me page links -->
