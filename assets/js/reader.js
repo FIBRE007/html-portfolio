@@ -43,6 +43,41 @@
   const chapterDurEl = document.getElementById("chapter-audio-duration");
   const chapterErrorEl = document.getElementById("chapter-audio-error");
   let chapterIsSeeking = false;
+  let currentAudioSlug = null;
+  let chapterAudioSaveTimer = null;
+  let chapterAudioRetries = 0;
+  const CHAPTER_AUDIO_POSITIONS_KEY = "aos_reader_audio_positions_v1";
+  const MAX_CHAPTER_AUDIO_RETRIES = 2;
+
+  function readChapterAudioPositions() {
+    try {
+      const raw = localStorage.getItem(CHAPTER_AUDIO_POSITIONS_KEY);
+      return raw ? JSON.parse(raw) : {};
+    } catch (e) {
+      return {};
+    }
+  }
+  function persistChapterAudioPosition() {
+    if (!currentAudioSlug || !chapterAudio.duration) return;
+    try {
+      const positions = readChapterAudioPositions();
+      positions[currentAudioSlug] = {
+        position: chapterAudio.currentTime,
+        duration: chapterAudio.duration,
+        updatedAt: Date.now(),
+      };
+      localStorage.setItem(CHAPTER_AUDIO_POSITIONS_KEY, JSON.stringify(positions));
+    } catch (e) {
+      /* localStorage unavailable — resume simply won't work */
+    }
+  }
+  function clearChapterAudioPosition(slug) {
+    try {
+      const positions = readChapterAudioPositions();
+      delete positions[slug];
+      localStorage.setItem(CHAPTER_AUDIO_POSITIONS_KEY, JSON.stringify(positions));
+    } catch (e) {}
+  }
 
   function chapterIconPlay() {
     return '<svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M8 5v14l11-7L8 5z" fill="currentColor"/></svg>';
@@ -66,6 +101,8 @@
   }
 
   function loadChapterAudio(chapter) {
+    persistChapterAudioPosition();
+
     chapterAudio.pause();
     chapterAudio.removeAttribute("src");
     chapterAudio.load();
@@ -76,22 +113,36 @@
     chapterCurEl.textContent = "0:00";
     chapterDurEl.textContent = "0:00";
     clearChapterAudioError();
+    chapterAudioRetries = 0;
+    currentAudioSlug = null;
 
     const meta = (typeof CHAPTERS !== "undefined" ? CHAPTERS : []).find((c) => c.slug === chapter.slug);
     chapterPlayBtn.disabled = !meta;
     chapterAudioEl.style.display = meta ? "" : "none";
     if (meta) {
+      currentAudioSlug = chapter.slug;
       chapterAudio.src = CONFIG.audioBaseUrl + meta.file;
+
+      const saved = readChapterAudioPositions()[chapter.slug];
+      if (saved && saved.position > 3 && (!saved.duration || saved.position < saved.duration - 3)) {
+        const resumeAt = saved.position;
+        const onLoaded = () => {
+          chapterAudio.currentTime = Math.min(resumeAt, chapterAudio.duration || resumeAt);
+          chapterAudio.removeEventListener("loadedmetadata", onLoaded);
+        };
+        chapterAudio.addEventListener("loadedmetadata", onLoaded);
+      }
     }
   }
 
   chapterPlayBtn.addEventListener("click", () => {
     if (chapterAudio.paused) {
       const playPromise = chapterAudio.play();
+      // Real load/network failures are handled (with retry) by the
+      // "error" event below; a rejected play() promise is often just a
+      // benign AbortError and shouldn't short-circuit that retry.
       if (playPromise && typeof playPromise.catch === "function") {
-        playPromise.catch(() => {
-          showChapterAudioError("This audio chapter is temporarily unavailable. Please try again shortly.");
-        });
+        playPromise.catch(() => {});
       }
     } else {
       chapterAudio.pause();
@@ -101,16 +152,38 @@
     chapterPlayBtn.innerHTML = chapterIconPause();
     chapterPlayBtn.setAttribute("aria-label", "Pause");
   });
+  chapterAudio.addEventListener("playing", () => {
+    chapterAudioRetries = 0;
+  });
   chapterAudio.addEventListener("pause", () => {
     chapterPlayBtn.innerHTML = chapterIconPlay();
     chapterPlayBtn.setAttribute("aria-label", "Play this chapter");
+    persistChapterAudioPosition();
   });
   chapterAudio.addEventListener("ended", () => {
     chapterPlayBtn.innerHTML = chapterIconPlay();
     chapterPlayBtn.setAttribute("aria-label", "Play this chapter");
+    if (currentAudioSlug) clearChapterAudioPosition(currentAudioSlug);
   });
   chapterAudio.addEventListener("error", () => {
-    showChapterAudioError("This audio chapter is temporarily unavailable. Please try again shortly.");
+    if (currentAudioSlug && chapterAudioRetries < MAX_CHAPTER_AUDIO_RETRIES) {
+      chapterAudioRetries++;
+      const resumeAt = chapterAudio.currentTime;
+      const src = CONFIG.audioBaseUrl + ((typeof CHAPTERS !== "undefined" ? CHAPTERS : []).find((c) => c.slug === currentAudioSlug) || {}).file;
+      setTimeout(() => {
+        chapterAudio.src = src;
+        chapterAudio.load();
+        const onLoaded = () => {
+          chapterAudio.currentTime = resumeAt;
+          chapterAudio.removeEventListener("loadedmetadata", onLoaded);
+          const p = chapterAudio.play();
+          if (p && typeof p.catch === "function") p.catch(() => {});
+        };
+        chapterAudio.addEventListener("loadedmetadata", onLoaded);
+      }, 1000 * chapterAudioRetries);
+    } else {
+      showChapterAudioError("This audio chapter is temporarily unavailable. Please try again shortly.");
+    }
   });
   chapterAudio.addEventListener("timeupdate", () => {
     if (chapterIsSeeking) return;
@@ -120,6 +193,13 @@
     chapterFill.style.width = pct + "%";
     chapterCurEl.textContent = formatChapterTime(chapterAudio.currentTime);
     if (duration) chapterDurEl.textContent = formatChapterTime(duration);
+
+    if (!chapterAudioSaveTimer) {
+      chapterAudioSaveTimer = setTimeout(() => {
+        persistChapterAudioPosition();
+        chapterAudioSaveTimer = null;
+      }, 5000);
+    }
   });
   chapterAudio.addEventListener("loadedmetadata", () => {
     chapterDurEl.textContent = formatChapterTime(chapterAudio.duration);
@@ -137,6 +217,10 @@
       chapterAudio.currentTime = (Number(chapterSeek.value) / 100) * chapterAudio.duration;
     }
     chapterIsSeeking = false;
+  });
+  window.addEventListener("beforeunload", persistChapterAudioPosition);
+  document.addEventListener("visibilitychange", () => {
+    if (document.visibilityState === "hidden") persistChapterAudioPosition();
   });
 
   // Keep the sticky offset in sync with the toolbar's real (possibly

@@ -37,6 +37,8 @@
   let isSeeking = false;
   let saveTimer = null;
   let pendingResume = null;
+  let playbackRetries = 0;
+  const MAX_PLAYBACK_RETRIES = 2;
 
   function audioUrlFor(chapter) {
     return AUDIO_BASE_URL + chapter.file;
@@ -114,6 +116,7 @@
     const chapter = CHAPTERS[index];
 
     clearError();
+    playbackRetries = 0;
     audio.src = audioUrlFor(chapter);
     if (typeof opts.startAt === "number" && opts.startAt > 0) {
       const onLoaded = () => {
@@ -141,11 +144,11 @@
 
   function attemptPlay() {
     const playPromise = audio.play();
+    // Real load/network failures are handled (with retry) by the
+    // "error" event below; a rejected play() promise is often just a
+    // benign AbortError and shouldn't short-circuit that retry.
     if (playPromise && typeof playPromise.catch === "function") {
-      playPromise.catch(() => {
-        showError("This audio chapter is temporarily unavailable. Please try again shortly.");
-        setPlayingUI(false);
-      });
+      playPromise.catch(() => {});
     }
   }
 
@@ -199,6 +202,9 @@
   nextBtn.addEventListener("click", () => loadChapter(currentIndex + 1, { autoplay: !audio.paused || audio.currentTime > 0 }));
 
   audio.addEventListener("play", () => setPlayingUI(true));
+  audio.addEventListener("playing", () => {
+    playbackRetries = 0;
+  });
   audio.addEventListener("pause", () => {
     setPlayingUI(false);
     persist();
@@ -212,8 +218,24 @@
     }
   });
   audio.addEventListener("error", () => {
-    showError("This audio chapter is temporarily unavailable. Please try again shortly.");
-    setPlayingUI(false);
+    if (audio.src && playbackRetries < MAX_PLAYBACK_RETRIES) {
+      playbackRetries++;
+      const resumeAt = audio.currentTime;
+      const src = audioUrlFor(CHAPTERS[currentIndex]);
+      setTimeout(() => {
+        audio.src = src;
+        audio.load();
+        const onLoaded = () => {
+          audio.currentTime = resumeAt;
+          audio.removeEventListener("loadedmetadata", onLoaded);
+          attemptPlay();
+        };
+        audio.addEventListener("loadedmetadata", onLoaded);
+      }, 1000 * playbackRetries);
+    } else {
+      showError("This audio chapter is temporarily unavailable. Please try again shortly.");
+      setPlayingUI(false);
+    }
   });
 
   audio.addEventListener("timeupdate", () => {
