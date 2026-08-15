@@ -71,6 +71,79 @@
     });
   }
 
+  // ---- Reader reviews: render curated list ----
+  function escapeHtml(str) {
+    return String(str).replace(/[&<>"']/g, (c) => (
+      { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]
+    ));
+  }
+  const reviewsGrid = document.getElementById("reviews-grid");
+  const reviewsEmpty = document.getElementById("reviews-empty");
+  if (reviewsGrid && reviewsEmpty && typeof REVIEWS !== "undefined") {
+    if (REVIEWS.length) {
+      reviewsGrid.innerHTML = REVIEWS.map((r) => {
+        const loc = r.location ? "<span>" + escapeHtml(r.location) + "</span>" : "";
+        return (
+          '<article class="review-card"><blockquote>&ldquo;' +
+          escapeHtml(r.text) +
+          '&rdquo;</blockquote><cite>' +
+          escapeHtml(r.name) +
+          loc +
+          "</cite></article>"
+        );
+      }).join("");
+      reviewsEmpty.hidden = true;
+    } else {
+      reviewsEmpty.hidden = false;
+    }
+  }
+
+  // ---- Reader reviews: submission form ----
+  const reviewForm = document.getElementById("review-form");
+  const reviewNote = document.getElementById("review-form-note");
+  const reviewSubmitBtn = document.getElementById("review-submit");
+  if (reviewForm && reviewNote && reviewSubmitBtn) {
+    reviewForm.addEventListener("submit", (e) => {
+      e.preventDefault();
+
+      // Honeypot: if this hidden field got filled, it's almost certainly a bot — drop it silently.
+      const honeypot = reviewForm.querySelector('[name="_gotcha"]');
+      if (honeypot && honeypot.value) return;
+
+      const endpoint = typeof CONFIG !== "undefined" ? CONFIG.reviewFormEndpoint : "";
+      if (!endpoint) {
+        reviewNote.textContent = "Review submissions are launching soon — please check back shortly.";
+        reviewNote.className = "review-form-note is-error";
+        return;
+      }
+
+      reviewSubmitBtn.disabled = true;
+      reviewSubmitBtn.textContent = "Sending...";
+      reviewNote.textContent = "";
+      reviewNote.className = "review-form-note";
+
+      fetch(endpoint, {
+        method: "POST",
+        headers: { Accept: "application/json" },
+        body: new FormData(reviewForm),
+      })
+        .then((res) => {
+          if (!res.ok) throw new Error("Submission failed");
+          reviewNote.textContent = "Thank you for sharing! Your review will appear here once it's been reviewed.";
+          reviewNote.className = "review-form-note is-success";
+          reviewForm.reset();
+        })
+        .catch(() => {
+          reviewNote.textContent = "Something went wrong sending your review. Please try again shortly.";
+          reviewNote.className = "review-form-note is-error";
+        })
+        .finally(() => {
+          reviewSubmitBtn.disabled = false;
+          reviewSubmitBtn.textContent = "Share Your Review";
+        });
+    });
+  }
+
   // ---- Donation account copy button ----
   const copyBtn = document.getElementById("copy-account-btn");
   const copyFeedback = document.getElementById("copy-feedback");

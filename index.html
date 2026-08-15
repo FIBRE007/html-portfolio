@@ -31,7 +31,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,500;1,600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 
-  <link rel="stylesheet" href="/assets/css/style.css?v=9">
+  <link rel="stylesheet" href="/assets/css/style.css?v=10">
 
   <script type="application/ld+json">
   {
@@ -76,6 +76,7 @@
         <a href="/reader.html">Read</a>
         <a href="#listen">Listen</a>
         <a href="#community">Community</a>
+        <a href="#reviews">Reviews</a>
         <a href="#support">Support</a>
       </nav>
       <a class="btn btn-primary nav-cta" href="#listen">Listen Now</a>
@@ -91,6 +92,7 @@
     <a href="/reader.html">Read</a>
     <a href="#listen">Listen</a>
     <a href="#community">Community</a>
+    <a href="#reviews">Reviews</a>
     <a href="#support">Support</a>
     <a class="btn btn-primary" href="#listen">Listen Now</a>
   </nav>
@@ -348,6 +350,44 @@
       </div>
     </section>
 
+    <!-- ============ READER REVIEWS ============ -->
+    <section class="reviews-section section-pad" id="reviews">
+      <div class="container">
+        <div class="section-head center reveal">
+          <p class="eyebrow">Reader Voices</p>
+          <h2 class="section-heading mx-auto">What Readers Are Saying</h2>
+          <p class="section-lede mx-auto">Share how "The Life of Grace" is blessing and inspiring you &mdash; your story may encourage someone else on their own journey.</p>
+        </div>
+
+        <div class="reviews-grid reveal" id="reviews-grid"></div>
+        <p class="reviews-empty reveal" id="reviews-empty">Be the first to share how this book has impacted you.</p>
+
+        <div class="review-form-wrap reveal">
+          <form class="review-form" id="review-form" novalidate>
+            <div class="form-row">
+              <label for="review-name">Name</label>
+              <input type="text" id="review-name" name="name" required maxlength="80" autocomplete="name">
+            </div>
+            <div class="form-row">
+              <label for="review-location">Location <span>(optional)</span></label>
+              <input type="text" id="review-location" name="location" maxlength="80" autocomplete="address-level2">
+            </div>
+            <div class="form-row">
+              <label for="review-message">Your Review</label>
+              <textarea id="review-message" name="message" required maxlength="1000" rows="5" placeholder="Share how the book has blessed or inspired you..."></textarea>
+            </div>
+            <!-- Honeypot: real visitors never see or fill this; bots often do. -->
+            <div class="form-row form-row--hidden" aria-hidden="true">
+              <label for="review-company">Company</label>
+              <input type="text" id="review-company" name="_gotcha" tabindex="-1" autocomplete="off">
+            </div>
+            <button type="submit" class="btn btn-primary" id="review-submit">Share Your Review</button>
+            <p class="review-form-note" id="review-form-note" role="status" aria-live="polite"></p>
+          </form>
+        </div>
+      </div>
+    </section>
+
     <!-- ============ SUPPORT ============ -->
     <section class="support-section section-pad" id="support">
       <div class="container text-center">
@@ -397,6 +437,7 @@
           <a href="/reader.html">Read</a>
           <a href="#listen">Listen</a>
           <a href="#community">Community</a>
+          <a href="#reviews">Reviews</a>
           <a href="#support">Support</a>
           <a href="/public/contact.html">Contact</a>
         </nav>
@@ -418,9 +459,9 @@
     <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 19V5M5 12l7-7 7 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
   </button>
 
-  <script src="/assets/js/config.js?v=9"></script>
-  <script src="/assets/js/main.js?v=9"></script>
-  <script src="/assets/js/audio-player.js?v=9"></script>
+  <script src="/assets/js/config.js?v=10"></script>
+  <script src="/assets/js/main.js?v=10"></script>
+  <script src="/assets/js/audio-player.js?v=10"></script>
   <script>
     (function () {
       // Wire community / share links + discover cards from CONFIG so

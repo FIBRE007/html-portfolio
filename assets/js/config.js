@@ -16,7 +16,22 @@ const CONFIG = {
   donationName: "Fadoju Tosin",
 
   siteUrl: "https://theassemblyofsons.com",
+
+  // Formspree endpoint for the "Reader Reviews" submission form (see
+  // assets/js/main.js). Sign up free at https://formspree.io, create a
+  // new form, and paste its endpoint URL here — it looks like
+  // "https://formspree.io/f/xxxxxxxx". Until this is set, the form shows
+  // a "launching soon" message instead of silently failing to submit.
+  reviewFormEndpoint: "",
 };
+
+/**
+ * Curated reader reviews shown in the "What Readers Are Saying" section.
+ * Submissions come in via the review form above (to your email through
+ * Formspree) — add the ones you want published here. Each entry:
+ *   { name: "Reader Name", location: "City, Country" (optional), text: "..." }
+ */
+const REVIEWS = [];
 
 /**
  * The 13 sections of the audio book. `file` is joined to CONFIG.audioBaseUrl
