@@ -18,11 +18,8 @@ const CONFIG = {
   siteUrl: "https://theassemblyofsons.com",
 
   // Formspree endpoint for the "Reader Reviews" submission form (see
-  // assets/js/main.js). Sign up free at https://formspree.io, create a
-  // new form, and paste its endpoint URL here — it looks like
-  // "https://formspree.io/f/xxxxxxxx". Until this is set, the form shows
-  // a "launching soon" message instead of silently failing to submit.
-  reviewFormEndpoint: "",
+  // assets/js/main.js).
+  reviewFormEndpoint: "https://formspree.io/f/xgawlvaa",
 };
 
 /**
