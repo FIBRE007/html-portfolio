@@ -17,7 +17,7 @@ const AttendanceStore = (() => {
         centerLat: null,
         centerLng: null,
         radiusMeters: 150,
-        requireFace: true,
+        methods: { rfid: true, face: true },
         requireGeofence: true,
         emailjs: { serviceId: "", templateId: "", publicKey: "" },
     };
@@ -109,7 +109,7 @@ const AttendanceStore = (() => {
             personId: entry.personId,
             name: entry.name,
             role: entry.role,
-            method: entry.method, // 'rfid' | 'rfid+face'
+            method: entry.method, // 'rfid' | 'face'
             timestamp: new Date().toISOString(),
             distanceMeters: entry.distanceMeters ?? null,
             withinFence: entry.withinFence ?? null,

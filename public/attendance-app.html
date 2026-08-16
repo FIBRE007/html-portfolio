@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <title>RFID + Face Attendance — Kiosk</title>
-    <meta name="description" content="School attendance kiosk: RFID card + face verification, restricted to school premises, with automatic parent notifications.">
+    <meta name="description" content="School attendance kiosk: RFID card and/or face recognition (each optional), restricted to school premises, with automatic parent notifications.">
 
     <link rel="manifest" href="../assets/manifest-attendance.webmanifest">
     <meta name="theme-color" content="#2563eb">
@@ -29,7 +29,7 @@
 
     <header class="app-header">
         <h1 id="school-name-heading">RFID + Face Attendance</h1>
-        <p class="subtitle">Check in with your card, verify your face, confirm you're on campus.</p>
+        <p class="subtitle">Check in with your RFID card or your face — whichever this kiosk has enabled.</p>
     </header>
 
     <nav class="tabs" role="tablist">
@@ -49,16 +49,29 @@
             <button class="btn secondary" id="refresh-location-btn" type="button">Refresh location</button>
         </div>
 
-        <div class="card">
-            <h2>1. Tap your RFID card</h2>
+        <div class="card" id="no-method-card" hidden>
+            <p class="status-pill warn">No check-in method enabled</p>
+            <p class="rfid-focus-hint">An admin needs to turn on RFID and/or face recognition in Settings.</p>
+        </div>
+
+        <div class="card" id="rfid-card">
+            <h2>RFID card</h2>
             <p class="rfid-focus-hint">Tap anywhere on this page, then scan your card. No reader handy? Use a
                 simulated tap below.</p>
             <input class="rfid-input" id="rfid-input" autocomplete="off" autofocus>
             <div class="btn-row" id="simulate-rfid-row"></div>
         </div>
 
+        <div class="card" id="face-entry-card">
+            <h2>Face recognition</h2>
+            <p class="rfid-focus-hint">No card needed — just look at the camera.</p>
+            <div class="btn-row">
+                <button class="btn" id="start-face-checkin-btn" type="button">Check in with face</button>
+            </div>
+        </div>
+
         <div class="card" id="face-card" hidden>
-            <h2>2. Verify your face</h2>
+            <h2>Scanning your face</h2>
             <p id="face-hint" class="rfid-focus-hint">Loading face recognition…</p>
             <video id="cam-preview" class="cam-preview" autoplay muted playsinline></video>
             <canvas id="cam-overlay" class="cam-overlay"></canvas>
@@ -92,10 +105,12 @@
                         </select>
                     </div>
                     <div class="field">
-                        <label for="enroll-rfid">RFID card UID</label>
-                        <input id="enroll-rfid" placeholder="Tap card or type UID" required>
+                        <label for="enroll-rfid">RFID card UID (optional)</label>
+                        <input id="enroll-rfid" placeholder="Tap card or type UID">
                     </div>
                 </div>
+                <p class="rfid-focus-hint">Add an RFID card, capture a face, or both — this person will be able to
+                    check in with whichever they have on file.</p>
                 <div class="field" id="enroll-parent-email-field">
                     <label for="enroll-parent-email">Parent/guardian email</label>
                     <input id="enroll-parent-email" type="email" placeholder="parent@example.com">
@@ -178,8 +193,11 @@
         </div>
 
         <div class="card">
-            <h2>Check-in requirements</h2>
-            <label><input type="checkbox" id="cfg-require-face"> Require face verification after RFID tap</label><br>
+            <h2>Check-in methods</h2>
+            <p class="rfid-focus-hint">Turn on whichever methods this kiosk should accept. With both on, either one
+                is enough to check in — nobody is forced to use both.</p>
+            <label><input type="checkbox" id="cfg-method-rfid"> RFID card</label><br>
+            <label><input type="checkbox" id="cfg-method-face"> Face recognition</label><br>
             <label><input type="checkbox" id="cfg-require-geofence"> Block check-in outside the school geofence</label>
         </div>
 
@@ -215,7 +233,10 @@
             <h2>What this demo actually does</h2>
             <p>This is a self-contained browser prototype: RFID capture, face matching and geofencing all run on
                 this device, and records are kept in local storage so there's something to click through without a
-                server. A real school deployment needs the pieces below.</p>
+                server. RFID and face recognition are each independent, admin-toggleable check-in methods here — with
+                both on, either one alone is enough — so a school can start with just RFID, add face recognition
+                later, or run both side by side for people who prefer one over the other. A real school deployment
+                needs the pieces below.</p>
             <ul class="arch-list">
                 <li>
                     <b>RFID</b>
@@ -226,9 +247,12 @@
                 </li>
                 <li>
                     <b>Face recognition</b>
-                    <span>Runs client-side with face-api.js comparing a live capture to an enrolled descriptor. A
-                        production system should re-verify server-side, add liveness detection (blink/challenge) to
-                        resist photo/video spoofing, and store descriptors encrypted rather than in local storage.</span>
+                    <span>Runs client-side with face-api.js. Checking in via RFID compares against one enrolled
+                        descriptor (verification); checking in via face alone matches the live capture against every
+                        enrolled descriptor (identification), which doesn't scale well past a few hundred people run
+                        entirely in the browser. A production system should re-verify server-side, add liveness
+                        detection (blink/challenge) to resist photo/video spoofing, and store descriptors encrypted
+                        rather than in local storage.</span>
                 </li>
                 <li>
                     <b>Geofencing</b>

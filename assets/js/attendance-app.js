@@ -14,7 +14,6 @@
     let geoWatchId = null;
     let modelsLoaded = false;
 
-    let pendingPerson = null;
     let camStream = null;
 
     let enrollCamStream = null;
@@ -32,7 +31,6 @@
 
         if (prevActive === "view-checkin" && tab !== "checkin") {
             closeFaceCard();
-            pendingPerson = null;
         }
         if (prevActive === "view-enroll" && tab !== "enroll" && enrollCamStream) {
             enrollCamStream.getTracks().forEach((t) => t.stop());
@@ -136,6 +134,7 @@
     }
 
     function focusRfidInput() {
+        if (!store.getConfig().methods.rfid) return;
         if (!document.getElementById("view-checkin").classList.contains("active") || isFaceCardOpen()) return;
         const el = $("rfid-input");
         const active = document.activeElement;
@@ -145,35 +144,29 @@
     }
 
     function handleRfidScan(rfidUid) {
+        config = store.getConfig();
+        if (!config.methods.rfid) return;
+
         const person = store.findByRfid(rfidUid);
         if (!person) {
             showResult(false, "Unknown card", `No one is enrolled with RFID UID "${rfidUid}". Enroll them first.`);
             return;
         }
-
-        config = store.getConfig();
-        const wantsFace = config.requireFace && faceApiUsable();
-
-        if (wantsFace) {
-            if (!person.faceDescriptor) {
-                showResult(false, "Face not enrolled", `${person.name} hasn't enrolled a face yet — an admin must add one in the Enroll tab, or turn off "require face" in Settings.`);
-                return;
-            }
-            pendingPerson = person;
-            openFaceCard(person);
-            return;
-        }
-
-        if (config.requireFace && !faceApiUsable()) {
-            toast("Face recognition unavailable right now — checking in with RFID only.");
-        }
         completeCheckIn(person, "rfid");
+    }
+
+    function renderCheckinMethodVisibility() {
+        config = store.getConfig();
+        $("rfid-card").hidden = !config.methods.rfid;
+        $("face-entry-card").hidden = !config.methods.face;
+        $("no-method-card").hidden = config.methods.rfid || config.methods.face;
+        if (!config.methods.face) closeFaceCard();
     }
 
     function renderSimulateButtons() {
         const row = $("simulate-rfid-row");
         row.innerHTML = "";
-        const roster = store.getRoster();
+        const roster = store.getRoster().filter((p) => p.rfidUid);
         roster.forEach((p) => {
             const btn = document.createElement("button");
             btn.className = "btn secondary";
@@ -185,7 +178,7 @@
         if (!roster.length) {
             const hint = document.createElement("p");
             hint.className = "rfid-focus-hint";
-            hint.textContent = "Enroll someone in the Enroll tab to simulate a card tap.";
+            hint.textContent = "Enroll someone with an RFID card in the Enroll tab to simulate a card tap.";
             row.appendChild(hint);
         }
     }
@@ -201,7 +194,7 @@
         if (!hint) return;
         if (text) { hint.textContent = text; return; }
         if (typeof faceapi === "undefined") {
-            hint.textContent = "Face recognition library failed to load (offline?) — RFID-only check-in will be used.";
+            hint.textContent = "Face recognition library failed to load (offline?) — try the RFID card instead.";
         } else if (!modelsLoaded) {
             hint.textContent = "Loading face recognition models…";
         } else {
@@ -228,9 +221,17 @@
         updateFaceHint();
     }
 
-    async function openFaceCard(person) {
+    async function startFaceCheckIn() {
+        config = store.getConfig();
+        if (!config.methods.face) return;
+        if (!faceApiUsable()) {
+            toast(typeof faceapi === "undefined"
+                ? "Face recognition library failed to load (offline?)."
+                : "Face recognition is still loading — try again in a moment.");
+            return;
+        }
         $("face-card").hidden = false;
-        updateFaceHint(`Look at the camera, ${person.name.split(" ")[0]}.`);
+        updateFaceHint("Look at the camera, then tap \"Scan face\".");
         try {
             camStream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: "user" } });
             $("cam-preview").srcObject = camStream;
@@ -247,9 +248,11 @@
         }
     }
 
-    async function captureAndVerifyFace() {
+    // Face check-in is identification (1:N): the live capture is matched
+    // against every enrolled face descriptor since, unlike the RFID flow,
+    // there's no card telling us who to verify against.
+    async function captureAndIdentifyFace() {
         if (!faceApiUsable()) { toast("Face recognition unavailable."); return; }
-        if (!pendingPerson) return;
         updateFaceHint("Scanning…");
         const detection = await faceapi
             .detectSingleFace($("cam-preview"), new faceapi.TinyFaceDetectorOptions())
@@ -261,13 +264,27 @@
             return;
         }
 
-        const distance = faceapi.euclideanDistance(detection.descriptor, pendingPerson.faceDescriptor);
-        if (distance <= FACE_MATCH_THRESHOLD) {
-            const person = pendingPerson;
+        const enrolled = store.getRoster().filter((p) => p.faceDescriptor);
+        if (!enrolled.length) {
+            updateFaceHint("No one has enrolled a face yet — an admin must add one in the Enroll tab.");
+            return;
+        }
+
+        let best = null;
+        let bestDistance = Infinity;
+        enrolled.forEach((p) => {
+            const distance = faceapi.euclideanDistance(detection.descriptor, p.faceDescriptor);
+            if (distance < bestDistance) {
+                bestDistance = distance;
+                best = p;
+            }
+        });
+
+        if (best && bestDistance <= FACE_MATCH_THRESHOLD) {
             closeFaceCard();
-            completeCheckIn(person, "rfid+face");
+            completeCheckIn(best, "face");
         } else {
-            updateFaceHint(`Face doesn't match this card (score ${distance.toFixed(2)}). Try again or ask an admin for help.`);
+            updateFaceHint(`No match found (best score ${bestDistance.toFixed(2)}). Try again, improve lighting, or use your RFID card instead.`);
         }
     }
 
@@ -308,9 +325,8 @@
         showResult(
             true,
             `Welcome, ${person.name.split(" ")[0]}!`,
-            `Checked in at ${new Date(entry.timestamp).toLocaleTimeString()} via ${method === "rfid+face" ? "RFID + face verification" : "RFID"}.`
+            `Checked in at ${new Date(entry.timestamp).toLocaleTimeString()} via ${method === "face" ? "face recognition" : "RFID"}.`
         );
-        pendingPerson = null;
     }
 
     async function notifyParent(person, entry) {
@@ -318,7 +334,7 @@
         const cfg = store.getConfig();
         const subject = `${person.name} checked in at ${cfg.schoolName}`;
         const body = `Hi, this is to let you know ${person.name} checked in at ${new Date(entry.timestamp).toLocaleString()} ` +
-            `(${entry.method === "rfid+face" ? "RFID + face verified" : "RFID"}, ` +
+            `(via ${entry.method === "face" ? "face recognition" : "RFID"}, ` +
             `${entry.withinFence === false ? "location unconfirmed" : "on campus"}).`;
 
         let status = "simulated";
@@ -404,8 +420,9 @@
         const parentEmail = $("enroll-parent-email").value.trim();
         const parentPhone = $("enroll-parent-phone").value.trim();
 
-        if (!name || !rfidUid) { toast("Name and RFID UID are required."); return; }
-        if (store.findByRfid(rfidUid)) { toast("That RFID card is already enrolled."); return; }
+        if (!name) { toast("Name is required."); return; }
+        if (!rfidUid && !enrollFaceDescriptor) { toast("Add an RFID card, capture a face, or both."); return; }
+        if (rfidUid && store.findByRfid(rfidUid)) { toast("That RFID card is already enrolled."); return; }
 
         store.addPerson({ name, role, rfidUid, parentEmail, parentPhone, faceDescriptor: enrollFaceDescriptor });
         toast(`${name} enrolled.`);
@@ -521,7 +538,8 @@
         $("cfg-lat").value = config.centerLat ?? "";
         $("cfg-lng").value = config.centerLng ?? "";
         $("cfg-radius").value = config.radiusMeters;
-        $("cfg-require-face").checked = config.requireFace;
+        $("cfg-method-rfid").checked = config.methods.rfid;
+        $("cfg-method-face").checked = config.methods.face;
         $("cfg-require-geofence").checked = config.requireGeofence;
         $("cfg-emailjs-service").value = config.emailjs.serviceId;
         $("cfg-emailjs-template").value = config.emailjs.templateId;
@@ -541,6 +559,15 @@
     }
 
     function handleSaveSettings() {
+        const methods = {
+            rfid: $("cfg-method-rfid").checked,
+            face: $("cfg-method-face").checked,
+        };
+        if (!methods.rfid && !methods.face) {
+            toast("Enable at least one check-in method (RFID or face).");
+            return;
+        }
+
         const lat = parseFloat($("cfg-lat").value);
         const lng = parseFloat($("cfg-lng").value);
         store.saveConfig({
@@ -548,7 +575,7 @@
             centerLat: Number.isFinite(lat) ? lat : null,
             centerLng: Number.isFinite(lng) ? lng : null,
             radiusMeters: parseInt($("cfg-radius").value, 10) || 150,
-            requireFace: $("cfg-require-face").checked,
+            methods,
             requireGeofence: $("cfg-require-geofence").checked,
             emailjs: {
                 serviceId: $("cfg-emailjs-service").value.trim(),
@@ -558,6 +585,7 @@
         });
         config = store.getConfig();
         $("school-name-heading").textContent = config.schoolName;
+        renderCheckinMethodVisibility();
         toast("Settings saved.");
         evaluateGeofence();
     }
@@ -600,11 +628,9 @@
         document.addEventListener("click", focusRfidInput);
         setInterval(focusRfidInput, 1500);
 
-        $("capture-face-btn").addEventListener("click", captureAndVerifyFace);
-        $("cancel-face-btn").addEventListener("click", () => {
-            closeFaceCard();
-            pendingPerson = null;
-        });
+        $("start-face-checkin-btn").addEventListener("click", startFaceCheckIn);
+        $("capture-face-btn").addEventListener("click", captureAndIdentifyFace);
+        $("cancel-face-btn").addEventListener("click", closeFaceCard);
 
         $("enroll-rfid").addEventListener("keydown", (e) => {
             if (e.key === "Enter") e.preventDefault();
@@ -623,6 +649,7 @@
         config = store.getConfig();
         $("school-name-heading").textContent = config.schoolName;
 
+        renderCheckinMethodVisibility();
         renderSimulateButtons();
         renderRoster();
         renderLogAndNotifications();
