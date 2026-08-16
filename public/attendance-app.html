@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>RFID + Face Attendance — Kiosk</title>
+    <meta name="description" content="School attendance kiosk: RFID card + face verification, restricted to school premises, with automatic parent notifications.">
+
+    <link rel="manifest" href="../assets/manifest-attendance.webmanifest">
+    <meta name="theme-color" content="#2563eb">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <meta name="apple-mobile-web-app-title" content="Attendance">
+    <link rel="apple-touch-icon" href="../assets/icons/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="../assets/icons/favicon-32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="../assets/icons/favicon-16.png">
+
+    <link rel="stylesheet" href="../assets/css/attendance-app.css">
+</head>
+<body>
+
+    <a class="back-link" href="../index.html">&larr; Back to portfolio</a>
+
+    <div class="demo-banner">
+        <strong>Demo mode.</strong> RFID, face matching and geofencing run entirely in this browser and data is
+        stored in this device's local storage only — there is no server. See the <a href="#" data-tab-link="about">Architecture</a>
+        tab for what a real school deployment adds on top of this prototype.
+    </div>
+
+    <header class="app-header">
+        <h1 id="school-name-heading">RFID + Face Attendance</h1>
+        <p class="subtitle">Check in with your card, verify your face, confirm you're on campus.</p>
+    </header>
+
+    <nav class="tabs" role="tablist">
+        <button class="tab-btn active" data-tab="checkin">Check-In</button>
+        <button class="tab-btn" data-tab="enroll">Enroll</button>
+        <button class="tab-btn" data-tab="log">Admin Log</button>
+        <button class="tab-btn" data-tab="settings">Settings</button>
+        <button class="tab-btn" data-tab="about">Architecture</button>
+    </nav>
+
+    <!-- CHECK-IN -->
+    <section class="view active" id="view-checkin">
+        <div class="card">
+            <h2>Campus status</h2>
+            <p id="geofence-status" class="status-pill neutral">Locating…</p>
+            <p id="geofence-detail" class="rfid-focus-hint"></p>
+            <button class="btn secondary" id="refresh-location-btn" type="button">Refresh location</button>
+        </div>
+
+        <div class="card">
+            <h2>1. Tap your RFID card</h2>
+            <p class="rfid-focus-hint">Tap anywhere on this page, then scan your card. No reader handy? Use a
+                simulated tap below.</p>
+            <input class="rfid-input" id="rfid-input" autocomplete="off" autofocus>
+            <div class="btn-row" id="simulate-rfid-row"></div>
+        </div>
+
+        <div class="card" id="face-card" hidden>
+            <h2>2. Verify your face</h2>
+            <p id="face-hint" class="rfid-focus-hint">Loading face recognition…</p>
+            <video id="cam-preview" class="cam-preview" autoplay muted playsinline></video>
+            <canvas id="cam-overlay" class="cam-overlay"></canvas>
+            <div class="btn-row" style="margin-top:0.75rem;">
+                <button class="btn" id="capture-face-btn" type="button">Scan face</button>
+                <button class="btn secondary" id="cancel-face-btn" type="button">Cancel</button>
+            </div>
+        </div>
+
+        <div class="card" id="result-card" hidden>
+            <h2 id="result-heading"></h2>
+            <p id="result-detail"></p>
+        </div>
+    </section>
+
+    <!-- ENROLL -->
+    <section class="view" id="view-enroll">
+        <div class="card">
+            <h2>Enroll a student or staff member</h2>
+            <form id="enroll-form">
+                <div class="field">
+                    <label for="enroll-name">Full name</label>
+                    <input id="enroll-name" required>
+                </div>
+                <div class="field-row">
+                    <div class="field">
+                        <label for="enroll-role">Role</label>
+                        <select id="enroll-role">
+                            <option value="student">Student</option>
+                            <option value="staff">Staff</option>
+                        </select>
+                    </div>
+                    <div class="field">
+                        <label for="enroll-rfid">RFID card UID</label>
+                        <input id="enroll-rfid" placeholder="Tap card or type UID" required>
+                    </div>
+                </div>
+                <div class="field" id="enroll-parent-email-field">
+                    <label for="enroll-parent-email">Parent/guardian email</label>
+                    <input id="enroll-parent-email" type="email" placeholder="parent@example.com">
+                </div>
+                <div class="field" id="enroll-parent-phone-field">
+                    <label for="enroll-parent-phone">Parent/guardian phone (optional)</label>
+                    <input id="enroll-parent-phone" type="tel">
+                </div>
+
+                <div class="field">
+                    <label>Face enrollment</label>
+                    <video id="enroll-cam-preview" class="cam-preview" autoplay muted playsinline></video>
+                    <canvas id="enroll-cam-overlay" class="cam-overlay"></canvas>
+                    <div class="btn-row" style="margin-top:0.5rem;">
+                        <button class="btn secondary" id="enroll-capture-btn" type="button">Capture face</button>
+                    </div>
+                    <p id="enroll-face-status" class="rfid-focus-hint">No face captured yet.</p>
+                </div>
+
+                <div class="btn-row">
+                    <button class="btn" type="submit">Save</button>
+                </div>
+            </form>
+        </div>
+
+        <div class="card">
+            <h2>Roster (<span id="roster-count">0</span>)</h2>
+            <table class="data-table" id="roster-table">
+                <thead>
+                    <tr><th>Name</th><th>Role</th><th>RFID</th><th>Face</th><th>Parent</th><th></th></tr>
+                </thead>
+                <tbody id="roster-body"></tbody>
+            </table>
+            <p class="empty-state" id="roster-empty" hidden>No one enrolled yet.</p>
+        </div>
+    </section>
+
+    <!-- ADMIN LOG -->
+    <section class="view" id="view-log">
+        <div class="card">
+            <h2>Attendance log</h2>
+            <div id="log-list"></div>
+            <p class="empty-state" id="log-empty" hidden>No check-ins recorded yet.</p>
+        </div>
+        <div class="card">
+            <h2>Notifications sent to parents</h2>
+            <div id="notify-list"></div>
+            <p class="empty-state" id="notify-empty" hidden>No notifications yet.</p>
+        </div>
+        <div class="card">
+            <button class="btn danger" id="clear-data-btn" type="button">Clear all demo data</button>
+        </div>
+    </section>
+
+    <!-- SETTINGS -->
+    <section class="view" id="view-settings">
+        <div class="card">
+            <h2>School & geofence</h2>
+            <div class="field">
+                <label for="cfg-school-name">School name</label>
+                <input id="cfg-school-name">
+            </div>
+            <div class="field-row">
+                <div class="field">
+                    <label for="cfg-lat">Center latitude</label>
+                    <input id="cfg-lat" type="number" step="any">
+                </div>
+                <div class="field">
+                    <label for="cfg-lng">Center longitude</label>
+                    <input id="cfg-lng" type="number" step="any">
+                </div>
+            </div>
+            <div class="field">
+                <label for="cfg-radius">Allowed radius (meters)</label>
+                <input id="cfg-radius" type="number" min="10" step="1">
+            </div>
+            <div class="btn-row">
+                <button class="btn secondary" id="use-current-location-btn" type="button">Use my current location as school center</button>
+            </div>
+        </div>
+
+        <div class="card">
+            <h2>Check-in requirements</h2>
+            <label><input type="checkbox" id="cfg-require-face"> Require face verification after RFID tap</label><br>
+            <label><input type="checkbox" id="cfg-require-geofence"> Block check-in outside the school geofence</label>
+        </div>
+
+        <div class="card">
+            <h2>Email delivery (EmailJS, optional)</h2>
+            <p class="rfid-focus-hint">Without these, parent emails are simulated and logged in-app instead of
+                actually sent. Create a free account at emailjs.com to send real email from the browser.</p>
+            <div class="field">
+                <label for="cfg-emailjs-service">Service ID</label>
+                <input id="cfg-emailjs-service">
+            </div>
+            <div class="field">
+                <label for="cfg-emailjs-template">Template ID</label>
+                <input id="cfg-emailjs-template">
+            </div>
+            <div class="field">
+                <label for="cfg-emailjs-key">Public key</label>
+                <input id="cfg-emailjs-key">
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="btn-row">
+                <button class="btn" id="save-settings-btn" type="button">Save settings</button>
+                <button class="btn secondary" id="export-data-btn" type="button">Export data (JSON)</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- ABOUT / ARCHITECTURE -->
+    <section class="view" id="view-about">
+        <div class="card">
+            <h2>What this demo actually does</h2>
+            <p>This is a self-contained browser prototype: RFID capture, face matching and geofencing all run on
+                this device, and records are kept in local storage so there's something to click through without a
+                server. A real school deployment needs the pieces below.</p>
+            <ul class="arch-list">
+                <li>
+                    <b>RFID</b>
+                    <span>Here, a USB HID card reader "types" the UID into a focused text field. In production the
+                        kiosk should be a locked-down device that forwards the UID to a backend over an authenticated
+                        connection, which checks it against the roster server-side — a client can't be trusted to
+                        self-report "this card is valid."</span>
+                </li>
+                <li>
+                    <b>Face recognition</b>
+                    <span>Runs client-side with face-api.js comparing a live capture to an enrolled descriptor. A
+                        production system should re-verify server-side, add liveness detection (blink/challenge) to
+                        resist photo/video spoofing, and store descriptors encrypted rather than in local storage.</span>
+                </li>
+                <li>
+                    <b>Geofencing</b>
+                    <span>Uses the browser Geolocation API and a Haversine distance check against a configured
+                        center point. Device GPS can be spoofed or inaccurate indoors, so production systems combine
+                        it with network-level signals — school WiFi SSID/BSSID, a fixed kiosk IP range, or BLE
+                        beacons — and make the final accept/reject decision on the server, not the client.</span>
+                </li>
+                <li>
+                    <b>Parent notifications</b>
+                    <span>Simulated here (or sent via EmailJS if you supply credentials in Settings). Production
+                        would have the backend call a transactional email API (SES/SendGrid) and a push service
+                        (FCM/APNs) so delivery is logged, retried, and not dependent on the kiosk's browser tab
+                        staying open.</span>
+                </li>
+                <li>
+                    <b>Mobile application</b>
+                    <span>The <a href="attendance-dashboard.html">Parent Dashboard</a> page is an installable PWA —
+                        "Add to Home Screen" gives parents an app-like icon that shows attendance and notification
+                        history offline. A production version would be a native/React Native app that subscribes to
+                        real push notifications from the backend described above, instead of reading local storage.</span>
+                </li>
+                <li>
+                    <b>Data storage</b>
+                    <span>Everything here lives in this browser's local storage, so the kiosk and the parent
+                        dashboard only share data if opened on the <em>same device</em>. Production needs a shared
+                        database (e.g. Postgres) behind an authenticated API so every device sees the same records.</span>
+                </li>
+            </ul>
+        </div>
+    </section>
+
+    <div class="toast" id="toast" hidden></div>
+
+    <script defer src="https://cdn.jsdelivr.net/npm/face-api.js@0.22.2/dist/face-api.min.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+    <script defer src="../assets/js/attendance-store.js"></script>
+    <script defer src="../assets/js/attendance-app.js"></script>
+    <script>
+        if ("serviceWorker" in navigator) {
+            navigator.serviceWorker.register("../sw-attendance.js", { scope: "../" }).catch(() => {});
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Parent Dashboard — Attendance</title>
+    <meta name="description" content="Installable parent app: see your child's RFID + face-verified attendance check-ins and notification history.">
+
+    <link rel="manifest" href="../assets/manifest-attendance.webmanifest">
+    <meta name="theme-color" content="#2563eb">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <meta name="apple-mobile-web-app-title" content="Attendance">
+    <link rel="apple-touch-icon" href="../assets/icons/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="../assets/icons/favicon-32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="../assets/icons/favicon-16.png">
+
+    <link rel="stylesheet" href="../assets/css/attendance-app.css">
+</head>
+<body>
+
+    <a class="back-link" href="../index.html">&larr; Back to portfolio</a>
+
+    <div class="demo-banner">
+        <strong>Demo mode.</strong> This installable page reads attendance data stored on <em>this device only</em>
+        (there's no shared backend in this prototype) — it only shows records created by the
+        <a href="attendance-app.html">kiosk</a> when opened in the same browser. Install it ("Add to Home Screen")
+        to see how the parent-facing app would feel.
+    </div>
+
+    <header class="app-header">
+        <h1>Parent Dashboard</h1>
+        <p class="subtitle">Attendance and notifications for your child.</p>
+    </header>
+
+    <section class="view active">
+        <div class="card">
+            <h2>Find your child</h2>
+            <div class="field">
+                <label for="parent-email-input">Parent/guardian email on file</label>
+                <input id="parent-email-input" type="email" placeholder="parent@example.com">
+            </div>
+            <div class="btn-row">
+                <button class="btn" id="find-btn" type="button">Show attendance</button>
+                <button class="btn secondary" id="enable-push-btn" type="button">Enable notifications on this device</button>
+            </div>
+            <p class="rfid-focus-hint" id="dashboard-hint"></p>
+        </div>
+
+        <div class="card" id="children-card" hidden>
+            <h2>Children</h2>
+            <div id="children-list"></div>
+        </div>
+
+        <div class="card" id="dash-log-card" hidden>
+            <h2>Recent check-ins</h2>
+            <div id="dash-log-list"></div>
+            <p class="empty-state" id="dash-log-empty" hidden>No check-ins yet.</p>
+        </div>
+
+        <div class="card" id="dash-notify-card" hidden>
+            <h2>Notifications sent to you</h2>
+            <div id="dash-notify-list"></div>
+            <p class="empty-state" id="dash-notify-empty" hidden>No notifications yet.</p>
+        </div>
+    </section>
+
+    <div class="toast" id="toast" hidden></div>
+
+    <script src="../assets/js/attendance-store.js"></script>
+    <script src="../assets/js/attendance-dashboard.js"></script>
+    <script>
+        if ("serviceWorker" in navigator) {
+            navigator.serviceWorker.register("../sw-attendance.js", { scope: "../" }).catch(() => {});
+        }
+    </script>
+</body>
+</html>
