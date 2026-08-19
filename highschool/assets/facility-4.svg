@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 800" width="1000" height="800" role="img" aria-hidden="true">
+  <defs><linearGradient id="hg41" x1="85%" y1="15%" x2="15%" y2="85%">
+      <stop offset="0%" stop-color="#26123f"/>
+      <stop offset="100%" stop-color="#40226d"/>
+    </linearGradient></defs>
+  <rect width="1000" height="800" fill="url(#hg41)"/><line x1="993" y1="0" x2="902" y2="800" stroke="#ffffff" stroke-opacity="0.06" stroke-width="1.5"/><line x1="896" y1="0" x2="283" y2="800" stroke="#ffffff" stroke-opacity="0.06" stroke-width="1.5"/><line x1="852" y1="0" x2="763" y2="800" stroke="#ffffff" stroke-opacity="0.04" stroke-width="1.5"/><line x1="249" y1="0" x2="998" y2="800" stroke="#ffffff" stroke-opacity="0.04" stroke-width="1.5"/><rect x="620" y="64" width="300" height="240" fill="none" stroke="#9a6c14" stroke-opacity="0.35" stroke-width="1.5"/><text x="500" y="400" font-family="Georgia, serif" font-size="440" font-weight="700" fill="#ffffff" opacity="0.1" text-anchor="middle" dominant-baseline="central">H</text><rect width="1000" height="800" fill="none" stroke="#ffffff" stroke-opacity="0.08" stroke-width="10"/>
+</svg>

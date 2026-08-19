@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 1500" width="1200" height="1500" role="img" aria-hidden="true">
+  <defs><linearGradient id="g4" x1="97%" y1="33%" x2="3%" y2="67%">
+      <stop offset="0%" stop-color="#26123f"/>
+      <stop offset="100%" stop-color="#40226d"/>
+    </linearGradient></defs>
+  <rect width="1200" height="1500" fill="url(#g4)"/><circle cx="186" cy="100" r="260" fill="none" stroke="#ffffff" stroke-width="1.4" opacity="0.21"/>
+<circle cx="961" cy="1148" r="187" fill="none" stroke="#ffffff" stroke-width="1.4" opacity="0.16"/>
+<circle cx="332" cy="259" r="139" fill="none" stroke="#ffffff" stroke-width="1.4" opacity="0.11"/>
+<circle cx="1113" cy="1243" r="425" fill="none" stroke="#ffffff" stroke-width="1.4" opacity="0.19"/><circle cx="198" cy="434" r="600" fill="#b8871f" opacity="0.06"/><text x="600" y="750" font-family="Georgia, 'Playfair Display', serif" font-size="744"
+    font-weight="700" fill="#ffffff" opacity="0.1" text-anchor="middle" dominant-baseline="central">J</text><rect width="1200" height="1500" fill="none" stroke="#ffffff" stroke-opacity="0.08" stroke-width="10"/>
+</svg>

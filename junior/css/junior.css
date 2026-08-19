@@ -1,0 +1,80 @@
+/* Royal Family Academy — Junior School: playful-elegant overrides */
+:root {
+  --radius-md: 24px;
+  --radius-lg: 36px;
+  --jr-teal: #4fb8a0;
+  --jr-coral: #e8825a;
+}
+
+.hero--junior { min-height: 92svh; }
+.hero--junior .hero-inner { padding-block: 9rem 5rem; }
+
+/* Stage cards (Early Years / Nursery / Kindergarten / Primary) */
+.stage-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.4rem;
+}
+@media (min-width: 640px) { .stage-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (min-width: 1100px) { .stage-grid { grid-template-columns: repeat(4, 1fr); } }
+
+.stage-card {
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  background: var(--rfa-white);
+  box-shadow: var(--shadow-sm);
+  transition: transform var(--dur-med) var(--ease-royal), box-shadow var(--dur-med) var(--ease-royal);
+}
+.stage-card:hover { transform: translateY(-10px) rotate(-0.5deg); box-shadow: var(--shadow-lg); }
+.stage-card .stage-media { aspect-ratio: 5/4; overflow: hidden; }
+.stage-card .stage-media img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.8s var(--ease-royal); }
+.stage-card:hover .stage-media img { transform: scale(1.08) rotate(1deg); }
+.stage-card .stage-body { padding: 1.6rem; }
+.stage-card .stage-age {
+  display: inline-block;
+  padding: 0.3em 0.8em;
+  border-radius: var(--radius-pill);
+  background: var(--rfa-purple-50);
+  color: var(--c-primary);
+  font-size: var(--fs-xs);
+  font-weight: 700;
+  margin-bottom: 0.8rem;
+}
+
+/* Teachers */
+.teacher-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.4rem;
+}
+@media (min-width: 768px) { .teacher-grid { grid-template-columns: repeat(4, 1fr); } }
+.teacher-card { text-align: center; }
+.teacher-photo {
+  border-radius: 50%;
+  overflow: hidden;
+  aspect-ratio: 1/1;
+  margin-bottom: 1.2rem;
+  border: 4px solid var(--rfa-gold-300);
+  box-shadow: var(--shadow-sm);
+}
+.teacher-photo img { width: 100%; height: 100%; object-fit: cover; }
+.teacher-card h5 { margin-bottom: 0.2rem; }
+.teacher-card span { font-size: var(--fs-xs); color: var(--c-accent-dark); font-weight: 700; text-transform: uppercase; letter-spacing: 0.04em; }
+
+/* Admissions steps */
+.steps-list { display: grid; gap: 1.2rem; margin-top: 2rem; }
+@media (min-width: 768px) { .steps-list { grid-template-columns: repeat(4, 1fr); } }
+.step-item { position: relative; padding: 1.8rem 1.4rem; background: var(--rfa-white); border-radius: var(--radius-md); box-shadow: var(--shadow-sm); }
+.step-number {
+  width: 44px; height: 44px;
+  border-radius: 50%;
+  background: var(--grad-gold);
+  color: var(--rfa-purple-950);
+  display: grid; place-items: center;
+  font-family: var(--font-display);
+  font-weight: 700;
+  margin-bottom: 1rem;
+}
+
+/* Playful floating shapes */
+.shape-dot { position: absolute; border-radius: 50%; z-index: 0; }

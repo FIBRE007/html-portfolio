@@ -1,0 +1,75 @@
+/* Royal Family Academy — High School: mature, structured overrides */
+:root {
+  --radius-md: 14px;
+  --radius-lg: 18px;
+}
+
+.hero--highschool { min-height: 92svh; }
+
+/* Principal's welcome */
+.principal-layout {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-lg);
+  align-items: center;
+}
+@media (min-width: 960px) { .principal-layout { grid-template-columns: 0.85fr 1.15fr; } }
+.principal-signature {
+  font-family: var(--font-script);
+  font-style: italic;
+  font-size: var(--fs-lg);
+  color: var(--c-primary);
+  margin-top: 1.4rem;
+}
+
+/* Pathways grid (STEM/Arts/Sports/Leadership/Clubs tabs) */
+.pathway-panel {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-md);
+  align-items: center;
+}
+@media (min-width: 860px) { .pathway-panel { grid-template-columns: 1fr 1fr; } }
+.pathway-panel img { border-radius: var(--radius-lg); box-shadow: var(--shadow-md); }
+
+/* Results chart */
+.results-chart { display: flex; flex-direction: column; gap: 1.4rem; margin-top: 2rem; }
+.results-row { display: grid; grid-template-columns: 140px 1fr 60px; align-items: center; gap: 1rem; }
+.results-row .subject { font-weight: 600; font-size: var(--fs-sm); }
+.results-track { height: 10px; border-radius: var(--radius-pill); background: var(--rfa-grey-200); overflow: hidden; }
+.results-fill {
+  height: 100%;
+  border-radius: var(--radius-pill);
+  background: var(--grad-gold);
+  width: 0%;
+  transition: width 1.4s var(--ease-royal);
+}
+.results-row.is-visible .results-fill { width: var(--pct); }
+.results-row .pct { font-family: var(--font-display); font-weight: 700; color: var(--c-primary-dark); text-align: right; }
+.section--royal .results-row .subject { color: var(--rfa-white); }
+.section--royal .results-row .pct { color: var(--rfa-gold-300); }
+.section--royal .results-track { background: rgba(255,255,255,0.14); }
+
+/* Leadership / Clubs grid */
+.tile-grid { display: grid; grid-template-columns: 1fr; gap: 1.2rem; }
+@media (min-width: 640px) { .tile-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (min-width: 992px) { .tile-grid { grid-template-columns: repeat(3, 1fr); } }
+.tile-card {
+  padding: 1.8rem;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--c-border);
+  transition: border-color var(--dur-fast), transform var(--dur-fast);
+}
+.tile-card:hover { border-color: var(--c-accent-dark); transform: translateY(-4px); }
+
+/* University destinations strip */
+.uni-strip { display: flex; flex-wrap: wrap; gap: 0.8rem; margin-top: 1.6rem; }
+.uni-chip {
+  padding: 0.55em 1.1em;
+  border-radius: var(--radius-pill);
+  background: var(--rfa-purple-50);
+  color: var(--c-primary-dark);
+  font-size: var(--fs-xs);
+  font-weight: 700;
+  letter-spacing: 0.02em;
+}
