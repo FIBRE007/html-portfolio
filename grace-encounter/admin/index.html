@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex,nofollow,noarchive">
+  <meta name="theme-color" content="#080d12">
+  <title>Grace Encounter Admin | The Assembly of Sons</title>
+  <style>
+    :root{
+      --bg:#080d12;--panel:#0f1720;--panel2:#111d29;--line:rgba(255,255,255,.09);
+      --gold:#e3b52c;--gold2:#f0cf67;--text:#f7f7f4;--muted:#aab4bf;--green:#77d997;--red:#ff9f9f;
+    }
+    *{box-sizing:border-box} html{color-scheme:dark} body{margin:0;background:linear-gradient(180deg,#070b10,#0a1118 55%,#070b10);color:var(--text);font:15px/1.5 Inter,system-ui,-apple-system,"Segoe UI",sans-serif;min-height:100vh}
+    button,input,select{font:inherit}.wrap{width:min(1280px,calc(100% - 28px));margin:auto}.hidden{display:none!important}
+    .topbar{border-bottom:1px solid var(--line);background:rgba(7,11,16,.9);position:sticky;top:0;z-index:20;backdrop-filter:blur(12px)}
+    .topbar .wrap{min-height:68px;display:flex;align-items:center;justify-content:space-between;gap:18px}.brand{font-weight:900;letter-spacing:.08em;text-transform:uppercase}.brand span{color:var(--gold)}
+    .userbar{display:flex;align-items:center;gap:10px;color:var(--muted);font-size:.84rem}.btn{border:1px solid var(--line);background:#121c27;color:var(--text);border-radius:10px;padding:10px 13px;cursor:pointer;font-weight:750}.btn:hover{border-color:rgba(227,181,44,.55)}.btn.gold{background:var(--gold);color:#14100a;border-color:var(--gold)}.btn.danger{color:#ffc1c1}.btn.small{padding:7px 10px;font-size:.78rem}
+    main{padding:34px 0 64px}.eyebrow{margin:0;color:var(--gold2);font-size:.75rem;letter-spacing:.18em;text-transform:uppercase;font-weight:900}.headline{margin:5px 0 8px;font-family:Georgia,serif;font-size:clamp(2rem,5vw,3.6rem);line-height:1}.sub{margin:0;color:var(--muted);max-width:720px}
+    .login{max-width:520px;margin:42px auto;background:linear-gradient(180deg,var(--panel2),var(--panel));border:1px solid var(--line);border-radius:20px;padding:28px;box-shadow:0 30px 80px rgba(0,0,0,.3)}.login h1{margin:6px 0 10px;font-family:Georgia,serif}.login p{color:var(--muted)}.field{display:grid;gap:7px;margin-top:15px}.field label{font-size:.82rem;font-weight:800}.field input{width:100%;background:#071019;border:1px solid rgba(255,255,255,.12);border-radius:10px;color:#fff;padding:13px;outline:none}.field input:focus{border-color:var(--gold);box-shadow:0 0 0 3px rgba(227,181,44,.1)}.actions{display:flex;gap:9px;margin-top:18px;flex-wrap:wrap}.status{margin-top:14px;padding:11px 12px;border-radius:9px;background:rgba(255,255,255,.04);color:var(--muted);font-size:.84rem}.status.error{color:var(--red);border:1px solid rgba(255,159,159,.18)}.status.ok{color:var(--green);border:1px solid rgba(119,217,151,.18)}
+    .cards{display:grid;grid-template-columns:repeat(4,1fr);gap:13px;margin:27px 0}.card{background:linear-gradient(180deg,var(--panel2),var(--panel));border:1px solid var(--line);border-radius:15px;padding:18px}.card .label{color:var(--muted);font-size:.75rem;text-transform:uppercase;letter-spacing:.1em;font-weight:800}.card .value{font-size:2rem;font-weight:950;margin-top:4px}.card .value.gold{color:var(--gold2)}
+    .toolbar{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;margin:18px 0 12px}.toolbar-left,.toolbar-right{display:flex;gap:9px;flex-wrap:wrap;align-items:center}.search,.select{background:#0c151e;border:1px solid var(--line);color:#fff;border-radius:10px;padding:10px 12px;min-height:42px}.search{min-width:min(360px,80vw)}
+    .table-wrap{overflow:auto;border:1px solid var(--line);border-radius:14px;background:#0b131b}.table{width:100%;border-collapse:collapse;min-width:1160px}.table th,.table td{text-align:left;padding:12px 13px;border-bottom:1px solid rgba(255,255,255,.065);vertical-align:top}.table th{position:sticky;top:0;background:#111b25;color:#cbd3dc;font-size:.7rem;letter-spacing:.08em;text-transform:uppercase;z-index:1}.table td{font-size:.84rem}.name{font-weight:850}.code{color:var(--gold2);font-weight:850;white-space:nowrap}.muted{color:var(--muted)}.pill{display:inline-block;border-radius:999px;padding:4px 8px;font-size:.7rem;font-weight:850;border:1px solid var(--line)}.pill.in{color:var(--green);border-color:rgba(119,217,151,.25);background:rgba(119,217,151,.07)}.pill.out{color:#c9d1d9}.empty{text-align:center;color:var(--muted);padding:42px!important}.footer-note{color:#7e8b97;font-size:.74rem;margin-top:12px}.unauth{max-width:650px;margin:35px auto;padding:24px;border:1px solid rgba(255,159,159,.18);background:rgba(255,159,159,.05);border-radius:14px}.unauth h2{margin-top:0}
+    @media(max-width:850px){.cards{grid-template-columns:1fr 1fr}.userbar span{display:none}}@media(max-width:500px){.cards{grid-template-columns:1fr}.login{padding:21px}.headline{font-size:2.35rem}}
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <div class="wrap">
+      <div class="brand">Grace <span>Encounter</span> Admin</div>
+      <div class="userbar hidden" id="userbar"><span id="signedInAs"></span><button class="btn small" id="signOutBtn">Sign out</button></div>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <section class="login" id="loginPanel">
+      <p class="eyebrow">The Assembly of Sons</p>
+      <h1>Attendee Dashboard</h1>
+      <p>Sign in with an authorized administrator account to view registrations and manage event-day check-in.</p>
+      <form id="authForm">
+        <div class="field"><label for="email">Email</label><input id="email" type="email" autocomplete="email" required></div>
+        <div class="field"><label for="password">Password</label><input id="password" type="password" autocomplete="current-password" minlength="8" required></div>
+        <div class="actions">
+          <button class="btn gold" type="submit">Sign in</button>
+          <button class="btn" type="button" id="createAccountBtn">Create account</button>
+        </div>
+        <div class="status hidden" id="authStatus"></div>
+      </form>
+    </section>
+
+    <section class="unauth hidden" id="unauthorizedPanel">
+      <h2>Account not authorized</h2>
+      <p>This account is signed in, but it has not been added to the Grace Encounter administrator list. Sign out and use an authorized account.</p>
+      <button class="btn" id="unauthSignOut">Sign out</button>
+    </section>
+
+    <section class="hidden" id="dashboard">
+      <p class="eyebrow">Grace Encounter 2026</p>
+      <h1 class="headline">Registrations</h1>
+      <p class="sub">Live attendee list for Saturday, 19 September 2026. Search registrations, export the list, and mark attendees as checked in.</p>
+
+      <div class="cards">
+        <div class="card"><div class="label">Registrations</div><div class="value gold" id="registrationCount">0</div></div>
+        <div class="card"><div class="label">Expected attendance</div><div class="value" id="attendanceCount">0</div></div>
+        <div class="card"><div class="label">Checked in</div><div class="value" id="checkedInCount">0</div></div>
+        <div class="card"><div class="label">Not checked in</div><div class="value" id="remainingCount">0</div></div>
+      </div>
+
+      <div class="toolbar">
+        <div class="toolbar-left">
+          <input class="search" id="searchInput" type="search" placeholder="Search name, phone, email, code…">
+          <select class="select" id="checkinFilter"><option value="all">All attendees</option><option value="in">Checked in</option><option value="out">Not checked in</option></select>
+        </div>
+        <div class="toolbar-right">
+          <button class="btn" id="refreshBtn">Refresh</button>
+          <button class="btn gold" id="exportBtn">Export CSV</button>
+        </div>
+      </div>
+
+      <div class="table-wrap">
+        <table class="table">
+          <thead><tr><th>Registration</th><th>Attendee</th><th>Contact</th><th>Area</th><th>Guests</th><th>Source</th><th>Registered</th><th>Status</th><th>Action</th></tr></thead>
+          <tbody id="attendeeBody"><tr><td class="empty" colspan="9">Loading registrations…</td></tr></tbody>
+        </table>
+      </div>
+      <p class="footer-note">Expected attendance = each registration plus the number of additional guests entered on the form.</p>
+    </section>
+  </main>
+
+  <script type="module">
+    import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm';
+
+    const SUPABASE_URL = 'https://wqyyphwmoznjnweifllo.supabase.co';
+    const SUPABASE_KEY = 'sb_publishable_JVJJaevEczOC9B-s3UUxBg_W431IJ70';
+    const supabase = createClient(SUPABASE_URL, SUPABASE_KEY);
+
+    const $ = (id) => document.getElementById(id);
+    const loginPanel = $('loginPanel'), unauthorizedPanel = $('unauthorizedPanel'), dashboard = $('dashboard'), userbar = $('userbar');
+    const authStatus = $('authStatus'), attendeeBody = $('attendeeBody');
+    let registrations = [];
+
+    function setAuthStatus(message, type='') {
+      authStatus.textContent = message;
+      authStatus.className = 'status ' + type;
+      authStatus.classList.remove('hidden');
+    }
+    function hideAuthStatus(){ authStatus.classList.add('hidden'); }
+    function showOnly(which){
+      loginPanel.classList.toggle('hidden', which !== 'login');
+      unauthorizedPanel.classList.toggle('hidden', which !== 'unauthorized');
+      dashboard.classList.toggle('hidden', which !== 'dashboard');
+      userbar.classList.toggle('hidden', which === 'login');
+    }
+    function formatDate(value){
+      if(!value) return '—';
+      return new Intl.DateTimeFormat('en-NG',{dateStyle:'medium',timeStyle:'short',timeZone:'Africa/Lagos'}).format(new Date(value));
+    }
+    function expectedTotal(list){ return list.reduce((sum,r)=>sum+1+Number(r.guest_count||0),0); }
+    function updateStats(){
+      $('registrationCount').textContent = registrations.length;
+      $('attendanceCount').textContent = expectedTotal(registrations);
+      const checked = registrations.filter(r=>r.checked_in_at).length;
+      $('checkedInCount').textContent = checked;
+      $('remainingCount').textContent = registrations.length - checked;
+    }
+    function cell(text, cls=''){
+      const td=document.createElement('td'); if(cls) td.className=cls; td.textContent=text ?? '—'; return td;
+    }
+    function filteredRows(){
+      const q=$('searchInput').value.trim().toLowerCase(); const filter=$('checkinFilter').value;
+      return registrations.filter(r=>{
+        const hay=[r.registration_code,r.full_name,r.phone,r.email,r.area_of_residence,r.referral_source].join(' ').toLowerCase();
+        const matchesSearch=!q || hay.includes(q);
+        const matchesFilter=filter==='all'||(filter==='in'&&r.checked_in_at)||(filter==='out'&&!r.checked_in_at);
+        return matchesSearch&&matchesFilter;
+      });
+    }
+    function render(){
+      attendeeBody.replaceChildren(); const list=filteredRows();
+      if(!list.length){ const tr=document.createElement('tr'); const td=cell('No matching registrations.','empty'); td.colSpan=9; tr.append(td); attendeeBody.append(tr); return; }
+      list.forEach(r=>{
+        const tr=document.createElement('tr');
+        tr.append(cell(r.registration_code,'code'));
+        tr.append(cell(r.full_name,'name'));
+        const contact=document.createElement('td');
+        const p=document.createElement('div'); p.textContent=r.phone||'—';
+        const e=document.createElement('div'); e.className='muted'; e.textContent=r.email||'—'; contact.append(p,e); tr.append(contact);
+        tr.append(cell(r.area_of_residence||'—'));
+        tr.append(cell(String(r.guest_count||0)));
+        tr.append(cell(r.referral_source||'—'));
+        tr.append(cell(formatDate(r.created_at),'muted'));
+        const statusTd=document.createElement('td'); const pill=document.createElement('span'); pill.className='pill '+(r.checked_in_at?'in':'out'); pill.textContent=r.checked_in_at?'Checked in':'Not checked in'; statusTd.append(pill); tr.append(statusTd);
+        const action=document.createElement('td'); const btn=document.createElement('button'); btn.className='btn small'; btn.textContent=r.checked_in_at?'Undo':'Check in'; btn.addEventListener('click',()=>toggleCheckin(r,btn)); action.append(btn); tr.append(action);
+        attendeeBody.append(tr);
+      });
+    }
+    async function loadRegistrations(){
+      attendeeBody.innerHTML='<tr><td class="empty" colspan="9">Loading registrations…</td></tr>';
+      const { data, error } = await supabase.from('registrations').select('*').eq('event_key','grace-encounter-2026').order('created_at',{ascending:false}).limit(1000);
+      if(error){ attendeeBody.innerHTML='<tr><td class="empty" colspan="9">Unable to load registrations.</td></tr>'; console.error(error); return; }
+      registrations=data||[]; updateStats(); render();
+    }
+    async function toggleCheckin(row, button){
+      button.disabled=true;
+      const next=row.checked_in_at?null:new Date().toISOString();
+      const { error }=await supabase.from('registrations').update({checked_in_at:next}).eq('id',row.id);
+      if(!error){ row.checked_in_at=next; updateStats(); render(); } else { alert('Could not update check-in. Please refresh and try again.'); console.error(error); }
+      button.disabled=false;
+    }
+    function exportCsv(){
+      const rows=filteredRows();
+      const headers=['Registration Code','Full Name','Phone','Email','Age Range','Area of Residence','Referral Source','Guest Count','Updates Consent','Checked In At','Registered At'];
+      const keys=['registration_code','full_name','phone','email','age_range','area_of_residence','referral_source','guest_count','updates_consent','checked_in_at','created_at'];
+      const esc=v=>'"'+String(v??'').replaceAll('"','""')+'"';
+      const csv=[headers.map(esc).join(','),...rows.map(r=>keys.map(k=>esc(r[k])).join(','))].join('\n');
+      const blob=new Blob([csv],{type:'text/csv;charset=utf-8'}); const url=URL.createObjectURL(blob); const a=document.createElement('a'); a.href=url; a.download='grace-encounter-registrations.csv'; a.click(); URL.revokeObjectURL(url);
+    }
+    async function checkAccess(session){
+      if(!session){ showOnly('login'); return; }
+      $('signedInAs').textContent=session.user.email||'Signed in'; userbar.classList.remove('hidden');
+      const { data, error }=await supabase.rpc('is_grace_encounter_admin');
+      if(error||data!==true){ showOnly('unauthorized'); return; }
+      showOnly('dashboard'); await loadRegistrations();
+    }
+
+    $('authForm').addEventListener('submit',async(e)=>{
+      e.preventDefault(); hideAuthStatus();
+      const email=$('email').value.trim(), password=$('password').value;
+      const { data, error }=await supabase.auth.signInWithPassword({email,password});
+      if(error){ setAuthStatus(error.message,'error'); return; }
+      setAuthStatus('Signed in. Loading dashboard…','ok'); await checkAccess(data.session);
+    });
+    $('createAccountBtn').addEventListener('click',async()=>{
+      hideAuthStatus(); const email=$('email').value.trim(), password=$('password').value;
+      if(!email||password.length<8){ setAuthStatus('Enter your email and a password of at least 8 characters.','error'); return; }
+      const { data, error }=await supabase.auth.signUp({email,password});
+      if(error){ setAuthStatus(error.message,'error'); return; }
+      if(data.session){ setAuthStatus('Account created. Checking access…','ok'); await checkAccess(data.session); }
+      else setAuthStatus('Account created. Check your email for the confirmation link, then return here to sign in.','ok');
+    });
+    async function signOut(){ await supabase.auth.signOut(); registrations=[]; showOnly('login'); }
+    $('signOutBtn').addEventListener('click',signOut); $('unauthSignOut').addEventListener('click',signOut);
+    $('refreshBtn').addEventListener('click',loadRegistrations); $('exportBtn').addEventListener('click',exportCsv); $('searchInput').addEventListener('input',render); $('checkinFilter').addEventListener('change',render);
+
+    const { data:{session} }=await supabase.auth.getSession(); await checkAccess(session);
+    supabase.auth.onAuthStateChange((_event,newSession)=>{ if(!newSession) showOnly('login'); });
+  </script>
+</body>
+</html>
