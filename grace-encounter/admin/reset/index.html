@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex,nofollow,noarchive">
+  <title>Reset Admin Password | Grace Encounter</title>
+  <style>
+    :root{--bg:#080d12;--panel:#111a24;--gold:#e3b52c;--text:#f7f7f4;--muted:#aab4bf;--red:#ff9f9f;--green:#77d997}
+    *{box-sizing:border-box}body{margin:0;min-height:100vh;display:grid;place-items:center;background:linear-gradient(180deg,#070b10,#0b1219);color:var(--text);font-family:Inter,system-ui,-apple-system,"Segoe UI",sans-serif;padding:22px}.card{width:min(520px,100%);background:var(--panel);border:1px solid rgba(255,255,255,.09);border-radius:20px;padding:28px;box-shadow:0 24px 70px rgba(0,0,0,.35)}.eyebrow{color:var(--gold);text-transform:uppercase;letter-spacing:.14em;font-size:.76rem;font-weight:900;margin:0 0 6px}h1{margin:0 0 10px;font-family:Georgia,serif;font-size:2rem}p{color:var(--muted)}label{display:block;font-weight:800;font-size:.84rem;margin:15px 0 7px}input{width:100%;padding:13px;background:#081019;border:1px solid rgba(255,255,255,.14);border-radius:10px;color:white;font:inherit;outline:none}input:focus{border-color:var(--gold);box-shadow:0 0 0 3px rgba(227,181,44,.1)}button{margin-top:18px;width:100%;padding:12px 14px;border:0;border-radius:10px;background:var(--gold);color:#17120a;font-weight:900;font:inherit;cursor:pointer}.status{margin-top:14px;padding:11px 12px;border-radius:9px;background:rgba(255,255,255,.05);color:var(--muted);font-size:.86rem}.ok{color:var(--green)}.error{color:var(--red)}.hidden{display:none}.back{display:inline-block;margin-top:16px;color:var(--gold);text-decoration:none;font-weight:800}
+  </style>
+</head>
+<body>
+  <section class="card">
+    <p class="eyebrow">The Assembly of Sons</p>
+    <h1>Reset admin password</h1>
+
+    <div id="requestPanel">
+      <p>Enter the authorized admin email. We will send a secure password-reset link.</p>
+      <form id="requestForm">
+        <label for="email">Email</label>
+        <input id="email" type="email" autocomplete="email" required value="success.olujimi@gmail.com">
+        <button type="submit">Send reset link</button>
+      </form>
+    </div>
+
+    <div id="newPasswordPanel" class="hidden">
+      <p>Your reset link is valid. Choose a new password below.</p>
+      <form id="passwordForm">
+        <label for="password">New password</label>
+        <input id="password" type="password" autocomplete="new-password" minlength="8" required>
+        <label for="confirmPassword">Confirm new password</label>
+        <input id="confirmPassword" type="password" autocomplete="new-password" minlength="8" required>
+        <button type="submit">Save new password</button>
+      </form>
+    </div>
+
+    <div id="status" class="status hidden"></div>
+    <a class="back" href="../">← Back to admin sign in</a>
+  </section>
+
+  <script type="module">
+    import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm';
+    const supabase = createClient('https://wqyyphwmoznjnweifllo.supabase.co','sb_publishable_JVJJaevEczOC9B-s3UUxBg_W431IJ70');
+    const requestPanel=document.getElementById('requestPanel');
+    const newPasswordPanel=document.getElementById('newPasswordPanel');
+    const status=document.getElementById('status');
+    const resetUrl='https://theassemblyofsons.com/grace-encounter/admin/reset/';
+
+    function showStatus(message,type=''){
+      status.textContent=message;
+      status.className='status '+type;
+      status.classList.remove('hidden');
+    }
+    function showPasswordForm(){
+      requestPanel.classList.add('hidden');
+      newPasswordPanel.classList.remove('hidden');
+      showStatus('You can now set a new password.','ok');
+    }
+
+    const { data:{ session } } = await supabase.auth.getSession();
+    if(session) showPasswordForm();
+
+    supabase.auth.onAuthStateChange((event,session)=>{
+      if(event==='PASSWORD_RECOVERY' || session) showPasswordForm();
+    });
+
+    document.getElementById('requestForm').addEventListener('submit',async(e)=>{
+      e.preventDefault();
+      const email=document.getElementById('email').value.trim();
+      const { error }=await supabase.auth.resetPasswordForEmail(email,{redirectTo:resetUrl});
+      if(error){ showStatus(error.message,'error'); return; }
+      showStatus('Reset email sent. Open the newest email and tap the reset link.','ok');
+    });
+
+    document.getElementById('passwordForm').addEventListener('submit',async(e)=>{
+      e.preventDefault();
+      const password=document.getElementById('password').value;
+      const confirm=document.getElementById('confirmPassword').value;
+      if(password.length<8){ showStatus('Use at least 8 characters.','error'); return; }
+      if(password!==confirm){ showStatus('The two passwords do not match.','error'); return; }
+      const { error }=await supabase.auth.updateUser({password});
+      if(error){ showStatus(error.message,'error'); return; }
+      showStatus('Password changed successfully. You can return to the admin sign-in page.','ok');
+    });
+  </script>
+</body>
+</html>
