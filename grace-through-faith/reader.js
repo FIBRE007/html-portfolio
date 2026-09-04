@@ -15,11 +15,20 @@
   const fontDown=document.getElementById("gtf-font-down");
   const fontUp=document.getElementById("gtf-font-up");
   const themeBtn=document.getElementById("gtf-theme");
-  const FONT_KEY="aos_gtf_font_v1", THEME_KEY="aos_gtf_theme_v1", CHAPTER_KEY="aos_gtf_chapter_v1";
+  const FONT_KEY="aos_gtf_font_v1", THEME_KEY="aos_gtf_theme_v1", CHAPTER_KEY="aos_gtf_chapter_v1", SCROLL_KEY="aos_gtf_scroll_v1";
   const sizes=[1,1.12,1.24,1.38];
   let fontIndex=Number(localStorage.getItem(FONT_KEY)||"1");
   if(!Number.isFinite(fontIndex)||fontIndex<0||fontIndex>=sizes.length)fontIndex=1;
   let current=0;
+  let hasShownChapter=false;
+  let scrollSaveTimer=null;
+
+  function readSavedScroll(){
+    try{ const raw=localStorage.getItem(SCROLL_KEY); return raw?JSON.parse(raw):null; }catch(e){ return null; }
+  }
+  function persistScrollPosition(){
+    try{ localStorage.setItem(SCROLL_KEY, JSON.stringify({ index: current, scrollY: window.scrollY, updatedAt: Date.now() })); }catch(e){}
+  }
 
   function applyFont(){
     document.documentElement.style.setProperty("--gtf-reader-size",sizes[fontIndex]+"rem");
@@ -45,6 +54,8 @@
   }
   function show(i,scroll=true){
     if(i<0||i>=BOOK.length)return;
+    if(hasShownChapter) persistScrollPosition();
+    const isInitial=!hasShownChapter;
     current=i;const ch=BOOK[i];
     kicker.textContent=ch.kicker;title.textContent=ch.title;body.innerHTML=ch.body;
     pos.textContent=(i+1)+" / "+BOOK.length;
@@ -53,7 +64,13 @@
     history.replaceState(null,"","#"+ch.slug);
     try{localStorage.setItem(CHAPTER_KEY,String(i))}catch(e){}
     updateActive();
-    if(scroll)window.scrollTo({top:0,behavior:"smooth"});
+    const saved=isInitial?readSavedScroll():null;
+    if(saved && saved.index===i && typeof saved.scrollY==="number"){
+      window.scrollTo(0, saved.scrollY);
+    } else if(scroll){
+      window.scrollTo({top:0,behavior:"smooth"});
+    }
+    hasShownChapter=true;
     updateProgress();
   }
   function initial(){
@@ -75,7 +92,14 @@
   fontDown.addEventListener("click",()=>{if(fontIndex>0){fontIndex--;applyFont();localStorage.setItem(FONT_KEY,String(fontIndex))}});
   fontUp.addEventListener("click",()=>{if(fontIndex<sizes.length-1){fontIndex++;applyFont();localStorage.setItem(FONT_KEY,String(fontIndex))}});
   themeBtn.addEventListener("click",()=>applyTheme(document.body.getAttribute("data-theme")==="light"?"dark":"light"));
-  window.addEventListener("scroll",updateProgress,{passive:true});
+  window.addEventListener("scroll",()=>{
+    updateProgress();
+    if(!scrollSaveTimer){
+      scrollSaveTimer=setTimeout(()=>{ persistScrollPosition(); scrollSaveTimer=null; },1500);
+    }
+  },{passive:true});
+  window.addEventListener("beforeunload", persistScrollPosition);
+  document.addEventListener("visibilitychange",()=>{ if(document.visibilityState==="hidden") persistScrollPosition(); });
   window.addEventListener("hashchange",()=>{const i=BOOK.findIndex(c=>c.slug===location.hash.slice(1));if(i>=0)show(i,false)});
   buildToc();applyFont();applyTheme(localStorage.getItem(THEME_KEY)||"dark");show(initial(),false);
 })();

@@ -28,11 +28,30 @@
   const FONT_KEY = "aos_reader_font_v1";
   const THEME_KEY = "aos_reader_theme_v1";
   const CHAPTER_KEY = "aos_reader_chapter_v1";
+  const SCROLL_KEY = "aos_reader_scroll_v1";
 
   let fontIndex = Number(localStorage.getItem(FONT_KEY) || "1");
   if (isNaN(fontIndex) || fontIndex < 0 || fontIndex >= FONT_SIZES.length) fontIndex = 1;
 
   let currentIndex = 0;
+  let hasShownChapter = false;
+  let scrollSaveTimer = null;
+
+  function readSavedScroll() {
+    try {
+      const raw = localStorage.getItem(SCROLL_KEY);
+      return raw ? JSON.parse(raw) : null;
+    } catch (e) {
+      return null;
+    }
+  }
+  function persistScrollPosition() {
+    try {
+      localStorage.setItem(SCROLL_KEY, JSON.stringify({ index: currentIndex, scrollY: window.scrollY, updatedAt: Date.now() }));
+    } catch (e) {
+      /* localStorage unavailable — resume simply won't work */
+    }
+  }
 
   // ---- Per-chapter inline audio player ----
   const chapterAudio = document.getElementById("chapter-audio-element");
@@ -299,6 +318,9 @@
 
   function showChapter(index) {
     if (index < 0 || index >= BOOK.length) return;
+    if (hasShownChapter) persistScrollPosition();
+    const isInitial = !hasShownChapter;
+
     currentIndex = index;
     const chapter = BOOK[index];
 
@@ -316,7 +338,13 @@
     updateTocActive();
     try { localStorage.setItem(CHAPTER_KEY, String(index)); } catch (e) {}
 
-    mainEl.scrollIntoView({ behavior: "smooth", block: "start" });
+    const savedScroll = isInitial ? readSavedScroll() : null;
+    if (savedScroll && savedScroll.index === index && typeof savedScroll.scrollY === "number") {
+      window.scrollTo(0, savedScroll.scrollY);
+    } else {
+      mainEl.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+    hasShownChapter = true;
     updateReadingProgress();
   }
 
@@ -368,8 +396,20 @@
     const current = document.body.getAttribute("data-theme") === "light" ? "light" : "dark";
     applyTheme(current === "light" ? "dark" : "light");
   });
-  window.addEventListener("scroll", updateReadingProgress, { passive: true });
+  window.addEventListener("scroll", () => {
+    updateReadingProgress();
+    if (!scrollSaveTimer) {
+      scrollSaveTimer = setTimeout(() => {
+        persistScrollPosition();
+        scrollSaveTimer = null;
+      }, 1500);
+    }
+  }, { passive: true });
   window.addEventListener("resize", updateReadingProgress);
+  window.addEventListener("beforeunload", persistScrollPosition);
+  document.addEventListener("visibilitychange", () => {
+    if (document.visibilityState === "hidden") persistScrollPosition();
+  });
 
   // Init
   buildToc();
