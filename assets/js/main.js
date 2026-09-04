@@ -192,7 +192,7 @@
       <div class="book-grid">
         <div class="book-mockup reveal">
           <div class="book-cover">
-            <img src="/grace-through-faith/cover.jpg"
+            <img src="https://raw.githubusercontent.com/FIBRE007/The-life-of-grace/0b2eabfef134e787b2cc63d24b5ec7f3b138a664/grace-through-faith/cover.jpg"
                  width="360" height="540"
                  alt="Book cover: The Psychology of Grace Through Faith — Working From Grace, Not for Grace, by Fadoju Tosin"
                  loading="lazy">
