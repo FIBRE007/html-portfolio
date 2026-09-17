@@ -75,6 +75,10 @@ const SECTIONS = {
   }
 };
 
+const SESSION = '2026/2027';
+const TERM = 'Joy Term';
+const availability = new Map();
+
 const form = document.querySelector('#clubForm');
 const sectionSelect = document.querySelector('#section');
 const classSelect = document.querySelector('#classLevel');
@@ -92,15 +96,15 @@ function esc(value = '') {
   return String(value).replace(/[&<>'"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'}[c]));
 }
 
-function fill(select, items, placeholder) {
-  select.innerHTML = `<option value="">${placeholder}</option>`;
+function fillClasses(items, placeholder) {
+  classSelect.innerHTML = `<option value="">${placeholder}</option>`;
   items.forEach(item => {
     const option = document.createElement('option');
-    option.value = Array.isArray(item) ? item[0] : item;
-    option.textContent = Array.isArray(item) ? `${item[0]} — max ${item[1]}` : item;
-    select.append(option);
+    option.value = item;
+    option.textContent = item;
+    classSelect.append(option);
   });
-  select.disabled = !items.length;
+  classSelect.disabled = !items.length;
 }
 
 function clubsForSection(sectionKey) {
@@ -113,6 +117,34 @@ function findClub(sectionKey, clubName) {
   return clubsForSection(sectionKey).find(([name]) => name === clubName);
 }
 
+function clubAvailability(name, fallbackCapacity) {
+  return availability.get(name) || {
+    capacity: fallbackCapacity,
+    registered: null,
+    remaining: null,
+    full: false,
+    active: true
+  };
+}
+
+function fillClubs(sectionKey) {
+  const clubs = clubsForSection(sectionKey);
+  clubSelect.innerHTML = '<option value="">Select club</option>';
+  clubs.forEach(([name, fallbackCapacity]) => {
+    const live = clubAvailability(name, fallbackCapacity);
+    const option = document.createElement('option');
+    option.value = name;
+    option.disabled = live.full || live.active === false;
+    option.textContent = live.remaining == null
+      ? `${name} — max ${fallbackCapacity}`
+      : live.full
+        ? `${name} — FULL`
+        : `${name} — ${live.remaining} place${live.remaining === 1 ? '' : 's'} left`;
+    clubSelect.append(option);
+  });
+  clubSelect.disabled = !clubs.length;
+}
+
 function renderDirectory(filter = 'all') {
   let groupKeys;
   if (filter === 'all') groupKeys = ['general', 'upper-primary', 'lower-primary', 'nursery'];
@@ -123,9 +155,15 @@ function renderDirectory(filter = 'all') {
     const group = GROUPS[key];
     return `<section class="club-group">
       <div class="club-group__head"><h3>${esc(group.label)}</h3><span>${esc(group.note)}</span></div>
-      <div class="club-list">${group.clubs.map(([name, capacity]) =>
-        `<div class="club-card"><span class="club-card__name">${esc(name)}</span><span class="capacity">Maximum ${capacity}</span></div>`
-      ).join('')}</div>
+      <div class="club-list">${group.clubs.map(([name, fallbackCapacity]) => {
+        const live = clubAvailability(name, fallbackCapacity);
+        const label = live.remaining == null
+          ? `Maximum ${fallbackCapacity}`
+          : live.full
+            ? 'Full'
+            : `${live.remaining} of ${live.capacity} places left`;
+        return `<div class="club-card"><span class="club-card__name">${esc(name)}</span><span class="capacity">${esc(label)}</span></div>`;
+      }).join('')}</div>
     </section>`;
   }).join('');
 }
@@ -138,8 +176,29 @@ function updateSummary() {
     clubSummary.innerHTML = '';
     return;
   }
+  const live = clubAvailability(selected[0], selected[1]);
+  const capacityText = live.remaining == null
+    ? `Published maximum capacity: <strong>${selected[1]}</strong>.`
+    : live.full
+      ? '<strong>This club is currently full.</strong>'
+      : `<strong>${live.remaining}</strong> of <strong>${live.capacity}</strong> places remain.`;
   clubSummary.hidden = false;
-  clubSummary.innerHTML = `<strong>${esc(selected[0])}</strong> is available for ${esc(section.label)}. Published maximum capacity: <strong>${selected[1]}</strong>. Final availability is checked when you submit.`;
+  clubSummary.innerHTML = `<strong>${esc(selected[0])}</strong> is available for ${esc(section.label)}. ${capacityText}`;
+}
+
+async function loadAvailability() {
+  try {
+    const response = await fetch(`/api/clubs?session=${encodeURIComponent(SESSION)}&term=${encodeURIComponent(TERM)}`, {cache:'no-store'});
+    if (!response.ok) return;
+    const data = await response.json();
+    availability.clear();
+    (data.clubs || []).forEach(club => availability.set(club.name, club));
+    renderDirectory(directoryFilter.value);
+    if (sectionSelect.value) fillClubs(sectionSelect.value);
+    updateSummary();
+  } catch (error) {
+    console.warn('Live club availability could not be loaded.', error);
+  }
 }
 
 sectionSelect.addEventListener('change', () => {
@@ -147,13 +206,14 @@ sectionSelect.addEventListener('change', () => {
   message.textContent = '';
   message.className = 'form-message';
   if (!section) {
-    fill(classSelect, [], 'Select section first');
-    fill(clubSelect, [], 'Select section first');
+    fillClasses([], 'Select section first');
+    clubSelect.innerHTML = '<option value="">Select section first</option>';
+    clubSelect.disabled = true;
     updateSummary();
     return;
   }
-  fill(classSelect, section.classes, 'Select class');
-  fill(clubSelect, clubsForSection(sectionSelect.value), 'Select club');
+  fillClasses(section.classes, 'Select class');
+  fillClubs(sectionSelect.value);
   directoryFilter.value = sectionSelect.value;
   renderDirectory(sectionSelect.value);
   updateSummary();
@@ -178,16 +238,24 @@ form.addEventListener('submit', async event => {
     return;
   }
 
+  const live = clubAvailability(clubRecord[0], clubRecord[1]);
+  if (live.full) {
+    message.textContent = 'That club is already full. Please choose another club.';
+    message.classList.add('error');
+    return;
+  }
+
   const payload = {
     studentName: document.querySelector('#studentName').value.trim(),
+    guardianName: document.querySelector('#guardianName').value.trim(),
     guardianPhone: document.querySelector('#guardianPhone').value.trim(),
     guardianEmail: document.querySelector('#guardianEmail').value.trim(),
     section: sectionSelect.value,
     sectionLabel: section.label,
     classLevel: classSelect.value,
     club: clubRecord[0],
-    session: '2026/2027',
-    term: 'Joy Term'
+    session: SESSION,
+    term: TERM
   };
 
   submitButton.disabled = true;
@@ -200,18 +268,19 @@ form.addEventListener('submit', async event => {
     });
     const data = await response.json().catch(() => ({}));
     if (!response.ok) throw new Error(data.message || 'Registration could not be submitted.');
-    const ref = data.reference || data.registrationId || data.id || '';
-    successText.textContent = `${payload.studentName} has been registered for ${payload.club}${ref ? ` (Reference: ${ref})` : ''}.`;
+    successText.textContent = `${payload.studentName} has been registered for ${payload.club}${data.reference ? ` (Reference: ${data.reference})` : ''}.`;
     successDialog.showModal();
     form.reset();
-    fill(classSelect, [], 'Select section first');
-    fill(clubSelect, [], 'Select section first');
+    fillClasses([], 'Select section first');
+    clubSelect.innerHTML = '<option value="">Select section first</option>';
+    clubSelect.disabled = true;
     clubSummary.hidden = true;
     directoryFilter.value = 'all';
-    renderDirectory();
+    await loadAvailability();
   } catch (error) {
     message.textContent = error.message || 'Something went wrong. Please try again.';
     message.classList.add('error');
+    await loadAvailability();
   } finally {
     submitButton.disabled = false;
     submitButton.firstElementChild.textContent = 'Submit registration';
@@ -219,3 +288,4 @@ form.addEventListener('submit', async event => {
 });
 
 renderDirectory();
+loadAvailability();
