@@ -63,7 +63,6 @@ export async function onRequestPost(context) {
 
   const payload = {
     studentName: clean(input.studentName,120),
-    admissionNumber: clean(input.admissionNumber,80),
     guardianPhone: clean(input.guardianPhone,40),
     guardianEmail: clean(input.guardianEmail,120).toLowerCase(),
     section: clean(input.section,30),
@@ -74,8 +73,8 @@ export async function onRequestPost(context) {
     term: 'Joy Term'
   };
 
-  if (!payload.studentName || !payload.admissionNumber || !payload.guardianPhone || !payload.section || !payload.classLevel || !payload.club) {
-    return json({message:'Student name, admission number, guardian phone, section, class and club are required.'},400);
+  if (!payload.studentName || !payload.guardianPhone || !payload.section || !payload.classLevel || !payload.club) {
+    return json({message:'Student name, guardian phone, section, class and club are required.'},400);
   }
 
   const rules = SECTION_RULES[payload.section];
