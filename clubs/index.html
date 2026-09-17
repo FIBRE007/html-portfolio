@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#26123f">
+  <meta name="description" content="Royal Family Academy club registration for Nursery, Primary and High School learners.">
+  <title>Club Registration — Royal Family Academy</title>
+  <link rel="canonical" href="https://clubs.royalfamilyacademy.org/">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700;800&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="https://royalfamilyacademy.org/" aria-label="Royal Family Academy home">
+      <img src="https://royalfamilyacademy.org/assets/images/crest.svg" alt="Royal Family Academy crest" width="54" height="54">
+      <span>
+        <strong>Royal Family Academy</strong>
+        <small>Raising Distinguished Leaders</small>
+      </span>
+    </a>
+    <span class="session-pill">2026/2027 · Joy Term</span>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="hero__content">
+        <p class="eyebrow">Student Life</p>
+        <h1>Club Registration</h1>
+        <p>Choose the learner's section and class to see only the clubs available to them. Each club displays its published maximum capacity.</p>
+        <div class="hero__chips" aria-label="Registration features">
+          <span>Section-aware choices</span>
+          <span>Capacity guidance</span>
+          <span>Secure portal submission</span>
+        </div>
+      </div>
+      <div class="hero__mark" aria-hidden="true">RFA</div>
+    </section>
+
+    <section class="layout">
+      <div class="panel registration-panel">
+        <div class="panel__heading">
+          <div>
+            <p class="eyebrow">Register a learner</p>
+            <h2>Club selection form</h2>
+          </div>
+          <span class="step-badge">1 club per learner</span>
+        </div>
+
+        <form id="clubForm" novalidate>
+          <div class="field-grid two">
+            <label class="field">
+              <span>Student full name <b>*</b></span>
+              <input id="studentName" name="studentName" type="text" autocomplete="name" maxlength="120" required placeholder="Enter student's full name">
+            </label>
+            <label class="field">
+              <span>Student / Admission ID <b>*</b></span>
+              <input id="studentId" name="studentId" type="text" maxlength="80" required placeholder="Enter student ID">
+            </label>
+          </div>
+
+          <div class="field-grid two">
+            <label class="field">
+              <span>Section <b>*</b></span>
+              <select id="section" name="section" required>
+                <option value="">Select section</option>
+                <option value="high-school">High School</option>
+                <option value="upper-primary">Upper Primary — Grades 4 &amp; 5</option>
+                <option value="lower-primary">Lower Primary — Grades 1–3</option>
+                <option value="nursery">Nursery — Kindergarten</option>
+              </select>
+            </label>
+            <label class="field">
+              <span>Class <b>*</b></span>
+              <select id="classLevel" name="classLevel" required disabled>
+                <option value="">Select section first</option>
+              </select>
+            </label>
+          </div>
+
+          <label class="field">
+            <span>Club <b>*</b></span>
+            <select id="club" name="club" required disabled>
+              <option value="">Select section first</option>
+            </select>
+          </label>
+
+          <div id="clubSummary" class="club-summary" hidden></div>
+
+          <div class="field-grid two">
+            <label class="field">
+              <span>Parent / Guardian phone</span>
+              <input id="guardianPhone" name="guardianPhone" type="tel" autocomplete="tel" maxlength="40" placeholder="e.g. 080…">
+            </label>
+            <label class="field">
+              <span>Parent / Guardian email</span>
+              <input id="guardianEmail" name="guardianEmail" type="email" autocomplete="email" maxlength="120" placeholder="name@example.com">
+            </label>
+          </div>
+
+          <label class="consent">
+            <input id="confirm" type="checkbox" required>
+            <span>I confirm that the student details and selected club are correct.</span>
+          </label>
+
+          <p id="formMessage" class="form-message" role="status" aria-live="polite"></p>
+          <button id="submitButton" class="submit-button" type="submit"><span>Submit registration</span><span aria-hidden="true">→</span></button>
+          <p class="small-note">Registration is only final when the school portal accepts the submission. Published capacities are maximum club sizes, not a live count of remaining places.</p>
+        </form>
+      </div>
+
+      <aside class="panel directory-panel">
+        <div class="panel__heading directory-heading">
+          <div>
+            <p class="eyebrow">Club directory</p>
+            <h2>Available clubs</h2>
+          </div>
+          <label class="compact-filter">
+            <span class="visually-hidden">Filter club list by section</span>
+            <select id="directoryFilter">
+              <option value="all">All sections</option>
+              <option value="high-school">High School</option>
+              <option value="upper-primary">Upper Primary</option>
+              <option value="lower-primary">Lower Primary</option>
+              <option value="nursery">Nursery</option>
+            </select>
+          </label>
+        </div>
+        <div id="clubDirectory"></div>
+      </aside>
+    </section>
+  </main>
+
+  <footer>
+    <strong>Royal Family Academy</strong>
+    <span>Excellence · Character · Leadership</span>
+  </footer>
+
+  <dialog id="successDialog" class="success-dialog">
+    <div class="success-icon">✓</div>
+    <p class="eyebrow">Registration received</p>
+    <h2>Club selection submitted</h2>
+    <p id="successText"></p>
+    <button id="closeDialog" type="button">Done</button>
+  </dialog>
+
+  <script src="app.js" defer></script>
+</body>
+</html>
