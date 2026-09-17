@@ -29,11 +29,11 @@
       <div class="hero__content">
         <p class="eyebrow">Student Life</p>
         <h1>Club Registration</h1>
-        <p>Choose the learner's section and class to see only the clubs available to them. Each club displays its published maximum capacity.</p>
+        <p>Choose the learner's section and class to see the clubs available to them. Final eligibility and remaining capacity are checked against the school system when you submit.</p>
         <div class="hero__chips" aria-label="Registration features">
-          <span>Section-aware choices</span>
-          <span>Capacity guidance</span>
-          <span>Secure portal submission</span>
+          <span>Class-aware choices</span>
+          <span>Capacity protected</span>
+          <span>School-record verification</span>
         </div>
       </div>
       <div class="hero__mark" aria-hidden="true">RFA</div>
@@ -56,8 +56,8 @@
               <input id="studentName" name="studentName" type="text" autocomplete="name" maxlength="120" required placeholder="Enter student's full name">
             </label>
             <label class="field">
-              <span>Student / Admission ID <b>*</b></span>
-              <input id="studentId" name="studentId" type="text" maxlength="80" required placeholder="Enter student ID">
+              <span>Admission number <b>*</b></span>
+              <input id="admissionNumber" name="admissionNumber" type="text" maxlength="80" required placeholder="Enter admission number">
             </label>
           </div>
 
@@ -91,8 +91,8 @@
 
           <div class="field-grid two">
             <label class="field">
-              <span>Parent / Guardian phone</span>
-              <input id="guardianPhone" name="guardianPhone" type="tel" autocomplete="tel" maxlength="40" placeholder="e.g. 080…">
+              <span>Parent / Guardian phone <b>*</b></span>
+              <input id="guardianPhone" name="guardianPhone" type="tel" autocomplete="tel" maxlength="40" required placeholder="Use the number on the school record">
             </label>
             <label class="field">
               <span>Parent / Guardian email</span>
@@ -102,12 +102,12 @@
 
           <label class="consent">
             <input id="confirm" type="checkbox" required>
-            <span>I confirm that the student details and selected club are correct.</span>
+            <span>I confirm that I am authorised to register this learner and that the details entered are correct.</span>
           </label>
 
           <p id="formMessage" class="form-message" role="status" aria-live="polite"></p>
           <button id="submitButton" class="submit-button" type="submit"><span>Submit registration</span><span aria-hidden="true">→</span></button>
-          <p class="small-note">Registration is only final when the school portal accepts the submission. Published capacities are maximum club sizes, not a live count of remaining places.</p>
+          <p class="small-note">For security, the admission number and guardian phone must match the learner's school record. Registration is instant only if the club is open, the learner is eligible, and a place is still available.</p>
         </form>
       </div>
 
@@ -120,7 +120,7 @@
           <label class="compact-filter">
             <span class="visually-hidden">Filter club list by section</span>
             <select id="directoryFilter">
-              <option value="all">All sections</option>
+              <option value="all">All club groups</option>
               <option value="high-school">High School</option>
               <option value="upper-primary">Upper Primary</option>
               <option value="lower-primary">Lower Primary</option>
@@ -140,8 +140,8 @@
 
   <dialog id="successDialog" class="success-dialog">
     <div class="success-icon">✓</div>
-    <p class="eyebrow">Registration received</p>
-    <h2>Club selection submitted</h2>
+    <p class="eyebrow">Registration complete</p>
+    <h2>Club place confirmed</h2>
     <p id="successText"></p>
     <button id="closeDialog" type="button">Done</button>
   </dialog>
