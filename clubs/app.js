@@ -180,7 +180,6 @@ form.addEventListener('submit', async event => {
 
   const payload = {
     studentName: document.querySelector('#studentName').value.trim(),
-    admissionNumber: document.querySelector('#admissionNumber').value.trim(),
     guardianPhone: document.querySelector('#guardianPhone').value.trim(),
     guardianEmail: document.querySelector('#guardianEmail').value.trim(),
     section: sectionSelect.value,
