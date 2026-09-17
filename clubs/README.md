@@ -24,7 +24,7 @@ Create a separate Pages project from the same GitHub repository:
 - Repository: `FIBRE007/html-portfolio`
 - Production branch: `main`
 - Root directory: `clubs`
-- Build command: none
+- Build command: `exit 0`
 - Build output directory: `.`
 - Custom domain: `clubs.royalfamilyacademy.org`
 
