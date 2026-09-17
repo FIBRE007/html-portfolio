@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="theme-color" content="#26123f">
-  <meta name="description" content="Royal Family Academy club registration for Nursery, Primary and High School learners.">
+  <meta name="description" content="Royal Family Academy standalone club registration for Nursery, Primary and High School learners.">
   <title>Club Registration — Royal Family Academy</title>
   <link rel="canonical" href="https://clubs.royalfamilyacademy.org/">
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -29,11 +29,11 @@
       <div class="hero__content">
         <p class="eyebrow">Student Life</p>
         <h1>Club Registration</h1>
-        <p>Enter the learner's name, select the correct class, then choose an available club. The school system verifies the learner before the registration is completed.</p>
+        <p>Enter the learner's name, choose the correct class, then select an available club. Registration is handled entirely by this standalone club-registration system.</p>
         <div class="hero__chips" aria-label="Registration features">
-          <span>Student-name lookup</span>
-          <span>Class-aware choices</span>
-          <span>Capacity protected</span>
+          <span>Simple parent registration</span>
+          <span>Live capacity checking</span>
+          <span>One club per learner</span>
         </div>
       </div>
       <div class="hero__mark" aria-hidden="true">RFA</div>
@@ -52,7 +52,7 @@
         <form id="clubForm" novalidate>
           <label class="field">
             <span>Student full name <b>*</b></span>
-            <input id="studentName" name="studentName" type="text" autocomplete="off" maxlength="120" required placeholder="Enter the student's full name as it appears in the school record">
+            <input id="studentName" name="studentName" type="text" autocomplete="name" maxlength="120" required placeholder="Enter student's full name">
           </label>
 
           <div class="field-grid two">
@@ -85,14 +85,19 @@
 
           <div class="field-grid two">
             <label class="field">
-              <span>Parent / Guardian phone <b>*</b></span>
-              <input id="guardianPhone" name="guardianPhone" type="tel" autocomplete="tel" maxlength="40" required placeholder="Use the number on the school record">
+              <span>Parent / Guardian full name <b>*</b></span>
+              <input id="guardianName" name="guardianName" type="text" autocomplete="name" maxlength="120" required placeholder="Enter parent or guardian name">
             </label>
             <label class="field">
-              <span>Parent / Guardian email</span>
-              <input id="guardianEmail" name="guardianEmail" type="email" autocomplete="email" maxlength="120" placeholder="name@example.com">
+              <span>Parent / Guardian phone <b>*</b></span>
+              <input id="guardianPhone" name="guardianPhone" type="tel" autocomplete="tel" maxlength="40" required placeholder="e.g. 080…">
             </label>
           </div>
+
+          <label class="field">
+            <span>Parent / Guardian email</span>
+            <input id="guardianEmail" name="guardianEmail" type="email" autocomplete="email" maxlength="120" placeholder="name@example.com">
+          </label>
 
           <label class="consent">
             <input id="confirm" type="checkbox" required>
@@ -101,7 +106,7 @@
 
           <p id="formMessage" class="form-message" role="status" aria-live="polite"></p>
           <button id="submitButton" class="submit-button" type="submit"><span>Submit registration</span><span aria-hidden="true">→</span></button>
-          <p class="small-note">The student name and class are used to locate the learner in the school record. The guardian phone provides an additional verification check. Registration is completed only if the learner is found, the club is open and a place remains.</p>
+          <p class="small-note">Registration is saved in the independent RFA Clubs Registration system. A club cannot exceed its published capacity, and the same learner cannot hold two active club registrations in the same term.</p>
         </form>
       </div>
 
