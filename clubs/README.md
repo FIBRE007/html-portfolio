@@ -2,7 +2,22 @@
 
 Standalone club-registration site for `clubs.royalfamilyacademy.org`.
 
-## Cloudflare Pages
+This application is intentionally independent of the RFA ERP/portal. It does not read student records from the portal, use portal authentication, or write into portal club tables.
+
+## What the standalone system does
+
+Parents enter the learner's full name, choose the correct section/class and club, and provide their own contact details. The standalone service then:
+
+- validates class/club eligibility on the server;
+- stores the registration in its own database;
+- enforces each club's published capacity;
+- prevents the same learner from holding two active club registrations in the same term;
+- returns a registration reference;
+- exposes live places remaining through `/api/clubs`.
+
+For duplicate protection, a learner key is generated from normalized student name + class + guardian phone. No portal student ID or admission number is required.
+
+## Cloudflare Pages + D1
 
 Create a separate Pages project from the same GitHub repository:
 
@@ -13,26 +28,16 @@ Create a separate Pages project from the same GitHub repository:
 - Build output directory: `.`
 - Custom domain: `clubs.royalfamilyacademy.org`
 
-Because the Pages project root is `clubs`, `clubs/functions/api/register.js` is deployed as `/api/register`.
+Because the Pages project root is `clubs`:
 
-## Existing portal integration
+- `clubs/functions/api/register.js` becomes `POST /api/register`;
+- `clubs/functions/api/clubs.js` becomes `GET /api/clubs`.
 
-The live RFA portal code is in `FIBRE007/New-project` and is deployed on Render. Its existing registration route is `POST /api/clubs/:clubId/register` and already enforces:
+Create a Cloudflare D1 database for the site and bind it to the Pages project with the binding name `DB`.
 
-- an open club status;
-- scheduled opening time;
-- maximum club capacity;
-- one active club per learner per academic term;
-- instant approval (no waitlist when full).
+Apply `clubs/schema.sql` to that D1 database. The schema creates the independent `clubs` and `registrations` tables, the one-club-per-learner rule, the capacity-protection trigger, and the initial club catalogue/capacities.
 
-That route intentionally requires a signed-in portal session and CSRF protection, so the public standalone page must not call it directly from the browser.
-
-The standalone Pages Function therefore forwards verified submissions to a server-side clubs bridge. Configure these variables in the Clubs Pages project:
-
-- `CLUBS_API_URL` — the server-side standalone club-registration bridge URL.
-- `CLUBS_BRIDGE_SECRET` — a secret stored only in the Pages environment and the bridge configuration. Never place it in browser JavaScript or commit it to GitHub.
-
-The bridge should verify the admission number and guardian phone against the existing RFA student record, then write through the same production club tables while preserving the portal's capacity and one-club-per-term rules.
+No portal URL, portal secret, Supabase connection, Render service, or ERP environment variable is required by this standalone site.
 
 ## Club rules represented by the page
 
@@ -43,8 +48,13 @@ The first, unlabeled list supplied for this build is treated as the general club
 - Lower Primary-only clubs: Grades 1, 2 and 3.
 - Nursery-only clubs: Kindergarten.
 
-Grade 6 is not added to the registration selector because it was not included in the supplied club-registration rules.
+Grade 6 is not added because it was not included in the supplied club-registration rules.
 
-## Current production prerequisite
+## Registration period
 
-Before opening registration, confirm the production academic calendar points to the intended session and term. The portal's normal club endpoint obtains its term from the active academic year, so an incorrect active-year flag can place registrations in the wrong term.
+The current code is fixed to:
+
+- Session: `2026/2027`
+- Term: `Joy Term`
+
+Change the constants in `app.js`, `functions/api/register.js`, and `functions/api/clubs.js` when opening a new registration period.
