@@ -15,20 +15,36 @@ Create a separate Pages project from the same GitHub repository:
 
 Because the Pages project root is `clubs`, `clubs/functions/api/register.js` is deployed as `/api/register`.
 
-## Portal connection
+## Existing portal integration
 
-Set these environment variables in the Clubs Pages project:
+The live RFA portal code is in `FIBRE007/New-project` and is deployed on Render. Its existing registration route is `POST /api/clubs/:clubId/register` and already enforces:
 
-- `CLUBS_PORTAL_REGISTER_URL` — existing portal endpoint that accepts a club registration.
-- `CLUBS_PORTAL_TOKEN` — optional bearer token if the portal endpoint requires one.
+- an open club status;
+- scheduled opening time;
+- maximum club capacity;
+- one active club per learner per academic term;
+- instant approval (no waitlist when full).
 
-The Cloudflare Function validates the section, class and club again before forwarding the request. The published capacities on the page are maximum club sizes. Live availability and duplicate-registration checks should continue to be enforced by the existing portal so there is one source of truth.
+That route intentionally requires a signed-in portal session and CSRF protection, so the public standalone page must not call it directly from the browser.
 
-## Current section rules
+The standalone Pages Function therefore forwards verified submissions to a server-side clubs bridge. Configure these variables in the Clubs Pages project:
 
-- High School: JH 1–3 and SH 1–3.
-- Upper Primary: Grades 4–5 only.
-- Lower Primary: Grades 1–3 only.
-- Nursery: Kindergarten only.
+- `CLUBS_API_URL` — the server-side standalone club-registration bridge URL.
+- `CLUBS_BRIDGE_SECRET` — a secret stored only in the Pages environment and the bridge configuration. Never place it in browser JavaScript or commit it to GitHub.
 
-The first unlabeled club list supplied for this build is currently treated as the High School list.
+The bridge should verify the admission number and guardian phone against the existing RFA student record, then write through the same production club tables while preserving the portal's capacity and one-club-per-term rules.
+
+## Club rules represented by the page
+
+The first, unlabeled list supplied for this build is treated as the general club list. The lists explicitly marked `ONLY` remain restricted:
+
+- General clubs: shown to eligible Primary and High School learners.
+- Upper Primary-only clubs: Grades 4 and 5.
+- Lower Primary-only clubs: Grades 1, 2 and 3.
+- Nursery-only clubs: Kindergarten.
+
+Grade 6 is not added to the registration selector because it was not included in the supplied club-registration rules.
+
+## Current production prerequisite
+
+Before opening registration, confirm the production academic calendar points to the intended session and term. The portal's normal club endpoint obtains its term from the active academic year, so an incorrect active-year flag can place registrations in the wrong term.
