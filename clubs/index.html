@@ -29,11 +29,11 @@
       <div class="hero__content">
         <p class="eyebrow">Student Life</p>
         <h1>Club Registration</h1>
-        <p>Choose the learner's section and class to see the clubs available to them. Final eligibility and remaining capacity are checked against the school system when you submit.</p>
+        <p>Enter the learner's name, select the correct class, then choose an available club. The school system verifies the learner before the registration is completed.</p>
         <div class="hero__chips" aria-label="Registration features">
+          <span>Student-name lookup</span>
           <span>Class-aware choices</span>
           <span>Capacity protected</span>
-          <span>School-record verification</span>
         </div>
       </div>
       <div class="hero__mark" aria-hidden="true">RFA</div>
@@ -50,16 +50,10 @@
         </div>
 
         <form id="clubForm" novalidate>
-          <div class="field-grid two">
-            <label class="field">
-              <span>Student full name <b>*</b></span>
-              <input id="studentName" name="studentName" type="text" autocomplete="name" maxlength="120" required placeholder="Enter student's full name">
-            </label>
-            <label class="field">
-              <span>Admission number <b>*</b></span>
-              <input id="admissionNumber" name="admissionNumber" type="text" maxlength="80" required placeholder="Enter admission number">
-            </label>
-          </div>
+          <label class="field">
+            <span>Student full name <b>*</b></span>
+            <input id="studentName" name="studentName" type="text" autocomplete="off" maxlength="120" required placeholder="Enter the student's full name as it appears in the school record">
+          </label>
 
           <div class="field-grid two">
             <label class="field">
@@ -107,7 +101,7 @@
 
           <p id="formMessage" class="form-message" role="status" aria-live="polite"></p>
           <button id="submitButton" class="submit-button" type="submit"><span>Submit registration</span><span aria-hidden="true">→</span></button>
-          <p class="small-note">For security, the admission number and guardian phone must match the learner's school record. Registration is instant only if the club is open, the learner is eligible, and a place is still available.</p>
+          <p class="small-note">The student name and class are used to locate the learner in the school record. The guardian phone provides an additional verification check. Registration is completed only if the learner is found, the club is open and a place remains.</p>
         </form>
       </div>
 
