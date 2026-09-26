@@ -59,4 +59,32 @@
 <div class="closing"><p><em>Adapted from <strong>The Psychology of Grace Through Faith: Working From Grace, Not for Grace</strong></em><br><strong>Fadoju Tosin</strong></p><p>Scripture quotations are from the World English Bible (WEB).</p></div>
 </article></main>
 <footer class="site-footer"><div class="container footer-bottom">&copy; 2026 The Assembly of Sons. All rights reserved.</div></footer>
-<script src="/assets/js/main.js?v=14"></script></body></html>
+<script src="/assets/js/main.js?v=14"></script>
+<script>
+(function () {
+  if (typeof gtag !== 'function') return;
+  var article = document.querySelector('.article');
+  if (!article) return;
+  var sent = {};
+  function checkReadingProgress() {
+    var rect = article.getBoundingClientRect();
+    var articleTop = window.scrollY + rect.top;
+    var articleHeight = article.offsetHeight;
+    var viewportBottom = window.scrollY + window.innerHeight;
+    var progress = Math.max(0, Math.min(100, ((viewportBottom - articleTop) / articleHeight) * 100));
+    [25, 50, 75, 100].forEach(function (mark) {
+      if (progress >= mark && !sent[mark]) {
+        sent[mark] = true;
+        gtag('event', 'reading_progress', {
+          article_title: document.title,
+          percent_read: mark,
+          page_location: window.location.href
+        });
+      }
+    });
+  }
+  window.addEventListener('scroll', checkReadingProgress, { passive: true });
+  window.addEventListener('load', checkReadingProgress);
+})();
+</script>
+</body></html>
