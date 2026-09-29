@@ -3,7 +3,7 @@
  * Audio files are hosted in the Grace Through Faith folder of the existing R2 bucket.
  */
 window.AUDIOBOOK_CONFIG = {
-  audioBaseUrl: CONFIG.audioBaseUrl + "grace-through-faith/",
+  audioBaseUrl: "https://pub-e2971a04551b462a999ba367d6bb7881.r2.dev/",
   storageKey: "aos_grace_through_faith_playback_v1",
   chapters: [
     { number: "01", title: "Opening Credits", subtitle: "", file: "01_Opening_Credits.mp3" },
