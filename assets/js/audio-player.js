@@ -10,8 +10,10 @@
   const root = document.getElementById("player");
   if (!root) return;
 
-  const AUDIO_BASE_URL = CONFIG.audioBaseUrl;
-  const STORAGE_KEY = "aos_playback_v1";
+  const BOOK_AUDIO = window.AUDIOBOOK_CONFIG || {};
+  const AUDIO_BASE_URL = BOOK_AUDIO.audioBaseUrl || CONFIG.audioBaseUrl;
+  const STORAGE_KEY = BOOK_AUDIO.storageKey || "aos_playback_v1";
+  const chapterList = Array.isArray(BOOK_AUDIO.chapters) && BOOK_AUDIO.chapters.length ? BOOK_AUDIO.chapters : CHAPTERS;
   const SPEEDS = [0.75, 1, 1.25, 1.5, 2];
 
   const audio = root.querySelector("#audio-element");
@@ -57,7 +59,7 @@
 
   function buildPlaylist() {
     playlistEl.innerHTML = "";
-    CHAPTERS.forEach((chapter, index) => {
+    chapterList.forEach((chapter, index) => {
       const btn = document.createElement("button");
       btn.type = "button";
       btn.className = "playlist-item";
@@ -106,14 +108,14 @@
 
   function updateNavState() {
     prevBtn.disabled = currentIndex === 0;
-    nextBtn.disabled = currentIndex === CHAPTERS.length - 1;
+    nextBtn.disabled = currentIndex === chapterList.length - 1;
   }
 
   function loadChapter(index, opts) {
     opts = opts || {};
-    if (index < 0 || index >= CHAPTERS.length) return;
+    if (index < 0 || index >= chapterList.length) return;
     currentIndex = index;
-    const chapter = CHAPTERS[index];
+    const chapter = chapterList[index];
 
     clearError();
     playbackRetries = 0;
@@ -127,7 +129,7 @@
     }
 
     nowTitleEl.textContent = chapter.number + " — " + chapterLabel(chapter);
-    nowSubEl.textContent = "Chapter " + (index + 1) + " of " + CHAPTERS.length;
+    nowSubEl.textContent = "Chapter " + (index + 1) + " of " + chapterList.length;
     seek.value = "0";
     seekFill.style.width = "0%";
     curTimeEl.textContent = "0:00";
@@ -190,7 +192,7 @@
 
   function initResumeBanner() {
     const saved = readSaved();
-    if (saved && CHAPTERS[saved.chapterIndex] && saved.position > 3) {
+    if (saved && chapterList[saved.chapterIndex] && saved.position > 3) {
       pendingResume = saved;
       resumeBanner.classList.add("is-visible");
     }
@@ -211,7 +213,7 @@
   });
   audio.addEventListener("ended", () => {
     persist();
-    if (currentIndex < CHAPTERS.length - 1) {
+    if (currentIndex < chapterList.length - 1) {
       loadChapter(currentIndex + 1, { autoplay: true });
     } else {
       setPlayingUI(false);
@@ -221,7 +223,7 @@
     if (audio.src && playbackRetries < MAX_PLAYBACK_RETRIES) {
       playbackRetries++;
       const resumeAt = audio.currentTime;
-      const src = audioUrlFor(CHAPTERS[currentIndex]);
+      const src = audioUrlFor(chapterList[currentIndex]);
       setTimeout(() => {
         audio.src = src;
         audio.load();
@@ -307,9 +309,9 @@
   audio.volume = Number(volumeEl.value || 1);
   const startIndex = 0;
   currentIndex = startIndex;
-  const first = CHAPTERS[startIndex];
+  const first = chapterList[startIndex];
   nowTitleEl.textContent = first.number + " — " + chapterLabel(first);
-  nowSubEl.textContent = "Chapter " + (startIndex + 1) + " of " + CHAPTERS.length;
+  nowSubEl.textContent = "Chapter " + (startIndex + 1) + " of " + chapterList.length;
   setActivePlaylistItem(startIndex);
   initResumeBanner();
 
