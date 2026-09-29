@@ -114,15 +114,25 @@
   function loadChapter(index, opts) {
     opts = opts || {};
     if (index < 0 || index >= chapterList.length) return;
+
+    // Save the chapter we are leaving before changing currentIndex/audio.src.
+    if (audio.src) persist();
+
     currentIndex = index;
     const chapter = chapterList[index];
+    const savedStart = typeof opts.startAt === "number"
+      ? opts.startAt
+      : (opts.resume === false ? 0 : savedPositionFor(index));
 
     clearError();
     playbackRetries = 0;
     audio.src = audioUrlFor(chapter);
-    if (typeof opts.startAt === "number" && opts.startAt > 0) {
+
+    if (savedStart > 3) {
       const onLoaded = () => {
-        audio.currentTime = Math.min(opts.startAt, audio.duration || opts.startAt);
+        const duration = audio.duration || savedStart;
+        // Never resume at the final seconds of a completed/near-completed track.
+        audio.currentTime = Math.min(savedStart, Math.max(0, duration - 1));
         audio.removeEventListener("loadedmetadata", onLoaded);
       };
       audio.addEventListener("loadedmetadata", onLoaded);
@@ -132,12 +142,11 @@
     nowSubEl.textContent = "Chapter " + (index + 1) + " of " + chapterList.length;
     seek.value = "0";
     seekFill.style.width = "0%";
-    curTimeEl.textContent = "0:00";
+    curTimeEl.textContent = savedStart > 3 ? formatTime(savedStart) : "0:00";
     durTimeEl.textContent = "0:00";
 
     setActivePlaylistItem(index);
     updateNavState();
-    persist();
 
     if (opts.autoplay) {
       attemptPlay();
@@ -166,34 +175,84 @@
     }
   }
 
-  function persist() {
-    try {
-      localStorage.setItem(
-        STORAGE_KEY,
-        JSON.stringify({
-          chapterIndex: currentIndex,
-          position: audio.currentTime || 0,
-          updatedAt: Date.now(),
-        })
-      );
-    } catch (e) {
-      /* localStorage unavailable — resume simply won't work */
-    }
-  }
-
   function readSaved() {
     try {
       const raw = localStorage.getItem(STORAGE_KEY);
-      return raw ? JSON.parse(raw) : null;
+      if (!raw) return null;
+      const saved = JSON.parse(raw);
+
+      // Backward compatibility with the original one-position format.
+      if (!saved.positions && typeof saved.chapterIndex === "number") {
+        const positions = {};
+        positions[String(saved.chapterIndex)] = Number(saved.position) || 0;
+        return {
+          lastChapterIndex: saved.chapterIndex,
+          positions,
+          completed: {},
+          updatedAt: saved.updatedAt || Date.now(),
+        };
+      }
+
+      return saved;
     } catch (e) {
       return null;
     }
   }
 
+  function savedPositionFor(index) {
+    const saved = readSaved();
+    if (!saved || !saved.positions) return 0;
+    const position = Number(saved.positions[String(index)]) || 0;
+    return position > 3 ? position : 0;
+  }
+
+  function persist(opts) {
+    opts = opts || {};
+    try {
+      const saved = readSaved() || {
+        lastChapterIndex: currentIndex,
+        positions: {},
+        completed: {},
+        updatedAt: Date.now(),
+      };
+
+      saved.positions = saved.positions || {};
+      saved.completed = saved.completed || {};
+
+      const position = Number(audio.currentTime) || 0;
+      const duration = Number(audio.duration) || 0;
+      const completed = opts.completed || (duration > 0 && position >= Math.max(0, duration - 3));
+
+      if (completed) {
+        saved.positions[String(currentIndex)] = 0;
+        saved.completed[String(currentIndex)] = true;
+      } else {
+        saved.positions[String(currentIndex)] = position;
+        delete saved.completed[String(currentIndex)];
+      }
+
+      saved.lastChapterIndex = currentIndex;
+      saved.updatedAt = Date.now();
+
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(saved));
+    } catch (e) {
+      /* localStorage unavailable — resume simply won't work */
+    }
+  }
+
   function initResumeBanner() {
     const saved = readSaved();
-    if (saved && chapterList[saved.chapterIndex] && saved.position > 3) {
-      pendingResume = saved;
+    if (!saved) return;
+
+    const index = typeof saved.lastChapterIndex === "number"
+      ? saved.lastChapterIndex
+      : saved.chapterIndex;
+    const position = saved.positions
+      ? Number(saved.positions[String(index)]) || 0
+      : Number(saved.position) || 0;
+
+    if (chapterList[index] && position > 3) {
+      pendingResume = { chapterIndex: index, position };
       resumeBanner.classList.add("is-visible");
     }
   }
@@ -212,7 +271,7 @@
     persist();
   });
   audio.addEventListener("ended", () => {
-    persist();
+    persist({ completed: true });
     if (currentIndex < chapterList.length - 1) {
       loadChapter(currentIndex + 1, { autoplay: true });
     } else {
