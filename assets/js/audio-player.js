@@ -30,6 +30,7 @@
   const nowSubEl = root.querySelector("#now-sub");
   const dotEl = root.querySelector("#now-dot");
   const speedBtns = Array.from(root.querySelectorAll(".speed-btn"));
+  const repeatBookBtn = root.querySelector("#repeat-book-btn");
   const resumeBanner = root.querySelector("#resume-banner");
   const resumeBtn = root.querySelector("#resume-btn");
   const resumeDismiss = root.querySelector("#resume-dismiss");
@@ -40,6 +41,8 @@
   let saveTimer = null;
   let pendingResume = null;
   let playbackRetries = 0;
+  let continuousPlayback = false;
+  let repeatBook = false;
   const MAX_PLAYBACK_RETRIES = 2;
 
   function audioUrlFor(chapter) {
@@ -70,7 +73,7 @@
         '<span class="p-num">' + chapter.number + "</span>" +
         '<span class="p-title">' + chapterLabel(chapter) + "</span>" +
         '<svg class="p-icon" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M8 5v14l11-7L8 5z" fill="currentColor"/></svg>';
-      btn.addEventListener("click", () => loadChapter(index, { autoplay: true }));
+      btn.addEventListener("click", () => { continuousPlayback = true; loadChapter(index, { autoplay: true }); });
       playlistEl.appendChild(btn);
     });
   }
@@ -149,28 +152,51 @@
     updateNavState();
 
     if (opts.autoplay) {
+      continuousPlayback = true;
+
+      // Some browsers reject play() if it is called immediately after
+      // changing the media source. Try now, and also retry as soon as the
+      // next track is actually ready to play.
+      const continueWhenReady = () => {
+        if (continuousPlayback && currentIndex === index) attemptPlay();
+        audio.removeEventListener("canplay", continueWhenReady);
+      };
+      audio.addEventListener("canplay", continueWhenReady);
+      audio.load();
       attemptPlay();
     }
   }
 
   function attemptPlay() {
     const playPromise = audio.play();
-    // Real load/network failures are handled (with retry) by the
-    // "error" event below; a rejected play() promise is often just a
-    // benign AbortError and shouldn't short-circuit that retry.
-    if (playPromise && typeof playPromise.catch === "function") {
-      playPromise.catch(() => {});
+    if (playPromise && typeof playPromise.then === "function") {
+      playPromise.catch((err) => {
+        // A source swap can briefly cause AbortError/NotAllowedError.
+        // The canplay handler above makes another attempt when ready.
+        if (err && err.name !== "AbortError" && err.name !== "NotAllowedError") {
+          showError("Playback could not start. Please press Play to continue.");
+        }
+      });
     }
   }
 
   function togglePlay() {
     if (!audio.src) {
+      continuousPlayback = true;
       loadChapter(currentIndex, { autoplay: true });
       return;
     }
+
     if (audio.paused) {
+      continuousPlayback = true;
+
+      // If the current track has already ended, Play means replay it.
+      if (audio.ended || (audio.duration && audio.currentTime >= audio.duration - 0.5)) {
+        audio.currentTime = 0;
+      }
       attemptPlay();
     } else {
+      continuousPlayback = false;
       audio.pause();
     }
   }
@@ -232,6 +258,7 @@
       }
 
       saved.lastChapterIndex = currentIndex;
+      saved.repeatBook = repeatBook;
       saved.updatedAt = Date.now();
 
       localStorage.setItem(STORAGE_KEY, JSON.stringify(saved));
@@ -243,6 +270,9 @@
   function initResumeBanner() {
     const saved = readSaved();
     if (!saved) return;
+
+    repeatBook = Boolean(saved.repeatBook);
+    updateRepeatUI();
 
     const index = typeof saved.lastChapterIndex === "number"
       ? saved.lastChapterIndex
@@ -259,8 +289,14 @@
 
   // ---- Event wiring ----
   playBtn.addEventListener("click", togglePlay);
-  prevBtn.addEventListener("click", () => loadChapter(currentIndex - 1, { autoplay: !audio.paused || audio.currentTime > 0 }));
-  nextBtn.addEventListener("click", () => loadChapter(currentIndex + 1, { autoplay: !audio.paused || audio.currentTime > 0 }));
+  prevBtn.addEventListener("click", () => {
+    continuousPlayback = true;
+    loadChapter(currentIndex - 1, { autoplay: true });
+  });
+  nextBtn.addEventListener("click", () => {
+    continuousPlayback = true;
+    loadChapter(currentIndex + 1, { autoplay: true });
+  });
 
   audio.addEventListener("play", () => setPlayingUI(true));
   audio.addEventListener("playing", () => {
@@ -272,9 +308,28 @@
   });
   audio.addEventListener("ended", () => {
     persist({ completed: true });
+
     if (currentIndex < chapterList.length - 1) {
-      loadChapter(currentIndex + 1, { autoplay: true });
+      // Continue seamlessly through the remaining book.
+      continuousPlayback = true;
+      loadChapter(currentIndex + 1, {
+        autoplay: true,
+        resume: false,
+        startAt: 0,
+      });
+      return;
+    }
+
+    if (repeatBook) {
+      // Repeat means start the whole audiobook again from Track 1.
+      continuousPlayback = true;
+      loadChapter(0, {
+        autoplay: true,
+        resume: false,
+        startAt: 0,
+      });
     } else {
+      continuousPlayback = false;
       setPlayingUI(false);
     }
   });
@@ -339,6 +394,23 @@
     audio.volume = Number(volumeEl.value);
   });
 
+  function updateRepeatUI() {
+    if (!repeatBookBtn) return;
+    repeatBookBtn.classList.toggle("active", repeatBook);
+    repeatBookBtn.setAttribute("aria-pressed", repeatBook ? "true" : "false");
+    repeatBookBtn.title = repeatBook
+      ? "Repeat book is on"
+      : "Repeat book is off";
+  }
+
+  if (repeatBookBtn) {
+    repeatBookBtn.addEventListener("click", () => {
+      repeatBook = !repeatBook;
+      updateRepeatUI();
+      persist();
+    });
+  }
+
   speedBtns.forEach((btn) => {
     const rate = Number(btn.dataset.rate);
     btn.addEventListener("click", () => {
@@ -349,6 +421,7 @@
 
   resumeBtn.addEventListener("click", () => {
     if (pendingResume) {
+      continuousPlayback = true;
       loadChapter(pendingResume.chapterIndex, { autoplay: true, startAt: pendingResume.position });
     }
     resumeBanner.classList.remove("is-visible");
@@ -378,6 +451,7 @@
   // to a specific chapter without autoplaying on page load.
   window.AOSPlayer = {
     playChapter(index) {
+      continuousPlayback = true;
       loadChapter(index, { autoplay: true });
       root.scrollIntoView({ behavior: "smooth", block: "start" });
     },
