@@ -29,7 +29,7 @@
   const nowTitleEl = root.querySelector("#now-title");
   const nowSubEl = root.querySelector("#now-sub");
   const dotEl = root.querySelector("#now-dot");
-  const speedBtns = Array.from(root.querySelectorAll(".speed-btn"));
+  const speedBtns = Array.from(root.querySelectorAll(".speed-btn[data-rate]"));
   const repeatBookBtn = root.querySelector("#repeat-book-btn");
   const resumeBanner = root.querySelector("#resume-banner");
   const resumeBtn = root.querySelector("#resume-btn");
