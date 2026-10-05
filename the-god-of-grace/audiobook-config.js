@@ -1,6 +1,7 @@
 window.AUDIOBOOK_CONFIG = {
   audioBaseUrl: CONFIG.audioBaseUrl + "the-god-of-grace/",
   storageKey: "aos_the_god_of_grace_playback_v1",
+  itemLabel: "Track",
   chapters: [
     { number: "01", title: "Opening Credits", subtitle: "", file: "01_Opening_Credits.mp3" },
     { number: "02", title: "Dedication & Epigraph", subtitle: "", file: "02_Dedication_and_Epigraph.mp3" },
