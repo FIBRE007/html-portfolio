@@ -14,6 +14,7 @@
   const AUDIO_BASE_URL = BOOK_AUDIO.audioBaseUrl || CONFIG.audioBaseUrl;
   const STORAGE_KEY = BOOK_AUDIO.storageKey || "aos_playback_v1";
   const chapterList = Array.isArray(BOOK_AUDIO.chapters) && BOOK_AUDIO.chapters.length ? BOOK_AUDIO.chapters : CHAPTERS;
+  const ITEM_LABEL = BOOK_AUDIO.itemLabel || "Track";
   const SPEEDS = [0.75, 1, 1.25, 1.5, 2];
 
   const audio = root.querySelector("#audio-element");
@@ -142,7 +143,7 @@
     }
 
     nowTitleEl.textContent = chapter.number + " — " + chapterLabel(chapter);
-    nowSubEl.textContent = "Chapter " + (index + 1) + " of " + chapterList.length;
+    nowSubEl.textContent = ITEM_LABEL + " " + (index + 1) + " of " + chapterList.length;
     seek.value = "0";
     seekFill.style.width = "0%";
     curTimeEl.textContent = savedStart > 3 ? formatTime(savedStart) : "0:00";
@@ -443,7 +444,7 @@
   currentIndex = startIndex;
   const first = chapterList[startIndex];
   nowTitleEl.textContent = first.number + " — " + chapterLabel(first);
-  nowSubEl.textContent = "Chapter " + (startIndex + 1) + " of " + chapterList.length;
+  nowSubEl.textContent = ITEM_LABEL + " " + (startIndex + 1) + " of " + chapterList.length;
   setActivePlaylistItem(startIndex);
   initResumeBanner();
 
