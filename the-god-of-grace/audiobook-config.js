@@ -1,0 +1,24 @@
+window.AUDIOBOOK_CONFIG = {
+  audioBaseUrl: CONFIG.audioBaseUrl + "the-god-of-grace/",
+  storageKey: "aos_the_god_of_grace_playback_v1",
+  chapters: [
+    { number: "01", title: "Opening Credits", subtitle: "", file: "01_Opening_Credits.mp3" },
+    { number: "02", title: "Dedication & Epigraph", subtitle: "", file: "02_Dedication_and_Epigraph.mp3" },
+    { number: "03", title: "Preface", subtitle: "", file: "03_Preface.mp3" },
+    { number: "04", title: "A Note to the Reader", subtitle: "", file: "04_A_Note_to_the_Reader.mp3" },
+    { number: "05", title: "Chapter One", subtitle: "The God of Grace", file: "05_Chapter_01_The_God_of_Grace.mp3" },
+    { number: "06", title: "Chapter Two", subtitle: "The God Who Gives First", file: "06_Chapter_02_The_God_Who_Gives_First.mp3" },
+    { number: "07", title: "Chapter Three", subtitle: "The God Greater Than Our Perspective", file: "07_Chapter_03_The_God_Greater_Than_Our_Perspective.mp3" },
+    { number: "08", title: "Chapter Four", subtitle: "The God Who Is Enough", file: "08_Chapter_04_The_God_Who_Is_Enough.mp3" },
+    { number: "09", title: "Chapter Five", subtitle: "The God Who Helps", file: "09_Chapter_05_The_God_Who_Helps.mp3" },
+    { number: "10", title: "Chapter Six", subtitle: "The God Who Works With What Is in Your Hand", file: "10_Chapter_06_What_Is_in_Your_Hand.mp3" },
+    { number: "11", title: "Chapter Seven", subtitle: "The God Revealed in Jesus", file: "11_Chapter_07_The_God_Revealed_in_Jesus.mp3" },
+    { number: "12", title: "Chapter Eight", subtitle: "The God You Can Trust", file: "12_Chapter_08_The_God_You_Can_Trust.mp3" },
+    { number: "13", title: "Chapter Nine", subtitle: "Living in the Consciousness of God", file: "13_Chapter_09_Living_in_the_Consciousness_of_God.mp3" },
+    { number: "14", title: "Afterword", subtitle: "", file: "14_Afterword.mp3" },
+    { number: "15", title: "A Final Prayer", subtitle: "", file: "15_A_Final_Prayer.mp3" },
+    { number: "16", title: "Reflection & Key Truths", subtitle: "", file: "16_Reflection_and_Key_Truths.mp3" },
+    { number: "17", title: "Scriptures for Further Meditation", subtitle: "", file: "17_Scriptures_for_Further_Meditation.mp3" },
+    { number: "18", title: "Acknowledgements, About the Author & Final Word", subtitle: "", file: "18_Closing_Matter.mp3" },
+  ]
+};
